@@ -1,0 +1,8 @@
+version: '3'
+
+services:
+  acerola.infrastructure:
+    image: acerola.infrastructure
+    build:
+      context: ./Acerola.Infrastructure
+      dockerfile: Dockerfile
