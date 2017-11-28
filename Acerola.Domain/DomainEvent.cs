@@ -1,6 +1,4 @@
-﻿using Acerola;
-using MediatR;
-using System;
+﻿using System;
 
 namespace Acerola
 {

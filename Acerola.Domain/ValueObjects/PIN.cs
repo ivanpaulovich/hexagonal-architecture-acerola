@@ -1,6 +1,4 @@
-﻿using Acerola.Exceptions;
-
-namespace Acerola.ValueObjects
+﻿namespace Acerola.ValueObjects
 {
     public class PIN
     {

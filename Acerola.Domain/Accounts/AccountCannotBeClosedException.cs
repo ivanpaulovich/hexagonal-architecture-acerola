@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Acerola.Exceptions
+﻿namespace Acerola.Accounts
 {
     public class AccountCannotBeClosedException : DomainException
     {

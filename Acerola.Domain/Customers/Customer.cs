@@ -12,11 +12,6 @@ namespace Acerola.Customers
         private PIN pin;
         private List<Account> accounts;
 
-        public IReadOnlyCollection<Account> GetAccounts()
-        {
-            return accounts;
-        }
-
         public Name GetName()
         {
             return name;
@@ -25,6 +20,11 @@ namespace Acerola.Customers
         public PIN GetPIN()
         {
             return pin;
+        }
+
+        public IReadOnlyCollection<Account> GetAccounts()
+        {
+            return accounts;
         }
 
         private Customer()
