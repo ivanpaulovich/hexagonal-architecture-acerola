@@ -1,6 +1,6 @@
-FROM microsoft/aspnetcore:2.0
+FROM microsoft/aspnetcore:2.0.0-jessie
 ARG source
 WORKDIR /app
 EXPOSE 80
 COPY ${source:-obj/Docker/publish} .
-ENTRYPOINT ["dotnet", "Acerola.Infrastructure.dll"]
+ENTRYPOINT ["dotnet", "MyAccountAPI.Producer.Infrastructure.dll"]

@@ -1,15 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Autofac;
+using MyAccountAPI.Producer.Infrastructure.Modules;
+using MyAccountAPI.Producer.UI.Filters;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
+using Swashbuckle.AspNetCore.Swagger;
+using System.Text;
+using System.IO;
+using System.Reflection;
 
-namespace Acerola.Infrastructure
+namespace MyAccountAPI.Producer.Infrastructure
 {
     public class Startup
     {
@@ -17,16 +20,79 @@ namespace Acerola.Infrastructure
         {
             Configuration = configuration;
         }
-
+        
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            services.AddMvc(options =>
+            {
+                options.Filters.Add(typeof(DomainExceptionFilter));
+                options.Filters.Add(typeof(ValidateModelAttribute));
+                options.Filters.Add(typeof(CorrelationFilter));
+            });
+
+            services.AddSwaggerGen(options =>
+            {
+                options.AddSecurityDefinition(
+                    "Bearer",
+                    new ApiKeyScheme()
+                    {
+                        In = "header",
+                        Description = "Please insert JWT with Bearer into field",
+                        Name = "Authorization",
+                        Type = "apiKey"
+                    });
+
+                options.DescribeAllEnumsAsStrings();
+
+                options.IncludeXmlComments(
+                    Path.ChangeExtension(
+                        Assembly.GetAssembly(typeof(MyAccountAPI.Producer.UI.Controllers.CustomersController)).Location,
+                        "xml"));
+
+                options.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info
+                {
+                    Title = "My Account API",
+                    Version = "v1",
+                    Description = "The My Account Service HTTP API",
+                    TermsOfService = "Terms Of Service"
+                });
+            });
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.SaveToken = true;
+                    options.RequireHttpsMetadata = false;
+                    options.TokenValidationParameters = new TokenValidationParameters()
+                    {
+                        ValidIssuer = Configuration.GetSection("Security").GetValue<string>("Issuer"),
+                        ValidAudience = Configuration.GetSection("Security").GetValue<string>("Issuer"),
+                        IssuerSigningKey = new SymmetricSecurityKey(
+                            Encoding.UTF8.GetBytes(
+                                Configuration.GetSection("Security").GetValue<string>("SecretKey")))
+                    };
+                });
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        public void ConfigureContainer(ContainerBuilder builder)
+        {
+            builder.RegisterModule(new ApplicationModule(
+                Configuration.GetSection("MongoDB").GetValue<string>("ConnectionString"),
+                Configuration.GetSection("MongoDB").GetValue<string>("Database")));
+
+            builder.RegisterModule(new BusModule(
+                Configuration.GetSection("ServiceBus").GetValue<string>("ConnectionString"),
+                Configuration.GetSection("ServiceBus").GetValue<string>("Topic")));
+
+            builder.RegisterModule(new MediatRModule());
+
+            builder.RegisterModule(new QueriesModule(
+                Configuration.GetSection("MongoDB").GetValue<string>("ConnectionString"),
+                Configuration.GetSection("MongoDB").GetValue<string>("Database")));
+        }
+
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
@@ -34,7 +100,15 @@ namespace Acerola.Infrastructure
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseAuthentication();
+
             app.UseMvc();
+
+            app.UseSwagger()
+               .UseSwaggerUI(c =>
+               {
+                   c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+               });
         }
     }
 }
