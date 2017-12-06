@@ -11,14 +11,21 @@ namespace Acerola.Application.CommandHandlers.Customers
 {
     public class RegisterCustomerCommandHandler : IAsyncRequestHandler<RegisterCustomerCommand, Customer>
     {
-        private readonly IPublisher bus;
+        private readonly ICustomerWriteOnlyRepository customerWriteOnlyRepository;
+        private readonly IAccountWriteOnlyRepository accountWriteOnlyRepository;
 
-        public RegisterCustomerCommandHandler(IPublisher bus)
+        public RegisterCustomerCommandHandler(
+            ICustomerWriteOnlyRepository customerWriteOnlyRepository,
+            IAccountWriteOnlyRepository accountWriteOnlyRepository)
         {
-            if (bus == null)
-                throw new ArgumentNullException(nameof(bus));
+            if (customerWriteOnlyRepository == null)
+                throw new ArgumentNullException(nameof(customerWriteOnlyRepository));
 
-            this.bus = bus;
+            if (accountWriteOnlyRepository == null)
+                throw new ArgumentNullException(nameof(accountWriteOnlyRepository));
+
+            this.customerWriteOnlyRepository = customerWriteOnlyRepository;
+            this.accountWriteOnlyRepository = accountWriteOnlyRepository;
         }
 
         public async Task<Customer> Handle(RegisterCustomerCommand command)
@@ -33,8 +40,8 @@ namespace Acerola.Application.CommandHandlers.Customers
 
             customer.Register(account);
 
-            var domainEvents = customer.GetEvents();
-            await bus.Publish(domainEvents, command.Header);
+            customerWriteOnlyRepository.Add(customer).Wait();
+            accountWriteOnlyRepository.Add(account).Wait();
 
             return customer;
         }
