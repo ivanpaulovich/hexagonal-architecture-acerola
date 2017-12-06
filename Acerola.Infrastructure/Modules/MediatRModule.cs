@@ -3,7 +3,7 @@ using Autofac.Features.Variance;
 using MediatR;
 using System.Collections.Generic;
 using System.Reflection;
-using MyAccountAPI.Producer.Application.Commands.Customers;
+using Acerola.Application.Commands.Customers;
 
 namespace MyAccountAPI.Producer.Infrastructure.Modules
 {

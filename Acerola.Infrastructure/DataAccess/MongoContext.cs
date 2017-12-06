@@ -1,8 +1,8 @@
-﻿using MyAccountAPI.Domain.Model;
+﻿using Acerola.Domain.Model;
 using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
-using MyAccountAPI.Domain.Model.Customers;
-using MyAccountAPI.Domain.Model.Accounts;
+using Acerola.Domain.Model.Customers;
+using Acerola.Domain.Model.Accounts;
 
 namespace MyAccountAPI.Producer.Infrastructure.DataAccess
 {

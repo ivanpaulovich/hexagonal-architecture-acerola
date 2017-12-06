@@ -1,7 +1,7 @@
-﻿using Acerola.ValueObjects;
+﻿using Acerola.Domain.ValueObjects;
 using System;
 
-namespace Acerola.Accounts.Events
+namespace Acerola.Domain.Accounts.Events
 {
     public class DepositedDomainEvent : DomainEvent
     {

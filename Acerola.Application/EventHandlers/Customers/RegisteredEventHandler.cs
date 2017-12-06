@@ -1,10 +1,10 @@
-﻿using MediatR;
-using MyAccountAPI.Domain.Model.Accounts;
-using MyAccountAPI.Domain.Model.Customers;
-using MyAccountAPI.Domain.Model.Customers.Events;
+﻿using Acerola.Domain.Accounts;
+using Acerola.Domain.Customers;
+using Acerola.Domain.Customers.Events;
+using MediatR;
 using System;
 
-namespace MyAccountAPI.Consumer.Application.DomainEventHandlers.Customers
+namespace Acerola.Application.EventHandlers.Customers
 {
     public class RegisteredEventHandler : IRequestHandler<RegisteredDomainEvent>
     {

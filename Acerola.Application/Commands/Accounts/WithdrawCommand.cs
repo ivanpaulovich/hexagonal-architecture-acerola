@@ -1,9 +1,9 @@
 ﻿using MediatR;
-using MyAccountAPI.Domain.Model.Accounts;
 using System;
 using System.Runtime.Serialization;
+using Acerola.Domain.Accounts;
 
-namespace MyAccountAPI.Producer.Application.Commands.Accounts
+namespace Acerola.Application.Commands.Accounts
 {
     [DataContract]
     public class WithdrawCommand : CommandBase, IRequest<Transaction>

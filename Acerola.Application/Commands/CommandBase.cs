@@ -1,9 +1,6 @@
-﻿using MyAccountAPI.Domain.Model;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Acerola.Domain;
 
-namespace MyAccountAPI.Producer.Application.Commands
+namespace Acerola.Application.Commands
 {
     public class CommandBase
     {

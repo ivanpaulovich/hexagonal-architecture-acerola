@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace Acerola.Customers
+namespace Acerola.Domain.Customers
 {
     public interface ICustomerReadOnlyRepository
     {

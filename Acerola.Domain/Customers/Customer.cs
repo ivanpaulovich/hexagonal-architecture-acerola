@@ -1,10 +1,10 @@
-﻿using Acerola.Customers.Events;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System;
-using Acerola.ValueObjects;
-using Acerola.Accounts;
+using Acerola.Domain.ValueObjects;
+using Acerola.Domain.Accounts;
+using Acerola.Domain.Customers.Events;
 
-namespace Acerola.Customers
+namespace Acerola.Domain.Customers
 {
     public class Customer : AggregateRoot
     {

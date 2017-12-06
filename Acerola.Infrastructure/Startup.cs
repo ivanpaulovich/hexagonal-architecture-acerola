@@ -1,6 +1,6 @@
 ﻿using Autofac;
 using MyAccountAPI.Producer.Infrastructure.Modules;
-using MyAccountAPI.Producer.UI.Filters;
+using Acerola.UI.Filters;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -48,7 +48,7 @@ namespace MyAccountAPI.Producer.Infrastructure
 
                 options.IncludeXmlComments(
                     Path.ChangeExtension(
-                        Assembly.GetAssembly(typeof(MyAccountAPI.Producer.UI.Controllers.CustomersController)).Location,
+                        Assembly.GetAssembly(typeof(Acerola.UI.Controllers.CustomersController)).Location,
                         "xml"));
 
                 options.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info

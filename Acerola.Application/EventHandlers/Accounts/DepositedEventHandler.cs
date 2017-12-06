@@ -1,17 +1,16 @@
-﻿using MediatR;
-using MyAccountAPI.Domain.Exceptions;
-using MyAccountAPI.Domain.Model.Accounts;
-using MyAccountAPI.Domain.Model.Accounts.Events;
+﻿using Acerola.Domain.Accounts;
+using Acerola.Domain.Accounts.Events;
+using MediatR;
 using System;
 
-namespace MyAccountAPI.Consumer.Application.DomainEventHandlers.Accounts
+namespace Acerola.Application.EventHandlers.Blogs
 {
-    public class ClosedEventHandler : IRequestHandler<ClosedDomainEvent>
+    public class DepositedEventHandler : IRequestHandler<DepositedDomainEvent>
     {
         private readonly IAccountReadOnlyRepository accountReadOnlyRepository;
         private readonly IAccountWriteOnlyRepository accountWriteOnlyRepository;
 
-        public ClosedEventHandler(
+        public DepositedEventHandler(
             IAccountReadOnlyRepository accountReadOnlyRepository,
             IAccountWriteOnlyRepository accountWriteOnlyRepository)
         {
@@ -25,17 +24,18 @@ namespace MyAccountAPI.Consumer.Application.DomainEventHandlers.Accounts
             this.accountWriteOnlyRepository = accountWriteOnlyRepository;
         }
 
-        public void Handle(ClosedDomainEvent domainEvent)
+        public void Handle(DepositedDomainEvent domainEvent)
         {
             Account account = accountReadOnlyRepository.Get(domainEvent.AggregateRootId).Result;
-            
+
             if (account == null)
                 throw new AccountNotFoundException($"The account {domainEvent.AggregateRootId} does not exists or is already closed.");
+            
+            //if (account.Version != domainEvent.Version)
+            //    throw new TransactionConflictException(account, domainEvent);
 
-            if (account.Version != domainEvent.Version)
-                throw new TransactionConflictException(account, domainEvent);
-
-            accountWriteOnlyRepository.Delete(account).Wait();
+            account.Apply(domainEvent);
+            accountWriteOnlyRepository.Update(account).Wait();
         }
     }
 }

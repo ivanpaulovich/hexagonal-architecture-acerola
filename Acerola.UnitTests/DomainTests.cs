@@ -1,14 +1,13 @@
-using MyAccountAPI.Domain.Model.Accounts;
-using MyAccountAPI.Domain.Model.Customers;
-using MyAccountAPI.Domain.Model.ValueObjects;
 using System;
 using Xunit;
 using System.Linq;
-using MyAccountAPI.Domain.Model.Customers.Events;
-using MyAccountAPI.Domain.Model.Accounts.Events;
-using MyAccountAPI.Domain.Exceptions;
+using Acerola.Domain.Accounts;
+using Acerola.Domain.Customers;
+using Acerola.Domain.ValueObjects;
+using Acerola.Domain.Customers.Events;
+using Acerola.Domain.Accounts.Events;
 
-namespace MyAccountAPI.Domain.UnitTests
+namespace Acerola.Domain.UnitTests
 {
     public class DomainTests
     {

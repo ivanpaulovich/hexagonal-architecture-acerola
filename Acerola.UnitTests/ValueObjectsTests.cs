@@ -1,8 +1,7 @@
-using MyAccountAPI.Domain.Exceptions;
-using MyAccountAPI.Domain.Model.ValueObjects;
+using Acerola.Domain.ValueObjects;
 using Xunit;
 
-namespace MyAccountAPI.Domain.UnitTests
+namespace Acerola.Domain.UnitTests
 {
     public class ValueObjectsTests
     {

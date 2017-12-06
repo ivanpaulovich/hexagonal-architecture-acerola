@@ -1,11 +1,10 @@
-﻿using Acerola.Exceptions;
-using Acerola.Accounts.Events;
-using Acerola.Customers.Events;
-using Acerola.ValueObjects;
+﻿using Acerola.Domain.Accounts.Events;
+using Acerola.Domain.Customers.Events;
+using Acerola.Domain.ValueObjects;
 using System;
 using System.Collections.Generic;
 
-namespace Acerola.Accounts
+namespace Acerola.Domain.Accounts
 {
     public class Account : AggregateRoot
     {

@@ -1,13 +1,12 @@
 ﻿using MediatR;
 using System;
 using System.Threading.Tasks;
-using MyAccountAPI.Domain.ServiceBus;
-using MyAccountAPI.Producer.Application.Commands.Accounts;
-using MyAccountAPI.Domain.Model.Accounts;
-using MyAccountAPI.Domain.Model.ValueObjects;
-using MyAccountAPI.Domain.Exceptions;
+using Acerola.Domain.ServiceBus;
+using Acerola.Application.Commands.Accounts;
+using Acerola.Domain.Accounts;
+using Acerola.Domain.ValueObjects;
 
-namespace MyAccountAPI.Producer.Application.CommandHandlers.Accounts
+namespace Acerola.Application.CommandHandlers.Accounts
 {
     public class WithdrawCommandHandler : IAsyncRequestHandler<WithdrawCommand, Transaction>
     {

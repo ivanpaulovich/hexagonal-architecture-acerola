@@ -1,9 +1,9 @@
 ﻿using Autofac;
-using MyAccountAPI.Domain.Model.Accounts;
-using MyAccountAPI.Domain.Model.Customers;
 using MyAccountAPI.Producer.Infrastructure.DataAccess;
 using MyAccountAPI.Producer.Infrastructure.DataAccess.Repositories.Accounts;
 using MyAccountAPI.Producer.Infrastructure.DataAccess.Repositories.Customers;
+using Acerola.Domain.Customers;
+using Acerola.Domain.Accounts;
 
 namespace MyAccountAPI.Producer.Infrastructure.Modules
 {

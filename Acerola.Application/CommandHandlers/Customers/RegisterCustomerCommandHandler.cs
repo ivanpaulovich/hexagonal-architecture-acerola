@@ -1,13 +1,13 @@
-﻿using MyAccountAPI.Producer.Application.Commands.Customers;
+﻿using Acerola.Application.Commands.Customers;
 using MediatR;
 using System;
 using System.Threading.Tasks;
-using MyAccountAPI.Domain.ServiceBus;
-using MyAccountAPI.Domain.Model.Customers;
-using MyAccountAPI.Domain.Model.ValueObjects;
-using MyAccountAPI.Domain.Model.Accounts;
+using Acerola.Domain.ServiceBus;
+using Acerola.Domain.Customers;
+using Acerola.Domain.ValueObjects;
+using Acerola.Domain.Accounts;
 
-namespace MyAccountAPI.Producer.Application.CommandHandlers.Customers
+namespace Acerola.Application.CommandHandlers.Customers
 {
     public class RegisterCustomerCommandHandler : IAsyncRequestHandler<RegisterCustomerCommand, Customer>
     {

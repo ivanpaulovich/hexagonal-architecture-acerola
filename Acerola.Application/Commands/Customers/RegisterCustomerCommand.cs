@@ -1,8 +1,8 @@
-﻿using MediatR;
+﻿using Acerola.Domain.Customers;
+using MediatR;
 using System.Runtime.Serialization;
-using MyAccountAPI.Domain.Model.Customers;
 
-namespace MyAccountAPI.Producer.Application.Commands.Customers
+namespace Acerola.Application.Commands.Customers
 {
     [DataContract]
     public class RegisterCustomerCommand : CommandBase, IRequest<Customer>

@@ -1,4 +1,4 @@
-﻿namespace Acerola.Accounts
+﻿namespace Acerola.Domain.Accounts
 {
     public class InsuficientFundsException : DomainException
     {

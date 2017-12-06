@@ -1,4 +1,4 @@
-﻿namespace Acerola.Customers
+﻿namespace Acerola.Domain.Customers
 {
     public class CustomerNotFoundException : DomainException
     {

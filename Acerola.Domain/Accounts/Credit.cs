@@ -1,7 +1,7 @@
-﻿using Acerola.ValueObjects;
+﻿using Acerola.Domain.ValueObjects;
 using System;
 
-namespace Acerola.Accounts
+namespace Acerola.Domain.Accounts
 {
     public class Credit : Transaction
     {

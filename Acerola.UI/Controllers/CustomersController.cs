@@ -1,14 +1,14 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using MyAccountAPI.Domain.Model.Customers;
-using MyAccountAPI.Producer.Application.Commands.Customers;
-using MyAccountAPI.Producer.Application.Queries;
+using Acerola.Domain.Customers;
+using Acerola.Application.Commands.Customers;
+using Acerola.Application.Queries;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MyAccountAPI.Producer.UI.Controllers
+namespace Acerola.UI.Controllers
 {
     [Authorize]
     [Route("api/[controller]")]

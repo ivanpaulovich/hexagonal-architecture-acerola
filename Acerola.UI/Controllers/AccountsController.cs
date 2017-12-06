@@ -3,11 +3,11 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
-using MyAccountAPI.Producer.Application.Commands.Accounts;
-using MyAccountAPI.Producer.Application.Queries;
-using MyAccountAPI.Domain.Exceptions;
+using Acerola.Application.Commands.Accounts;
+using Acerola.Domain.Customers;
+using Acerola.Application.Queries;
 
-namespace MyAccountAPI.Producer.UI.Controllers
+namespace Acerola.UI.Controllers
 {
     [Authorize]
     [Route("api/[controller]")]

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Acerola
+namespace Acerola.Domain
 {
     public abstract class AggregateRoot : Entity
     {

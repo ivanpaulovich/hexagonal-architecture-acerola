@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace Acerola.Accounts
+namespace Acerola.Domain.Accounts
 {
     public interface IAccountReadOnlyRepository
     {

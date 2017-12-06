@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Acerola
+namespace Acerola.Domain
 {
     public interface IEntity
     {

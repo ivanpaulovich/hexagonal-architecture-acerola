@@ -1,5 +1,5 @@
 ﻿using Autofac;
-using MyAccountAPI.Producer.Application.Queries;
+using Acerola.Application.Queries;
 using MyAccountAPI.Producer.Infrastructure.Queries;
 using System;
 

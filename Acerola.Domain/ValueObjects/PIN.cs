@@ -1,4 +1,4 @@
-﻿namespace Acerola.ValueObjects
+﻿namespace Acerola.Domain.ValueObjects
 {
     public class PIN
     {

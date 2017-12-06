@@ -1,4 +1,4 @@
-﻿namespace Acerola
+﻿namespace Acerola.Domain
 {
     public class DomainException : AcerolaException
     {

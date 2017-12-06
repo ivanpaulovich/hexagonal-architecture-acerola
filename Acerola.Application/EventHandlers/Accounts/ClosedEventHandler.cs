@@ -1,18 +1,16 @@
-﻿using MediatR;
-using MyAccountAPI.Domain.Exceptions;
-using MyAccountAPI.Domain.Model.Accounts;
-using MyAccountAPI.Domain.Model.Accounts.Events;
-using MyAccountAPI.Domain.Model.Customers;
+﻿using Acerola.Domain.Accounts;
+using Acerola.Domain.Accounts.Events;
+using MediatR;
 using System;
 
-namespace MyAccountAPI.Consumer.Application.DomainEventHandlers.Blogs
+namespace Acerola.Application.EventHandlers.Accounts
 {
-    public class WithdrewEventHandler : IRequestHandler<WithdrewDomainEvent>
+    public class ClosedEventHandler : IRequestHandler<ClosedDomainEvent>
     {
         private readonly IAccountReadOnlyRepository accountReadOnlyRepository;
         private readonly IAccountWriteOnlyRepository accountWriteOnlyRepository;
 
-        public WithdrewEventHandler(
+        public ClosedEventHandler(
             IAccountReadOnlyRepository accountReadOnlyRepository,
             IAccountWriteOnlyRepository accountWriteOnlyRepository)
         {
@@ -26,18 +24,17 @@ namespace MyAccountAPI.Consumer.Application.DomainEventHandlers.Blogs
             this.accountWriteOnlyRepository = accountWriteOnlyRepository;
         }
 
-        public void Handle(WithdrewDomainEvent domainEvent)
+        public void Handle(ClosedDomainEvent domainEvent)
         {
             Account account = accountReadOnlyRepository.Get(domainEvent.AggregateRootId).Result;
-
+            
             if (account == null)
                 throw new AccountNotFoundException($"The account {domainEvent.AggregateRootId} does not exists or is already closed.");
 
-            if (account.Version != domainEvent.Version)
-                throw new TransactionConflictException(account, domainEvent);
+            //if (account.Version != domainEvent.Version)
+            //    throw new TransactionConflictException(account, domainEvent);
 
-            account.Apply(domainEvent);
-            accountWriteOnlyRepository.Update(account).Wait();
+            accountWriteOnlyRepository.Delete(account).Wait();
         }
     }
 }

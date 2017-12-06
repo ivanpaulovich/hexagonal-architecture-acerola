@@ -1,6 +1,4 @@
-﻿using Acerola.Exceptions;
-
-namespace Acerola.ValueObjects
+﻿namespace Acerola.Domain.ValueObjects
 {
     public class Amount
     {

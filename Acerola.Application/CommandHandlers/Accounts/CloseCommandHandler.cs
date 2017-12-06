@@ -2,9 +2,8 @@
 using System;
 using System.Threading.Tasks;
 using Acerola.Domain.ServiceBus;
-using Acerola.Commands.Accounts;
-using Acerola.Domain.Model.Accounts;
-using Acerola.Domain.Exceptions;
+using Acerola.Application.Commands.Accounts;
+using Acerola.Domain.Accounts;
 
 namespace Acerola.Application.CommandHandlers.Accounts
 {

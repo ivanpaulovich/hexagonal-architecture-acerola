@@ -1,14 +1,10 @@
-﻿using MyAccountAPI.Domain.Exceptions;
+﻿using Acerola.Domain;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Threading.Tasks;
 
-namespace MyAccountAPI.Producer.UI.Filters
+namespace Acerola.UI.Filters
 {
     public class DomainExceptionFilter : IExceptionFilter
     {

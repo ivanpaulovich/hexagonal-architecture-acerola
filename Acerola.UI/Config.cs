@@ -1,4 +1,4 @@
-﻿namespace MyAccountAPI.Producer.UI
+﻿namespace Acerola.UI
 {
     public class Config
     {

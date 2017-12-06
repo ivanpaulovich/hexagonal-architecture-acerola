@@ -1,18 +1,16 @@
-﻿using MediatR;
-using MyAccountAPI.Domain.Exceptions;
-using MyAccountAPI.Domain.Model.Accounts;
-using MyAccountAPI.Domain.Model.Accounts.Events;
-using MyAccountAPI.Domain.Model.Customers;
+﻿using Acerola.Domain.Accounts;
+using Acerola.Domain.Accounts.Events;
+using MediatR;
 using System;
 
-namespace MyAccountAPI.Consumer.Application.DomainEventHandlers.Blogs
+namespace Acerola.Application.EventHandlers.Blogs
 {
-    public class DepositedEventHandler : IRequestHandler<DepositedDomainEvent>
+    public class WithdrewEventHandler : IRequestHandler<WithdrewDomainEvent>
     {
         private readonly IAccountReadOnlyRepository accountReadOnlyRepository;
         private readonly IAccountWriteOnlyRepository accountWriteOnlyRepository;
 
-        public DepositedEventHandler(
+        public WithdrewEventHandler(
             IAccountReadOnlyRepository accountReadOnlyRepository,
             IAccountWriteOnlyRepository accountWriteOnlyRepository)
         {
@@ -26,15 +24,15 @@ namespace MyAccountAPI.Consumer.Application.DomainEventHandlers.Blogs
             this.accountWriteOnlyRepository = accountWriteOnlyRepository;
         }
 
-        public void Handle(DepositedDomainEvent domainEvent)
+        public void Handle(WithdrewDomainEvent domainEvent)
         {
             Account account = accountReadOnlyRepository.Get(domainEvent.AggregateRootId).Result;
 
             if (account == null)
                 throw new AccountNotFoundException($"The account {domainEvent.AggregateRootId} does not exists or is already closed.");
-            
-            if (account.Version != domainEvent.Version)
-                throw new TransactionConflictException(account, domainEvent);
+
+            //if (account.Version != domainEvent.Version)
+            //    throw new TransactionConflictException(account, domainEvent);
 
             account.Apply(domainEvent);
             accountWriteOnlyRepository.Update(account).Wait();

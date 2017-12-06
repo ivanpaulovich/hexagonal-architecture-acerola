@@ -1,5 +1,5 @@
 ﻿using Autofac;
-using MyAccountAPI.Domain.ServiceBus;
+using Acerola.Domain.ServiceBus;
 using MyAccountAPI.Producer.Infrastructure.ServiceBus;
 
 namespace MyAccountAPI.Producer.Infrastructure.Modules
