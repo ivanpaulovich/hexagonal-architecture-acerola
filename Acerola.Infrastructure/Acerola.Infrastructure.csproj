@@ -7,7 +7,7 @@
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <NoWarn>1701;1702;1705;NU1701;CS1591</NoWarn>
-    <DocumentationFile>bin\Debug\netcoreapp2.0\MyAccountAPI.Producer.Infrastructure.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\netcoreapp2.0\Acerola.Infrastructure.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
