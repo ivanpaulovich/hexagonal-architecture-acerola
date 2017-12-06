@@ -1,11 +1,11 @@
 ﻿using Autofac;
-using MyAccountAPI.Producer.Infrastructure.DataAccess;
-using MyAccountAPI.Producer.Infrastructure.DataAccess.Repositories.Accounts;
-using MyAccountAPI.Producer.Infrastructure.DataAccess.Repositories.Customers;
+using Acerola.Infrastructure.DataAccess;
+using Acerola.Infrastructure.DataAccess.Repositories.Customers;
 using Acerola.Domain.Customers;
 using Acerola.Domain.Accounts;
+using Acerola.Infrastructure.DataAccess.Repositories.Accounts;
 
-namespace MyAccountAPI.Producer.Infrastructure.Modules
+namespace Acerola.Infrastructure.Modules
 {
     public class ApplicationModule : Module
     {

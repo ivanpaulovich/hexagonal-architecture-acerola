@@ -1,8 +1,8 @@
 ﻿using Autofac;
 using Acerola.Domain.ServiceBus;
-using MyAccountAPI.Producer.Infrastructure.ServiceBus;
+using Acerola.Infrastructure.ServiceBus;
 
-namespace MyAccountAPI.Producer.Infrastructure.Modules
+namespace Acerola.Infrastructure.Modules
 {
     public class BusModule : Module
     {

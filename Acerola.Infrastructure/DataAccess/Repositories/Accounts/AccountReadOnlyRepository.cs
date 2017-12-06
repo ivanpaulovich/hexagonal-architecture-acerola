@@ -1,9 +1,9 @@
-﻿using MongoDB.Driver;
-using Acerola.Domain.Model.Accounts;
+﻿using Acerola.Domain.Accounts;
+using MongoDB.Driver;
 using System;
 using System.Threading.Tasks;
 
-namespace MyAccountAPI.Producer.Infrastructure.DataAccess.Repositories.Accounts
+namespace Acerola.Infrastructure.DataAccess.Repositories.Accounts
 {
     public class AccountReadOnlyRepository : IAccountReadOnlyRepository
     {

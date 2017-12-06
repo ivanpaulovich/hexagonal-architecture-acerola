@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Autofac.Extensions.DependencyInjection;
 
-namespace MyAccountAPI.Producer.Infrastructure
+namespace Acerola.Infrastructure
 {
     public class Program
     {

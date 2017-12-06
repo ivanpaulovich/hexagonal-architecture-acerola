@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using Acerola.Application.Commands.Customers;
 
-namespace MyAccountAPI.Producer.Infrastructure.Modules
+namespace Acerola.Infrastructure.Modules
 {
     public class MediatRModule : Autofac.Module
     {

@@ -1,9 +1,9 @@
 ﻿using Autofac;
 using Acerola.Application.Queries;
-using MyAccountAPI.Producer.Infrastructure.Queries;
+using Acerola.Infrastructure.Queries;
 using System;
 
-namespace MyAccountAPI.Producer.Infrastructure.Modules
+namespace Acerola.Infrastructure.Modules
 {
     public class QueriesModule : Module
     {

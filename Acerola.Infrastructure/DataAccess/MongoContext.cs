@@ -1,10 +1,10 @@
-﻿using Acerola.Domain.Model;
+﻿using Acerola.Domain;
+using Acerola.Domain.Accounts;
+using Acerola.Domain.Customers;
 using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
-using Acerola.Domain.Model.Customers;
-using Acerola.Domain.Model.Accounts;
 
-namespace MyAccountAPI.Producer.Infrastructure.DataAccess
+namespace Acerola.Infrastructure.DataAccess
 {
     public class MongoContext
     {

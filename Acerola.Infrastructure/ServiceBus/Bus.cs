@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Acerola.Domain;
 
-namespace MyAccountAPI.Producer.Infrastructure.ServiceBus
+namespace Acerola.Infrastructure.ServiceBus
 {
     public class Bus : IPublisher
     {

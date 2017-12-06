@@ -1,5 +1,4 @@
 ﻿using Autofac;
-using MyAccountAPI.Producer.Infrastructure.Modules;
 using Acerola.UI.Filters;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -11,8 +10,9 @@ using Swashbuckle.AspNetCore.Swagger;
 using System.Text;
 using System.IO;
 using System.Reflection;
+using Acerola.Infrastructure.Modules;
 
-namespace MyAccountAPI.Producer.Infrastructure
+namespace Acerola.Infrastructure
 {
     public class Startup
     {

@@ -5,7 +5,7 @@ using System.Dynamic;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 
-namespace MyAccountAPI.Producer.Infrastructure.Queries
+namespace Acerola.Infrastructure.Queries
 {
     public class AccountsQueries : IAccountsQueries
     {
