@@ -6,3 +6,7 @@ services:
     build:
       context: ./Acerola.Infrastructure
       dockerfile: Dockerfile
+  mongodb:
+    image: mongo
+    ports:
+        - 27017:27017
