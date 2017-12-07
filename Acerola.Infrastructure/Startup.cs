@@ -1,19 +1,18 @@
-﻿using Autofac;
-using Acerola.UI.Filters;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.IdentityModel.Tokens;
-using Swashbuckle.AspNetCore.Swagger;
-using System.Text;
-using System.IO;
-using System.Reflection;
-using Acerola.Infrastructure.Modules;
-
-namespace Acerola.Infrastructure
+﻿namespace Acerola.Infrastructure
 {
+    using Autofac;
+    using Acerola.UI.Filters;
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.IdentityModel.Tokens;
+    using Swashbuckle.AspNetCore.Swagger;
+    using System.Text;
+    using System.IO;
+    using System.Reflection;
+    using Acerola.Infrastructure.Modules;
+    
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -29,21 +28,10 @@ namespace Acerola.Infrastructure
             {
                 options.Filters.Add(typeof(DomainExceptionFilter));
                 options.Filters.Add(typeof(ValidateModelAttribute));
-                options.Filters.Add(typeof(CorrelationFilter));
             });
 
             services.AddSwaggerGen(options =>
             {
-                options.AddSecurityDefinition(
-                    "Bearer",
-                    new ApiKeyScheme()
-                    {
-                        In = "header",
-                        Description = "Please insert JWT with Bearer into field",
-                        Name = "Authorization",
-                        Type = "apiKey"
-                    });
-
                 options.DescribeAllEnumsAsStrings();
 
                 options.IncludeXmlComments(
@@ -59,21 +47,6 @@ namespace Acerola.Infrastructure
                     TermsOfService = "Terms Of Service"
                 });
             });
-
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(options =>
-                {
-                    options.SaveToken = true;
-                    options.RequireHttpsMetadata = false;
-                    options.TokenValidationParameters = new TokenValidationParameters()
-                    {
-                        ValidIssuer = Configuration.GetSection("Security").GetValue<string>("Issuer"),
-                        ValidAudience = Configuration.GetSection("Security").GetValue<string>("Issuer"),
-                        IssuerSigningKey = new SymmetricSecurityKey(
-                            Encoding.UTF8.GetBytes(
-                                Configuration.GetSection("Security").GetValue<string>("SecretKey")))
-                    };
-                });
         }
 
         public void ConfigureContainer(ContainerBuilder builder)
@@ -81,10 +54,6 @@ namespace Acerola.Infrastructure
             builder.RegisterModule(new ApplicationModule(
                 Configuration.GetSection("MongoDB").GetValue<string>("ConnectionString"),
                 Configuration.GetSection("MongoDB").GetValue<string>("Database")));
-
-            builder.RegisterModule(new BusModule(
-                Configuration.GetSection("ServiceBus").GetValue<string>("ConnectionString"),
-                Configuration.GetSection("ServiceBus").GetValue<string>("Topic")));
 
             builder.RegisterModule(new MediatRModule());
 
@@ -99,8 +68,6 @@ namespace Acerola.Infrastructure
             {
                 app.UseDeveloperExceptionPage();
             }
-
-            app.UseAuthentication();
 
             app.UseMvc();
 

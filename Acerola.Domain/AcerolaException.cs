@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace Acerola.Domain
+﻿namespace Acerola.Domain
 {
+    using System;
+
     public class AcerolaException : Exception
     {
         public AcerolaException()

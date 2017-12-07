@@ -1,15 +1,13 @@
-﻿using MediatR;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Threading.Tasks;
-using Acerola.Application.Commands.Accounts;
-using Acerola.Domain.Customers;
-using Acerola.Application.Queries;
-
-namespace Acerola.UI.Controllers
+﻿namespace Acerola.UI.Controllers
 {
-    [Authorize]
+    using MediatR;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
+    using System;
+    using System.Threading.Tasks;
+    using Acerola.Application.Commands.Accounts;
+    using Acerola.Application.Queries;
+
     [Route("api/[controller]")]
     public class AccountsController : Controller
     {
@@ -65,9 +63,6 @@ namespace Acerola.UI.Controllers
         public async Task<IActionResult> Get(Guid id)
         {
             var account = await accountsQueries.GetAsync(id);
-
-            if (account == null)
-                throw new CustomerNotFoundException($"The customer {id} does not exists or is not processed yet.");
 
             return Ok(account);
         }

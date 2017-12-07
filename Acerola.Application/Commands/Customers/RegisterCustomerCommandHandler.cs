@@ -1,14 +1,13 @@
-﻿using Acerola.Application.Commands.Customers;
-using MediatR;
-using System;
-using System.Threading.Tasks;
-using Acerola.Domain.ServiceBus;
-using Acerola.Domain.Customers;
-using Acerola.Domain.ValueObjects;
-using Acerola.Domain.Accounts;
-
-namespace Acerola.Application.CommandHandlers.Customers
+﻿namespace Acerola.Application.CommandHandlers.Customers
 {
+    using Acerola.Application.Commands.Customers;
+    using MediatR;
+    using System;
+    using System.Threading.Tasks;
+    using Acerola.Domain.Customers;
+    using Acerola.Domain.ValueObjects;
+    using Acerola.Domain.Accounts;
+
     public class RegisterCustomerCommandHandler : IAsyncRequestHandler<RegisterCustomerCommand, Customer>
     {
         private readonly ICustomerWriteOnlyRepository customerWriteOnlyRepository;
@@ -34,14 +33,16 @@ namespace Acerola.Application.CommandHandlers.Customers
                 PIN.Create(command.PIN),
                 Name.Create(command.Name));
 
+            Amount amount = Amount.Create(command.InitialAmount);
+
             Account account = Account.Create(
-                customer.Id,
-                Amount.Create(command.InitialAmount));
+                customer,
+                amount);
 
             customer.Register(account);
 
-            customerWriteOnlyRepository.Add(customer).Wait();
-            accountWriteOnlyRepository.Add(account).Wait();
+            await customerWriteOnlyRepository.Add(customer);
+            await accountWriteOnlyRepository.Add(account);
 
             return customer;
         }

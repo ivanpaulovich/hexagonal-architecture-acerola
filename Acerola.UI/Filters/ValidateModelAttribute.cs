@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Filters;
-
-namespace Acerola.UI.Filters
+﻿namespace Acerola.UI.Filters
 {
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.Filters;
+
     public class ValidateModelAttribute : ActionFilterAttribute
     {
         public override void OnActionExecuting(ActionExecutingContext context)

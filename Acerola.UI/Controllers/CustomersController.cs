@@ -1,16 +1,15 @@
-﻿using MediatR;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Acerola.Domain.Customers;
-using Acerola.Application.Commands.Customers;
-using Acerola.Application.Queries;
-using System;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Acerola.UI.Controllers
+﻿namespace Acerola.UI.Controllers
 {
-    [Authorize]
+    using MediatR;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
+    using Acerola.Domain.Customers;
+    using Acerola.Application.Commands.Customers;
+    using Acerola.Application.Queries;
+    using System;
+    using System.Linq;
+    using System.Threading.Tasks;
+
     [Route("api/[controller]")]
     public class CustomersController : Controller
     {

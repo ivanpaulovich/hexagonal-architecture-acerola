@@ -1,11 +1,11 @@
-﻿using Acerola.Domain;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Filters;
-using Newtonsoft.Json;
-using System.Net;
-
-namespace Acerola.UI.Filters
+﻿namespace Acerola.UI.Filters
 {
+    using Acerola.Domain;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.Filters;
+    using Newtonsoft.Json;
+    using System.Net;
+    
     public class DomainExceptionFilter : IExceptionFilter
     {
         public void OnException(ExceptionContext context)

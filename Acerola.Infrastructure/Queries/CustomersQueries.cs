@@ -1,12 +1,12 @@
-﻿using Acerola.Application.Queries;
-using MongoDB.Driver;
-using System;
-using System.Dynamic;
-using System.Threading.Tasks;
-using System.Collections.Generic;
-
-namespace Acerola.Infrastructure.Queries
+﻿namespace Acerola.Infrastructure.Queries
 {
+    using Acerola.Application.Queries;
+    using MongoDB.Driver;
+    using System;
+    using System.Dynamic;
+    using System.Threading.Tasks;
+    using System.Collections.Generic;
+
     public class CustomersQueries : ICustomersQueries
     {
         private readonly IMongoDatabase database;

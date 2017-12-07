@@ -1,15 +1,15 @@
-﻿using Acerola.Domain.Customers;
-using MongoDB.Driver;
-using System;
-using System.Threading.Tasks;
-
-namespace Acerola.Infrastructure.DataAccess.Repositories.Customers
+﻿namespace Acerola.Infrastructure.DataAccess.Repositories.Customers
 {
+    using Acerola.Domain.Customers;
+    using MongoDB.Driver;
+    using System;
+    using System.Threading.Tasks;
+
     public class CustomerReadOnlyRepository : ICustomerReadOnlyRepository
     {
-        private readonly MongoContext _mongoContext;
+        private readonly AccountBalanceContext _mongoContext;
 
-        public CustomerReadOnlyRepository(MongoContext mongoContext)
+        public CustomerReadOnlyRepository(AccountBalanceContext mongoContext)
         {
             _mongoContext = mongoContext;
         }

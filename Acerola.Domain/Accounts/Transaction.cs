@@ -1,8 +1,8 @@
-﻿using Acerola.Domain.ValueObjects;
-using System;
-
-namespace Acerola.Domain.Accounts
+﻿namespace Acerola.Domain.Accounts
 {
+    using Acerola.Domain.ValueObjects;
+    using System;
+
     public class Transaction : Entity
     {
         protected Guid customerId;

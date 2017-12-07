@@ -1,12 +1,12 @@
-﻿using Autofac;
-using Autofac.Features.Variance;
-using MediatR;
-using System.Collections.Generic;
-using System.Reflection;
-using Acerola.Application.Commands.Customers;
-
-namespace Acerola.Infrastructure.Modules
+﻿namespace Acerola.Infrastructure.Modules
 {
+    using Autofac;
+    using Autofac.Features.Variance;
+    using MediatR;
+    using System.Collections.Generic;
+    using System.Reflection;
+    using Acerola.Application.Commands.Customers;
+
     public class MediatRModule : Autofac.Module
     {
         protected override void Load(ContainerBuilder builder)

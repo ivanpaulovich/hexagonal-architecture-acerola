@@ -1,11 +1,10 @@
-﻿using System.Collections.Generic;
-using System;
-using Acerola.Domain.ValueObjects;
-using Acerola.Domain.Accounts;
-using Acerola.Domain.Customers.Events;
-
-namespace Acerola.Domain.Customers
+﻿namespace Acerola.Domain.Customers
 {
+    using System.Collections.Generic;
+    using System;
+    using Acerola.Domain.ValueObjects;
+    using Acerola.Domain.Accounts;
+
     public class Customer : AggregateRoot
     {
         private Name name;
@@ -27,17 +26,6 @@ namespace Acerola.Domain.Customers
             return accounts;
         }
 
-        private Customer()
-        {
-            Register<RegisteredDomainEvent>(When);            
-        }
-
-        public static Customer Create()
-        {
-            Customer customer = new Customer();
-            return customer;
-        }
-
         public static Customer Create(PIN pin, Name name)
         {
             if (pin == null)
@@ -49,6 +37,7 @@ namespace Acerola.Domain.Customers
             Customer customer = new Customer();
             customer.pin = pin;
             customer.name = name;
+
             return customer;
         }
 
@@ -56,22 +45,6 @@ namespace Acerola.Domain.Customers
         {
             if (account == null)
                 throw new ArgumentNullException(nameof(account));
-
-            Raise(RegisteredDomainEvent.Create(
-                this, this.GetName(), this.GetPIN(), 
-                account.Id, account.GetCurrentBalance()));
-        }
-
-        protected void When(RegisteredDomainEvent domainEvent)
-        {
-            if (domainEvent == null)
-                throw new ArgumentNullException(nameof(domainEvent));
-
-            Id = domainEvent.AggregateRootId;
-            name = domainEvent.Name;
-            pin = domainEvent.PIN;
-
-            Account account = Account.Load(domainEvent.AccountId, domainEvent.InitialAmount);
 
             accounts = new List<Account>();
             accounts.Add(account);

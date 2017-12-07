@@ -1,10 +1,10 @@
-﻿using Autofac;
-using Acerola.Application.Queries;
-using Acerola.Infrastructure.Queries;
-using System;
-
-namespace Acerola.Infrastructure.Modules
+﻿namespace Acerola.Infrastructure.Modules
 {
+    using Autofac;
+    using Acerola.Application.Queries;
+    using Acerola.Infrastructure.Queries;
+    using System;
+    
     public class QueriesModule : Module
     {
         public readonly string connectionString;

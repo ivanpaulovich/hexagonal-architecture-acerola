@@ -1,9 +1,9 @@
-﻿using Microsoft.AspNetCore;
-using Microsoft.AspNetCore.Hosting;
-using Autofac.Extensions.DependencyInjection;
-
-namespace Acerola.Infrastructure
+﻿namespace Acerola.Infrastructure
 {
+    using Microsoft.AspNetCore;
+    using Microsoft.AspNetCore.Hosting;
+    using Autofac.Extensions.DependencyInjection;
+
     public class Program
     {
         public static void Main(string[] args)

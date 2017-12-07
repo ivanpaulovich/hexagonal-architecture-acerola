@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Acerola.Domain.Accounts
+﻿namespace Acerola.Domain.Accounts
 {
     public class AccountNotFoundException : DomainException
     {

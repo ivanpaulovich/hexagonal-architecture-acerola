@@ -4,8 +4,6 @@ using System.Linq;
 using Acerola.Domain.Accounts;
 using Acerola.Domain.Customers;
 using Acerola.Domain.ValueObjects;
-using Acerola.Domain.Customers.Events;
-using Acerola.Domain.Accounts.Events;
 
 namespace Acerola.Domain.UnitTests
 {
@@ -16,13 +14,13 @@ namespace Acerola.Domain.UnitTests
         {
             //
             // Arrange
-            Account account = Account.Create(
-                Guid.NewGuid(), 
-                Amount.Create(1000.0));
-
             Customer sut = Customer.Create(
                 PIN.Create("08724050601"),
                 Name.Create("Ivan Paulovich"));
+
+            Account account = Account.Create(
+                sut, 
+                Amount.Create(1000.0));
 
             //
             // Act
@@ -30,10 +28,10 @@ namespace Acerola.Domain.UnitTests
 
             //
             // Assert
-            var domainEvents = sut.GetEvents();
-            var registered = domainEvents.Where(e => e is RegisteredDomainEvent).First() as RegisteredDomainEvent;
+            var accounts = sut.GetAccounts();
+            var registered = accounts.Where(e => e.Id == account.Id).First();
 
-            Assert.Equal(registered.InitialAmount.Value, 1000.0);
+            Assert.Equal(registered.GetCurrentBalance().Value, 1000.0);
         }
 
         [Fact]
@@ -41,13 +39,13 @@ namespace Acerola.Domain.UnitTests
         {
             //
             // Arrange
-            Account account = Account.Create(
-                Guid.NewGuid(),
-                Amount.Create(1000.0));
-
             Customer customer = Customer.Create(
                 PIN.Create("08724050601"),
                 Name.Create("Ivan Paulovich"));
+
+            Account account = Account.Create(
+                customer,
+                Amount.Create(1000.0));
 
             customer.Register(account);
 
@@ -62,10 +60,10 @@ namespace Acerola.Domain.UnitTests
 
             //
             // Assert
-            var domainEvents = sut.GetEvents();
-            var deposited = domainEvents.Where(e => e is DepositedDomainEvent).First() as DepositedDomainEvent;
+            var transactions = sut.GetTransactions();
+            var deposited = transactions.Where(e => e.Id == transaction.Id).First();
 
-            Assert.Equal(deposited.Amount.Value, 100.0);
+            Assert.Equal(deposited.GetAmount().Value, 100.0);
             Assert.Equal(sut.GetCurrentBalance().Value, 1100);
         }
 
@@ -74,13 +72,13 @@ namespace Acerola.Domain.UnitTests
         {
             //
             // Arrange
-            Account account = Account.Create(
-                Guid.NewGuid(),
-                Amount.Create(1000.0));
-
             Customer customer = Customer.Create(
                 PIN.Create("08724050601"),
                 Name.Create("Ivan Paulovich"));
+
+            Account account = Account.Create(
+                customer,
+                Amount.Create(1000.0));
 
             customer.Register(account);
 
@@ -95,10 +93,10 @@ namespace Acerola.Domain.UnitTests
 
             //
             // Assert
-            var domainEvents = sut.GetEvents();
-            var deposited = domainEvents.Where(e => e is WithdrewDomainEvent).First() as WithdrewDomainEvent;
+            var transactions = sut.GetTransactions();
+            var deposited = transactions.Where(e => e.Id == transaction.Id).First();
 
-            Assert.Equal(deposited.Amount.Value, 100.0);
+            Assert.Equal(deposited.GetAmount().Value, 100.0);
             Assert.Equal(sut.GetCurrentBalance().Value, 900);
         }
 
@@ -107,19 +105,20 @@ namespace Acerola.Domain.UnitTests
         {
             //
             // Arrange
-            Account account = Account.Create(
-                Guid.NewGuid(),
-                Amount.Create(1000.0));
-
             Customer customer = Customer.Create(
                 PIN.Create("08724050601"),
                 Name.Create("Ivan Paulovich"));
+
+            Account account = Account.Create(
+                customer,
+                Amount.Create(1000.0));
 
             customer.Register(account);
 
             Account sut = customer.GetAccounts().First();
             Transaction transaction = Debit.Create(
                 customer.Id, Amount.Create(1000.0));
+
             sut.Withdraw(transaction);
 
             //
@@ -128,10 +127,10 @@ namespace Acerola.Domain.UnitTests
 
             //
             // Assert
-            var domainEvents = sut.GetEvents();
-            var closed = domainEvents.Where(e => e is ClosedDomainEvent).Count();
+            var transactions = sut.GetTransactions();
+            var closed = transactions.Where(e => e.Id == transaction.Id).First();
 
-            Assert.NotEqual(closed, 0);
+            Assert.Equal(closed.GetAmount().Value, 1000.0);
         }
 
         [Fact]
@@ -139,13 +138,13 @@ namespace Acerola.Domain.UnitTests
         {
             //
             // Arrange
-            Account account = Account.Create(
-                Guid.NewGuid(),
-                Amount.Create(1000.0));
-
             Customer customer = Customer.Create(
                 PIN.Create("08724050601"),
                 Name.Create("Ivan Paulovich"));
+
+            Account account = Account.Create(
+                customer,
+                Amount.Create(1000.0));
 
             customer.Register(account);
 
@@ -163,13 +162,13 @@ namespace Acerola.Domain.UnitTests
         {
             //
             // Arrange
-            Account account = Account.Create(
-                Guid.NewGuid(),
-                Amount.Create(1000.0));
-
             Customer customer = Customer.Create(
                 PIN.Create("08724050601"),
                 Name.Create("Ivan Paulovich"));
+
+            Account account = Account.Create(
+                customer,
+                Amount.Create(1000.0));
 
             customer.Register(account);
 

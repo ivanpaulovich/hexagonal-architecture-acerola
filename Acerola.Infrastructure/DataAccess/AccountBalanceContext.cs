@@ -1,26 +1,21 @@
-﻿using Acerola.Domain;
-using Acerola.Domain.Accounts;
-using Acerola.Domain.Customers;
-using MongoDB.Bson.Serialization;
-using MongoDB.Driver;
-
-namespace Acerola.Infrastructure.DataAccess
+﻿namespace Acerola.Infrastructure.DataAccess
 {
-    public class MongoContext
+    using Acerola.Domain;
+    using Acerola.Domain.Accounts;
+    using Acerola.Domain.Customers;
+    using MongoDB.Bson.Serialization;
+    using MongoDB.Driver;
+
+    public class AccountBalanceContext
     {
         private readonly MongoClient mongoClient;
         private readonly IMongoDatabase database;
 
-        public MongoContext(string connectionString, string databaseName)
+        public AccountBalanceContext(string connectionString, string databaseName)
         {
             this.mongoClient = new MongoClient(connectionString);
             this.database = mongoClient.GetDatabase(databaseName);
             Map();
-        }
-
-        public void DatabaseReset(string databaseName)
-        {
-            mongoClient.DropDatabase(databaseName);
         }
 
         public IMongoCollection<Customer> Customers

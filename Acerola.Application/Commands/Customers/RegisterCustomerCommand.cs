@@ -1,11 +1,11 @@
-﻿using Acerola.Domain.Customers;
-using MediatR;
-using System.Runtime.Serialization;
-
-namespace Acerola.Application.Commands.Customers
+﻿namespace Acerola.Application.Commands.Customers
 {
+    using Acerola.Domain.Customers;
+    using MediatR;
+    using System.Runtime.Serialization;
+
     [DataContract]
-    public class RegisterCustomerCommand : CommandBase, IRequest<Customer>
+    public class RegisterCustomerCommand : IRequest<Customer>
     {
         [DataMember]
         public string PIN { get; private set; }

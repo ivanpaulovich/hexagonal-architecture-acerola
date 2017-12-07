@@ -1,13 +1,13 @@
-﻿using Acerola.Domain.Accounts;
-using MongoDB.Driver;
-using System.Threading.Tasks;
-
-namespace Acerola.Infrastructure.DataAccess.Repositories.Accounts
+﻿namespace Acerola.Infrastructure.DataAccess.Repositories.Accounts
 {
+    using Acerola.Domain.Accounts;
+    using MongoDB.Driver;
+    using System.Threading.Tasks;
+
     public class AccountWriteOnlyRepository : IAccountWriteOnlyRepository
     {
-        private readonly MongoContext mongoContext;
-        public AccountWriteOnlyRepository(MongoContext mongoContext)
+        private readonly AccountBalanceContext mongoContext;
+        public AccountWriteOnlyRepository(AccountBalanceContext mongoContext)
         {
             this.mongoContext = mongoContext;
         }

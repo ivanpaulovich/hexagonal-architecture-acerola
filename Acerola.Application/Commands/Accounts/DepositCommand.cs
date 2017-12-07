@@ -1,12 +1,12 @@
-﻿using MediatR;
-using System;
-using System.Runtime.Serialization;
-using Acerola.Domain.Accounts;
-
-namespace Acerola.Application.Commands.Accounts
+﻿namespace Acerola.Application.Commands.Accounts
 {
+    using MediatR;
+    using System;
+    using System.Runtime.Serialization;
+    using Acerola.Domain.Accounts;
+
     [DataContract]
-    public class DepositCommand : CommandBase, IRequest<Transaction>
+    public class DepositCommand : IRequest<Transaction>
     {
         [DataMember]
         public Guid CustomerId { get; private set; }
