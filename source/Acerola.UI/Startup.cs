@@ -1,4 +1,4 @@
-﻿namespace Acerola.Infrastructure
+﻿namespace Acerola.UI
 {
     using Autofac;
     using Acerola.UI.Filters;
@@ -6,9 +6,6 @@
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
-    using Microsoft.IdentityModel.Tokens;
-    using Swashbuckle.AspNetCore.Swagger;
-    using System.Text;
     using System.IO;
     using System.Reflection;
     using Acerola.Infrastructure.Modules;

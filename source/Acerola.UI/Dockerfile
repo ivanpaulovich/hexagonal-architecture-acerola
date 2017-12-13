@@ -3,4 +3,4 @@ ARG source
 WORKDIR /app
 EXPOSE 80
 COPY ${source:-obj/Docker/publish} .
-ENTRYPOINT ["dotnet", "MyAccountAPI.Producer.Infrastructure.dll"]
+ENTRYPOINT ["dotnet", "Acerola.UI.dll"]

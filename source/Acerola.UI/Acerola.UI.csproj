@@ -1,15 +1,26 @@
-<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
+    <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <NoWarn>1701;1702;1705;NU1701</NoWarn>
+    <NoWarn>1701;1702;1705;NU1701;CS1591</NoWarn>
     <DocumentationFile>bin\Debug\netcoreapp2.0\Acerola.UI.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="Autofac" Version="4.6.0" />
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.2.0" />
     <PackageReference Include="MediatR" Version="3.0.1" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="2.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
@@ -19,6 +30,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Acerola.Application\Acerola.Application.csproj" />
     <ProjectReference Include="..\Acerola.Domain\Acerola.Domain.csproj" />
+    <ProjectReference Include="..\Acerola.Infrastructure\Acerola.Infrastructure.csproj" />
   </ItemGroup>
   
 </Project>

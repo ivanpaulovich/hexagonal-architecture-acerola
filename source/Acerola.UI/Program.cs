@@ -1,4 +1,4 @@
-﻿namespace Acerola.Infrastructure
+﻿namespace Acerola.UI
 {
     using Microsoft.AspNetCore;
     using Microsoft.AspNetCore.Hosting;
