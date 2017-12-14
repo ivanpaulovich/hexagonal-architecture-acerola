@@ -3,6 +3,7 @@
     using Microsoft.AspNetCore;
     using Microsoft.AspNetCore.Hosting;
     using Autofac.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Configuration;
 
     public class Program
     {
@@ -15,6 +16,11 @@
         {
             return WebHost.CreateDefaultBuilder(args)
                     .UseStartup<Startup>()
+                    .ConfigureAppConfiguration((builderContext, config) =>
+                    {
+                        IHostingEnvironment env = builderContext.HostingEnvironment;
+                        config.AddJsonFile("autofac.json");
+                    })
                     .ConfigureServices(services => services.AddAutofac())
                     .Build();
         }

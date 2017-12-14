@@ -8,8 +8,9 @@
     using Microsoft.Extensions.DependencyInjection;
     using System.IO;
     using System.Reflection;
-    using Acerola.Infrastructure.Modules;
-    
+    using System;
+    using System.Linq;
+
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -48,15 +49,18 @@
 
         public void ConfigureContainer(ContainerBuilder builder)
         {
-            builder.RegisterModule(new ApplicationModule(
-                Configuration.GetSection("MongoDB").GetValue<string>("ConnectionString"),
-                Configuration.GetSection("MongoDB").GetValue<string>("Database")));
+            Assembly[] assemblies = GetInfrastructureAssemblies();
+            builder.RegisterAssemblyModules(assemblies);
+        }
 
-            builder.RegisterModule(new MediatRModule());
+        private static Assembly[] GetInfrastructureAssemblies()
+        {
+            var assemblies = Directory.EnumerateFiles(AppDomain.CurrentDomain.BaseDirectory, "*.dll", SearchOption.TopDirectoryOnly)
+               .Where(filePath => Path.GetFileName(filePath).StartsWith("Acerola.Infrastructure", StringComparison.OrdinalIgnoreCase))
+               .Select(Assembly.LoadFrom)
+               .ToArray();
 
-            builder.RegisterModule(new QueriesModule(
-                Configuration.GetSection("MongoDB").GetValue<string>("ConnectionString"),
-                Configuration.GetSection("MongoDB").GetValue<string>("Database")));
+            return assemblies;
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

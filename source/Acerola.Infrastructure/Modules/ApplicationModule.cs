@@ -9,21 +9,15 @@
 
     public class ApplicationModule : Module
     {
-        public readonly string connectionString;
-        public readonly string databaseName;
-
-        public ApplicationModule(string connectionString, string databaseName)
-        {
-            this.connectionString = connectionString;
-            this.databaseName = databaseName;
-        }
+        public string ConnectionString { get; set; }
+        public string DatabaseName { get; set; }
 
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<AccountBalanceContext>()
                 .As<AccountBalanceContext>()
-                .WithParameter("connectionString", connectionString)
-                .WithParameter("databaseName", databaseName)
+                .WithParameter("connectionString", ConnectionString)
+                .WithParameter("databaseName", DatabaseName)
                 .SingleInstance();
 
             builder.RegisterType<CustomerReadOnlyRepository>()
