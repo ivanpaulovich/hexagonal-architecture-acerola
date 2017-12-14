@@ -1,15 +1,14 @@
 ﻿{
-  "defaultAssembly": "Acerola.Infrastructure",
   "modules": [
     {
-      "type": "Acerola.Infrastructure.Modules.ApplicationModule, Acerola.Infrastructure",
+      "type": "Acerola.Infrastructure.Modules.ApplicationModule, Acerola.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
       "properties": {
         "ConnectionString": "mongodb://10.0.75.1:27017",
         "DatabaseName": "MyAccountBalanceAPIv01"
       }
     },
     {
-      "type": "Acerola.Infrastructure.Modules.QueriesModule, Acerola.Infrastructure",
+      "type": "Acerola.Infrastructure.Modules.QueriesModule, Acerola.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
       "properties": {
         "ConnectionString": "mongodb://10.0.75.1:27017",
         "DatabaseName": "MyAccountBalanceAPIv01"
