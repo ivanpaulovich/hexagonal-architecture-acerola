@@ -10,6 +10,8 @@
     using System.Reflection;
     using System;
     using System.Linq;
+    using Acerola.Infrastructure.Modules;
+    using Autofac.Configuration;
 
     public class Startup
     {
@@ -49,8 +51,10 @@
 
         public void ConfigureContainer(ContainerBuilder builder)
         {
-            Assembly[] assemblies = GetInfrastructureAssemblies();
-            builder.RegisterAssemblyModules(assemblies);
+            builder.RegisterModule(new ConfigurationModule(Configuration));
+
+            //Assembly[] assemblies = GetInfrastructureAssemblies();
+            //builder.RegisterAssemblyModules(assemblies);
         }
 
         private static Assembly[] GetInfrastructureAssemblies()
