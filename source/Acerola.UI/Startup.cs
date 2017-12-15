@@ -50,20 +50,10 @@
 
         public void ConfigureContainer(ContainerBuilder builder)
         {
-            try
-            {
-               // builder.RegisterAssemblyTypes();
-                builder.RegisterModule(new ConfigurationModule(Configuration));
+            builder.RegisterModule(new ConfigurationModule(Configuration));
 
-                //Assembly[] assemblies = GetInfrastructureAssemblies();
-                //builder.RegisterAssemblyTypes(assemblies).AsImplementedInterfaces();
-
-            }
-            catch (Exception ex)
-            {
-
-                throw;
-            }
+            Assembly[] assemblies = GetInfrastructureAssemblies();
+            builder.RegisterAssemblyTypes(assemblies).AsImplementedInterfaces();
         }
 
         private static Assembly[] GetInfrastructureAssemblies()
