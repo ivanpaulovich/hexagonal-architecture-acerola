@@ -11,6 +11,7 @@
     using System;
     using System.Linq;
     using Autofac.Configuration;
+    using System.Runtime.Loader;
 
     public class Startup
     {
@@ -50,20 +51,18 @@
 
         public void ConfigureContainer(ContainerBuilder builder)
         {
+            LoadInfrastructureAssemblies();
             builder.RegisterModule(new ConfigurationModule(Configuration));
-
-            Assembly[] assemblies = GetInfrastructureAssemblies();
-            builder.RegisterAssemblyTypes(assemblies).AsImplementedInterfaces();
         }
 
-        private static Assembly[] GetInfrastructureAssemblies()
+        private void LoadInfrastructureAssemblies()
         {
-            var assemblies = Directory.EnumerateFiles(AppDomain.CurrentDomain.BaseDirectory, "*.dll", SearchOption.TopDirectoryOnly)
-               .Where(filePath => Path.GetFileName(filePath).StartsWith("Acerola.Infrastructure", StringComparison.OrdinalIgnoreCase))
-               .Select(Assembly.LoadFrom)
-               .ToArray();
+            string[] fileNames = Directory.EnumerateFiles(AppDomain.CurrentDomain.BaseDirectory, "*.dll", SearchOption.TopDirectoryOnly)
+                .Where(filePath => Path.GetFileName(filePath).StartsWith("Acerola.Infrastructure", StringComparison.OrdinalIgnoreCase))
+                .ToArray();
 
-            return assemblies;
+            foreach (string file in fileNames)
+                AssemblyLoadContext.Default.LoadFromAssemblyPath(file);
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
