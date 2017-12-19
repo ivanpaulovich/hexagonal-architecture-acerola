@@ -12,19 +12,17 @@
   
   <ItemGroup>
     <PackageReference Include="Autofac.Configuration" Version="4.0.1" />
-    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
     <PackageReference Include="Autofac" Version="4.6.0" />
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.2.0" />
     <PackageReference Include="MediatR" Version="3.0.1" />
-    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="2.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="1.0.0" />
-    <PackageReference Include="System.Runtime.Loader" Version="4.3.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Acerola.Application\Acerola.Application.csproj" />
     <ProjectReference Include="..\Acerola.Domain\Acerola.Domain.csproj" />
+    <ProjectReference Include="..\Acerola.Infrastructure\Acerola.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

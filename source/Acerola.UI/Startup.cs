@@ -51,18 +51,7 @@
 
         public void ConfigureContainer(ContainerBuilder builder)
         {
-            LoadInfrastructureAssemblies();
             builder.RegisterModule(new ConfigurationModule(Configuration));
-        }
-
-        private void LoadInfrastructureAssemblies()
-        {
-            string[] fileNames = Directory.EnumerateFiles(AppDomain.CurrentDomain.BaseDirectory, "*.dll", SearchOption.TopDirectoryOnly)
-                .Where(filePath => Path.GetFileName(filePath).StartsWith("Acerola.Infrastructure", StringComparison.OrdinalIgnoreCase))
-                .ToArray();
-
-            foreach (string file in fileNames)
-                AssemblyLoadContext.Default.LoadFromAssemblyPath(file);
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
