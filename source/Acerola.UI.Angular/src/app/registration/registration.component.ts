@@ -19,4 +19,8 @@ export class RegistrationComponent implements OnInit {
   ngOnInit() {
   }
 
+  add(PIN: string, name: string, initialAmount: number): void {
+    
+  }
+
 }
