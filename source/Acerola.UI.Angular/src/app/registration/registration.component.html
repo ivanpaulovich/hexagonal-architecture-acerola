@@ -1,0 +1,19 @@
+<h2>PIN {{ register.PIN | uppercase }}</h2>
+
+<div>
+  <label>PIN:
+    <input [(ngModel)]="register.PIN" placeholder="PIN"/>
+  </label>
+</div>
+<div>
+  <label>Name:
+    <input [(ngModel)]="register.name" placeholder="name"/>
+  </label>
+</div>
+<div>
+  <label>Initial Amount:
+    <input [(ngModel)]="register.initialAmount" placeholder="initialAmount"/>
+  </label>
+</div>
+
+<button (click)="save()">Save</button>
