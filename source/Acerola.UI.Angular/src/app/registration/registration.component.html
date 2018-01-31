@@ -2,7 +2,7 @@
 
 <div>
   <label>PIN:
-    <input [(ngModel)]="register.PIN" placeholder="PIN"/>
+    <input [(ngModel)]="register.pin" placeholder="pin"/>
   </label>
 </div>
 <div>
@@ -16,4 +16,4 @@
   </label>
 </div>
 
-<button (click)="add(register.PIN, register.name, register.initialAmount); clear();">Save</button>
+<button (click)="add(register.pin, register.name, register.initialAmount);">Save</button>
