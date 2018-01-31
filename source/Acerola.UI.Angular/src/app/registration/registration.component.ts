@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Register } from '../commands/register';
 import { CustomerService } from '../customer.service';
+import { Customer } from '../customer';
 
 @Component({
   selector: 'app-registration',
@@ -15,6 +16,12 @@ export class RegistrationComponent implements OnInit {
     initialAmount: 500.0
   };
 
+  customer: Customer = {
+    customerId: "",
+    name: "",
+    ssn: ""
+  };
+
   constructor(private customerService: CustomerService) { }
 
   ngOnInit() {
@@ -23,8 +30,8 @@ export class RegistrationComponent implements OnInit {
   add(pin: string, name: string, initialAmount: number): void {
     let reg : Register = new Register(pin, name, initialAmount);
     this.customerService.register(reg)
-      .subscribe(register => {
-        this.register = register;
+      .subscribe(customer => {
+        this.customer = customer;
       });
   }
 

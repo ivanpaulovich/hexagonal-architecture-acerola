@@ -5,6 +5,7 @@ import { Register } from './commands/register';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import { catchError, map, tap } from 'rxjs/operators';
+import { Customer } from './customer';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json',
@@ -19,17 +20,14 @@ export class CustomerService {
   constructor(
     private http: HttpClient) { }
 
-  public register(register: Register): Observable<Register> {
+  public register(register: Register): Observable<Customer> {
 
     console.error(register);
 
-    return this.http.post<Register>(
+    return this.http.post<Customer>(
       this.customersUrl,
       register,
-      httpOptions).pipe(
-        tap((register: Register) => console.log(`added hero w/ id=${register.pin}`)),
-        catchError(this.handleError<Register>('register'))
-      );
+      httpOptions);
   }
 
 
