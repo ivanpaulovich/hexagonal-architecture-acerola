@@ -25,4 +25,8 @@
     <ProjectReference Include="..\Acerola.Infrastructure\Acerola.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
+
 </Project>
