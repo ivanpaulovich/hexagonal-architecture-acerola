@@ -19,7 +19,9 @@
                     .ConfigureAppConfiguration((builderContext, config) =>
                     {
                         IHostingEnvironment env = builderContext.HostingEnvironment;
-                        config.AddJsonFile("autofac.json");
+                        config
+                        .AddJsonFile("autofac.json")
+                        .AddEnvironmentVariables();
                     })
                     .ConfigureServices(services => services.AddAutofac())
                     .Build();
