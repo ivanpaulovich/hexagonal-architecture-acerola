@@ -1,4 +1,4 @@
-A solution for Account Balance with DDD and CQRS. The full contains Web API application which receives commands and queries to return JSON.
+A solution for Account Balance with DDD, CQRS and TDD. The solution contains a Web API application which receives commands and queries.
 
 #### Requirements
 * [Visual Studio 2017 + Update 3](https://www.visualstudio.com/en-us/news/releasenotes/vs2017-relnotes)
