@@ -52,6 +52,9 @@
             if (GetCurrentBalance() < transaction.GetAmount())
                 throw new InsuficientFundsException($"The account {Id} does not have enough funds to withdraw {transaction.GetAmount()}.");
 
+            if (transactions == null)
+                transactions = new List<Transaction>();
+
             transactions.Add(transaction);
 
             currentBalance = currentBalance - transaction.GetAmount();
