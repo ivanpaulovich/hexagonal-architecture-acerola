@@ -1,35 +1,23 @@
 
 <h2>PIN {{ register.pin | uppercase }}</h2>
 
-<div>
-  <label>PIN:
-    <input [(ngModel)]="register.pin" placeholder="pin"/>
-  </label>
+<div class="example-container">
+
+  <mat-form-field>
+    <input matInput [(ngModel)]="register.pin" placeholder="Personnummer" />
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput [(ngModel)]="register.name" placeholder="Name" />
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput [(ngModel)]="register.initialAmount" placeholder="Initial Amount">
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" (click)="add(register.pin, register.name, register.initialAmount);">
+    Register
+  </button>
 </div>
-<div>
-  <label>Name:
-    <input [(ngModel)]="register.name" placeholder="name"/>
-  </label>
-</div>
-<div>
-  <label>Initial Amount:
-    <input [(ngModel)]="register.initialAmount" placeholder="initialAmount"/>
-  </label>
-</div>
 
-<div><span>id: </span>{{customer.customerId}}</div>
-
-<button (click)="add(register.pin, register.name, register.initialAmount);">Save</button>
-
-
-<mat-toolbar>  
-  <mat-toolbar-row>
-    <span>First Row</span>
-  </mat-toolbar-row>
-
-  <mat-toolbar-row>
-    <span>Second Row</span>
-  </mat-toolbar-row>
-</mat-toolbar>
-
-<button mat-button>Material Button</button>
+<h3>ID: {{customer.customerId}}</h3>
