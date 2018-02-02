@@ -6,7 +6,9 @@ import { AppComponent } from './app.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { CustomerService } from './customer.service';
 import { HttpClientModule } from '@angular/common/http';
-
+import { CommonModule } from '@angular/common';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatButtonModule, MatToolbarModule, MatIconModule, MatCardModule } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -16,7 +18,12 @@ import { HttpClientModule } from '@angular/common/http';
   imports: [
     BrowserModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MatButtonModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatCardModule
   ],
   providers: [CustomerService],
   bootstrap: [AppComponent]

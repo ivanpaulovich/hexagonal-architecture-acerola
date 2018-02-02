@@ -3,6 +3,9 @@ import { Register } from '../commands/register';
 import { CustomerService } from '../customer.service';
 import { Customer } from '../customer';
 
+import { CommonModule } from '@angular/common';
+import { MatButtonModule } from '@angular/material';
+
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
