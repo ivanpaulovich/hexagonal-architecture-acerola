@@ -8,6 +8,6 @@
     public interface IAccountsQueries
     {
         Task<ExpandoObject> GetAsync(Guid id);
-        Task<IEnumerable<ExpandoObject>> GetAsync();
+        Task<IEnumerable<ExpandoObject>> GetAsync(Guid? customerId);
     }
 }

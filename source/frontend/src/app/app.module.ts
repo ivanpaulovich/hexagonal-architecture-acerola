@@ -48,11 +48,13 @@ import {
 import {HttpModule} from '@angular/http';
 import {HttpClientModule} from '@angular/common/http';
 import {CdkTableModule} from '@angular/cdk/table';
+import { MyTransactionsComponent } from './my-transactions/my-transactions.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    RegistrationComponent
+    RegistrationComponent,
+    MyTransactionsComponent
   ],
   exports: [
     CdkTableModule,

@@ -1,12 +1,12 @@
 ﻿namespace Acerola.Infrastructure.Queries
 {
     using Acerola.Application.Queries;
+    using Acerola.Domain.Accounts;
     using MongoDB.Driver;
     using System;
+    using System.Collections.Generic;
     using System.Dynamic;
     using System.Threading.Tasks;
-    using System.Collections.Generic;
-    using Acerola.Domain.Customers;
 
     public class AccountsQueries : IAccountsQueries
     {
@@ -36,14 +36,18 @@
             var result = await Accounts.Find(Builders<ExpandoObject>.Filter.Eq("_id", id)).SingleOrDefaultAsync();
 
             if (result == null)
-                throw new CustomerNotFoundException($"The customer {id} does not exists or is not processed yet.");
+                throw new AccountNotFoundException($"The account {id} does not exists or is not processed yet.");
 
             return result;
         }
 
-        public async Task<IEnumerable<ExpandoObject>> GetAsync()
+        public async Task<IEnumerable<ExpandoObject>> GetAsync(Guid? customerId)
         {
-            return await Accounts.Find(e => true).ToListAsync();
+            if (customerId == null)
+                return await Accounts.Find(e => true).ToListAsync();
+
+            var result = await Accounts.Find(Builders<ExpandoObject>.Filter.Eq("customerId", customerId)).ToListAsync();
+            return result;
         }
     }
 }

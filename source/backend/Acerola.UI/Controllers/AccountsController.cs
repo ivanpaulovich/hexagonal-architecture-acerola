@@ -71,9 +71,9 @@
         /// List all accounts
         /// </summary>
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> List([FromQuery]Guid? customerId)
         {
-            var accounts = await accountsQueries.GetAsync();
+            var accounts = await accountsQueries.GetAsync(customerId);
 
             return Ok(accounts);
         }
