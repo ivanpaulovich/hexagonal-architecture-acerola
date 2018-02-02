@@ -15,7 +15,7 @@ const httpOptions = {
 @Injectable()
 export class CustomerService {
 
-  private customersUrl = 'http://grape.westus2.cloudapp.azure.com:8012/api/Customers';
+  private customersUrl = 'http://grape.westus2.cloudapp.azure.com:8000/api/Customers';
 
   constructor(
     private http: HttpClient) { }
