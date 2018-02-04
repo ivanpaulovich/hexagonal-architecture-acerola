@@ -6,6 +6,7 @@ import {FormControl, Validators} from '@angular/forms';
 import { AppComponent } from './app.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { CustomerService } from './customer.service';
+import { AccountService } from './account.service';
 import { CommonModule } from '@angular/common';
 import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
 import {BrowserModule} from '@angular/platform-browser';
@@ -49,12 +50,15 @@ import {HttpModule} from '@angular/http';
 import {HttpClientModule} from '@angular/common/http';
 import {CdkTableModule} from '@angular/cdk/table';
 import { MyTransactionsComponent } from './my-transactions/my-transactions.component';
+import { MyAccountsComponent } from './my-accounts/my-accounts.component';
+import { AppRoutingModule } from './/app-routing.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     RegistrationComponent,
-    MyTransactionsComponent
+    MyTransactionsComponent,
+    MyAccountsComponent
   ],
   exports: [
     CdkTableModule,
@@ -126,8 +130,9 @@ import { MyTransactionsComponent } from './my-transactions/my-transactions.compo
     MatTabsModule,
     MatToolbarModule,
     MatTooltipModule,
+    AppRoutingModule,
   ],
-  providers: [CustomerService],
+  providers: [CustomerService, AccountService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

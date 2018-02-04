@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Register } from './commands/register';
+import { Account } from './account';
 
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import { catchError, map, tap } from 'rxjs/operators';
-import { Customer } from './customer';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json',
@@ -13,18 +12,17 @@ const httpOptions = {
 };
 
 @Injectable()
-export class CustomerService {
+export class AccountService {
 
-  private customersUrl = 'http://grape.westus2.cloudapp.azure.com:8000/api/Customers';
+  private accountsUrl = 'http://grape.westus2.cloudapp.azure.com:8000/api/Accounts';
 
   constructor(
     private http: HttpClient) { }
 
-  public register(register: Register): Observable<Customer> {
 
-    return this.http.post<Customer>(
-      this.customersUrl,
-      register,
-      httpOptions);
+  /** GET heroes from the server */
+  getAccounts(customerId:string): Observable<Account[]> {
+    const url = `${this.accountsUrl}/?customerId=${customerId}`;
+    return this.http.get<Account[]>(url);
   }
 }

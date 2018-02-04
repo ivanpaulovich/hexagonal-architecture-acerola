@@ -10,14 +10,21 @@
 
         }
 
+        public string Description
+        {
+            get
+            {
+                return "Debit";
+            }
+        }
+
         public static Debit Create(Guid customerId, Amount amount)
         {
             if (amount == null)
                 throw new ArgumentNullException(nameof(amount));
 
             Debit debit = new Debit();
-            debit.customerId = customerId;
-            debit.amount = amount;
+            debit.Amount = amount;
             return debit;
         }
     }

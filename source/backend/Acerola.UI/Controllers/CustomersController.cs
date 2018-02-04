@@ -39,10 +39,10 @@
             var result = new
             {
                 CustomerId = customer.Id,
-                SSN = customer.GetPIN().Text,
-                Name = customer.GetName().Text,
-                AccountId = customer.GetAccounts().First().Id,
-                CurrentBalance = customer.GetAccounts().First().GetCurrentBalance()
+                SSN = customer.PIN.Text,
+                Name = customer.Name.Text,
+                AccountId = customer.Accounts.First().Id,
+                CurrentBalance = customer.Accounts.First().CurrentBalance
             };
 
             return CreatedAtRoute("GetCustomer", new { id = customer.Id }, result);

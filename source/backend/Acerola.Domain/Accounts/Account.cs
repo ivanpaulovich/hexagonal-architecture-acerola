@@ -4,26 +4,27 @@
     using Acerola.Domain.ValueObjects;
     using System;
     using System.Collections.Generic;
+    using System.Linq;
 
     public class Account : AggregateRoot
     {
-        private Guid customerId;
-        private Amount currentBalance;
+        public Guid CustomerId { get; private set; }
+        public Amount CurrentBalance { get; private set; }
+
         private List<Transaction> transactions;
-
-        public Guid GetCustomerId()
+        public IReadOnlyCollection<Transaction> Transactions
         {
-            return customerId;
-        }
+            get
+            {
+                return transactions;
+            }
+            private set
+            {
+                if (value == null)
+                    value = new List<Transaction>();
 
-        public Amount GetCurrentBalance()
-        {
-            return currentBalance;
-        }
-
-        public IReadOnlyCollection<Transaction> GetTransactions()
-        {
-            return transactions;
+                transactions = value.ToList();
+            }
         }
 
         public static Account Create(Customer customer, Amount initialAmount)
@@ -32,37 +33,31 @@
                 throw new ArgumentNullException(nameof(initialAmount));
 
             Account account = new Account();
-            account.customerId = customer.Id;
-            account.currentBalance = initialAmount;
+            account.CustomerId = customer.Id;
+            account.CurrentBalance = initialAmount;
             return account;
         }
 
         public void Deposit(Transaction transaction)
         {
-            if (transactions == null)
-                transactions = new List<Transaction>();
-
             transactions.Add(transaction);
 
-            currentBalance = currentBalance + transaction.GetAmount();
+            CurrentBalance = CurrentBalance + transaction.Amount;
         }
 
         public void Withdraw(Transaction transaction)
         {
-            if (GetCurrentBalance() < transaction.GetAmount())
-                throw new InsuficientFundsException($"The account {Id} does not have enough funds to withdraw {transaction.GetAmount()}.");
-
-            if (transactions == null)
-                transactions = new List<Transaction>();
+            if (CurrentBalance < transaction.Amount)
+                throw new InsuficientFundsException($"The account {Id} does not have enough funds to withdraw {transaction.Amount}.");
 
             transactions.Add(transaction);
 
-            currentBalance = currentBalance - transaction.GetAmount();
+            CurrentBalance = CurrentBalance - transaction.Amount;
         }
 
         public void Close()
         {
-            if (GetCurrentBalance() > Amount.Create(0))
+            if (CurrentBalance > Amount.Create(0))
                 throw new AccountCannotBeClosedException($"The account {Id} can not be closed because it has funds.");
         }
     }

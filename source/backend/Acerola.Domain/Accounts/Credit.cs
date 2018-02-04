@@ -10,14 +10,21 @@
 
         }
 
+        public string Description
+        {
+            get
+            {
+                return "Credit";
+            }
+        }
+
         public static Credit Create(Guid customerId, Amount amount)
         {
             if (amount == null)
                 throw new ArgumentNullException(nameof(amount));
 
             Credit credit = new Credit();
-            credit.customerId = customerId;
-            credit.amount = amount;
+            credit.Amount = amount;
             return credit;
         }
     }

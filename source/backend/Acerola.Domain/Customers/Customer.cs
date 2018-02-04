@@ -4,26 +4,26 @@
     using System;
     using Acerola.Domain.ValueObjects;
     using Acerola.Domain.Accounts;
+    using System.Linq;
 
     public class Customer : AggregateRoot
     {
-        private Name name;
-        private PIN pin;
+        public Name Name { get; private set; }
+        public PIN PIN { get; private set; }
+
         private List<Account> accounts;
-
-        public Name GetName()
+        public IReadOnlyCollection<Account> Accounts
         {
-            return name;
-        }
-
-        public PIN GetPIN()
-        {
-            return pin;
-        }
-
-        public IReadOnlyCollection<Account> GetAccounts()
-        {
-            return accounts;
+            get
+            {
+                return accounts.AsReadOnly();
+            }
+            private set
+            {
+                if (value == null)
+                    value = new List<Account>();
+                accounts = value.ToList();
+            }
         }
 
         public static Customer Create(PIN pin, Name name)
@@ -35,8 +35,8 @@
                 throw new ArgumentNullException(nameof(name));
 
             Customer customer = new Customer();
-            customer.pin = pin;
-            customer.name = name;
+            customer.PIN = pin;
+            customer.Name = name;
 
             return customer;
         }

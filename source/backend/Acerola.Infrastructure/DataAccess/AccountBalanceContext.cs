@@ -36,37 +36,43 @@
 
         private void Map()
         {
-            BsonClassMap.RegisterClassMap<Entity>(cm =>
+            if (!BsonClassMap.IsClassMapRegistered(typeof(Entity)))
+                BsonClassMap.RegisterClassMap<Entity>(cm =>
             {
-                cm.MapIdProperty(c => c.Id);
+                cm.AutoMap();
             });
 
-            BsonClassMap.RegisterClassMap<AggregateRoot>(cm =>
+            if (!BsonClassMap.IsClassMapRegistered(typeof(AggregateRoot)))
+                BsonClassMap.RegisterClassMap<AggregateRoot>(cm =>
             {
-                cm.MapProperty(c => c.Version).SetElementName("_version");
+                cm.AutoMap();
             });
 
-            BsonClassMap.RegisterClassMap<Account>(cm =>
+            if (!BsonClassMap.IsClassMapRegistered(typeof(Account)))
+                BsonClassMap.RegisterClassMap<Account>(cm =>
             {
-                cm.MapField("currentBalance").SetElementName("currentBalance");
-                cm.MapField("transactions").SetElementName("transactions");
-                cm.MapField("customerId").SetElementName("customerId");
+                cm.AutoMap();
             });
 
-            BsonClassMap.RegisterClassMap<Transaction>(cm =>
-            {
-                cm.MapField("amount").SetElementName("amount");
-            });
+            if (!BsonClassMap.IsClassMapRegistered(typeof(Transaction)))
+                BsonClassMap.RegisterClassMap<Transaction>(cm =>
+                {
+                    cm.AutoMap();
+                    cm.SetIsRootClass(true);
+                    cm.AddKnownType(typeof(Debit));
+                    cm.AddKnownType(typeof(Credit));
+                });
 
-            BsonClassMap.RegisterClassMap<Credit>();
+            if (!BsonClassMap.IsClassMapRegistered(typeof(Credit)))
+                BsonClassMap.RegisterClassMap<Credit>();
+            if (!BsonClassMap.IsClassMapRegistered(typeof(Debit)))
+                BsonClassMap.RegisterClassMap<Debit>();
 
-            BsonClassMap.RegisterClassMap<Debit>();
-
-            BsonClassMap.RegisterClassMap<Customer>(cm =>
-            {
-                cm.MapField("name").SetElementName("name");
-                cm.MapField("pin").SetElementName("pin");
-            });
+            if (!BsonClassMap.IsClassMapRegistered(typeof(Customer)))
+                BsonClassMap.RegisterClassMap<Customer>(cm =>
+                {
+                    cm.AutoMap();
+                });
         }
     }
 }

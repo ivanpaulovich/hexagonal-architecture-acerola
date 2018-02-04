@@ -12,4 +12,7 @@ export class MyTransactionsComponent implements OnInit {
   ngOnInit() {
   }
 
+  accounts : Account[];
+
+
 }
