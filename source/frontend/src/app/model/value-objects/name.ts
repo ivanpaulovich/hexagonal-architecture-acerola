@@ -1,3 +1,5 @@
 export class Name {
-    public Text: string;
+    constructor(public Text: string) {
+
+    }
 }

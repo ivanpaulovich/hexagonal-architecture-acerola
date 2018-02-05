@@ -4,22 +4,20 @@
 <div class="example-container">
 
   <mat-form-field>
-    <input matInput [(ngModel)]="register.pin" placeholder="Personnummer" />
+    <input matInput [(ngModel)]="registerModel.pin" placeholder="Personnummer" />
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput [(ngModel)]="register.name" placeholder="Name" />
+    <input matInput [(ngModel)]="registerModel.name" placeholder="Name" />
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput [(ngModel)]="register.initialAmount" placeholder="Initial Amount">
+    <input matInput [(ngModel)]="registerModel.initialAmount" placeholder="Initial Amount">
   </mat-form-field>
 
-  <button mat-raised-button color="primary" (click)="add(register.pin, register.name, register.initialAmount);">
+  <button mat-raised-button color="primary" (click)="register(registerModel.pin, registerModel.name, registerModel.initialAmount);">
     Register
   </button>
 </div>
-
-<h3>ID: {{customer.customerId}}</h3>
 
 

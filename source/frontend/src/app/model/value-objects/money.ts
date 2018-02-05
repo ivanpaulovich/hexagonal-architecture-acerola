@@ -1,3 +1,5 @@
 export class Money {
-    public Value: number;
+    constructor(public Value: number) {
+
+    }
 }

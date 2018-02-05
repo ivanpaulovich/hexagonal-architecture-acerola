@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Account } from './account';
+import { Account } from './model/account';
 
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
@@ -21,7 +21,7 @@ export class AccountService {
 
 
   /** GET heroes from the server */
-  getAccounts(customerId:string): Observable<Account[]> {
+  getAccounts(customerId: string): Observable<Account[]> {
     const url = `${this.accountsUrl}/?customerId=${customerId}`;
     return this.http.get<Account[]>(url);
   }

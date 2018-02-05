@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { AccountService } from '../account.service';
-import { Account } from '../account';
+import { Account } from '../model/account';
 import { ActivatedRoute } from '@angular/router';
+import { CustomerService } from '../customer.service';
+import { Customer } from '../model/customer';
 
 @Component({
   selector: 'app-customer',
@@ -9,21 +11,21 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./customer.component.css']
 })
 export class CustomerComponent implements OnInit {
-  accounts: Account[];
+  customer: Customer;
 
   constructor(
     private route: ActivatedRoute,
-    private accountService: AccountService) { }
+    private customerService: CustomerService) { }
 
   ngOnInit() {
-    this.getAccounts();
+    this.getCustomer();
   }
 
-  getAccounts() {
+  getCustomer() {
     const customerId = this.route.snapshot.paramMap.get('customerId');
 
-    this.accountService
-    .getAccounts(customerId)
-    .subscribe(accounts => this.accounts = accounts);
+    this.customerService
+      .getCustomer(customerId)
+      .subscribe(customer => this.customer = customer);
   }
 }

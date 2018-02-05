@@ -1,5 +1,4 @@
-export class Register
-{
+export class Register {
     constructor(
         public pin: string,
         public name: string,

@@ -3,10 +3,11 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { RegistrationComponent } from './registration/registration.component';
 import { MyAccountsComponent } from './my-accounts/my-accounts.component';
+import { CustomerComponent } from './customer/customer.component';
 
 const routes: Routes = [
   { path: '', component: RegistrationComponent },
-  { path: 'my-accounts/:customerId', component: MyAccountsComponent }
+  { path: 'customer/:customerId', component: CustomerComponent }
 ];
 
 @NgModule({

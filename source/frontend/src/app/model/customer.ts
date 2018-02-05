@@ -4,10 +4,10 @@ import { Account } from './account';
 
 export class Customer {
     constructor(
-        public _id: string,
-        public Version: Number,
-        public Name: Name,
-        public PIN: PIN,
-        public Accounts: Account[]
+        public id: string,
+        public version: Number,
+    //    public name: Name,
+      //  public pin: PIN,
+      //  public Accounts: Account[]
     ) { }
 }

@@ -1,3 +1,5 @@
 export class PIN {
-    public Text: string;
+    constructor(public Text: string) {
+
+    }
 }
