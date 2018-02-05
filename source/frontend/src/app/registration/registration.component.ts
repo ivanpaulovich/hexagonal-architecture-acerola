@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Register } from '../commands/register';
 import { CustomerService } from '../customer.service';
 import { Customer } from '../customer';
-
+import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material';
 
@@ -25,16 +25,19 @@ export class RegistrationComponent implements OnInit {
     ssn: ""
   };
 
-  constructor(private customerService: CustomerService) { }
+
+  constructor(private customerService: CustomerService,
+    private router: Router) { }
 
   ngOnInit() {
   }
 
   add(pin: string, name: string, initialAmount: number): void {
-    let reg : Register = new Register(pin, name, initialAmount);
+    const reg: Register = new Register(pin, name, initialAmount);
     this.customerService.register(reg)
       .subscribe(customer => {
         this.customer = customer;
+        this.router.navigate([`/my-accounts/${this.customer.customerId}` ]);
       });
   }
 

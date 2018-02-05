@@ -91,7 +91,7 @@
             if (customerId == null)
                 return await Accounts.Find(e => true).ToListAsync();
 
-            var result = await Accounts.Find(Builders<ExpandoObject>.Filter.Eq("customerId", customerId)).ToListAsync();
+            var result = await Accounts.Find(Builders<ExpandoObject>.Filter.Eq("CustomerId", customerId)).ToListAsync();
             return result;
         }
     }

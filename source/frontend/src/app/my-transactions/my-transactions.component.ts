@@ -7,12 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MyTransactionsComponent implements OnInit {
 
+  accounts: Account[];
+
   constructor() { }
 
   ngOnInit() {
   }
-
-  accounts : Account[];
 
 
 }
