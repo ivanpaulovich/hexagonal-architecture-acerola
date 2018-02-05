@@ -36,16 +36,7 @@
         {
             Customer customer = await mediator.Send(command);
 
-            var result = new
-            {
-                CustomerId = customer.Id,
-                SSN = customer.PIN.Text,
-                Name = customer.Name.Text,
-                AccountId = customer.Accounts.First().Id,
-                CurrentBalance = customer.Accounts.First().CurrentBalance
-            };
-
-            return CreatedAtRoute("GetCustomer", new { id = customer.Id }, result);
+            return CreatedAtRoute("GetCustomer", new { id = customer.Id }, customer);
         }
 
         /// <summary>

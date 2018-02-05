@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Register } from '../commands/register';
+import { Register } from '../model/commands/register';
 import { CustomerService } from '../customer.service';
-import { Customer } from '../customer';
+import { Customer } from '../model/customer';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material';
@@ -13,13 +13,13 @@ import { MatButtonModule } from '@angular/material';
 })
 export class RegistrationComponent implements OnInit {
 
-  register: Register = {
+  registerModel: Register = {
     pin: "",
     name: "",
     initialAmount: 500.0
   };
 
-  customer: Customer = {
+  customerModel: Customer = {
     customerId: "",
     name: "",
     ssn: ""
@@ -32,8 +32,10 @@ export class RegistrationComponent implements OnInit {
   ngOnInit() {
   }
 
-  add(pin: string, name: string, initialAmount: number): void {
-    const reg: Register = new Register(pin, name, initialAmount);
+  register(pin: string,
+    name: string,
+    initialAmount: number): void {
+    const reg: Register = new Register(pin, name, initialAmount);    
     this.customerService.register(reg)
       .subscribe(customer => {
         this.customer = customer;

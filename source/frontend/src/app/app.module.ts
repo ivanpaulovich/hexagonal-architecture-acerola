@@ -52,13 +52,17 @@ import {CdkTableModule} from '@angular/cdk/table';
 import { MyTransactionsComponent } from './my-transactions/my-transactions.component';
 import { MyAccountsComponent } from './my-accounts/my-accounts.component';
 import { AppRoutingModule } from './/app-routing.module';
+import { DepositComponent } from './deposit/deposit.component';
+import { CustomerComponent } from './customer/customer.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     RegistrationComponent,
     MyTransactionsComponent,
-    MyAccountsComponent
+    MyAccountsComponent,
+    DepositComponent,
+    CustomerComponent
   ],
   exports: [
     CdkTableModule,

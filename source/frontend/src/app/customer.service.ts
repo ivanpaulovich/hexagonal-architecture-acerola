@@ -27,4 +27,12 @@ export class CustomerService {
       register,
       httpOptions);
   }
+
+  public getCustomer(customerId: string): Observable<Customer> {
+
+    return this.http.post<Customer>(
+      this.customersUrl,
+      customerId,
+      httpOptions);
+  }
 }
