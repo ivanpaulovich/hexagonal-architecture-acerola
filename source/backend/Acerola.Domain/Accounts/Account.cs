@@ -11,12 +11,17 @@
         public Guid CustomerId { get; private set; }
         public Amount CurrentBalance { get; private set; }
 
+        public Account()
+        {
+            transactions = new List<Transaction>();
+        }
+
         private List<Transaction> transactions;
         public IReadOnlyCollection<Transaction> Transactions
         {
             get
             {
-                return transactions;
+                return transactions.AsReadOnly();
             }
             private set
             {

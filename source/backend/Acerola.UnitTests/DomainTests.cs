@@ -28,10 +28,10 @@ namespace Acerola.Domain.UnitTests
 
             //
             // Assert
-            var accounts = sut.GetAccounts();
+            var accounts = sut.Accounts;
             var registered = accounts.Where(e => e.Id == account.Id).First();
 
-            Assert.Equal(registered.GetCurrentBalance().Value, 1000.0);
+            Assert.Equal(registered.CurrentBalance.Value, 1000.0);
         }
 
         [Fact]
@@ -49,7 +49,7 @@ namespace Acerola.Domain.UnitTests
 
             customer.Register(account);
 
-            Account sut = customer.GetAccounts().First();
+            Account sut = customer.Accounts.First();
 
             Transaction transaction = Credit.Create(
                 customer.Id, Amount.Create(100.0));
@@ -60,11 +60,11 @@ namespace Acerola.Domain.UnitTests
 
             //
             // Assert
-            var transactions = sut.GetTransactions();
+            var transactions = sut.Transactions;
             var deposited = transactions.Where(e => e.Id == transaction.Id).First();
 
-            Assert.Equal(deposited.GetAmount().Value, 100.0);
-            Assert.Equal(sut.GetCurrentBalance().Value, 1100);
+            Assert.Equal(deposited.Amount.Value, 100.0);
+            Assert.Equal(sut.CurrentBalance.Value, 1100);
         }
 
         [Fact]
@@ -82,7 +82,7 @@ namespace Acerola.Domain.UnitTests
 
             customer.Register(account);
 
-            Account sut = customer.GetAccounts().First();
+            Account sut = customer.Accounts.First();
 
             Transaction transaction = Debit.Create(
                 customer.Id, Amount.Create(100.0));
@@ -93,11 +93,11 @@ namespace Acerola.Domain.UnitTests
 
             //
             // Assert
-            var transactions = sut.GetTransactions();
+            var transactions = sut.Transactions;
             var deposited = transactions.Where(e => e.Id == transaction.Id).First();
 
-            Assert.Equal(deposited.GetAmount().Value, 100.0);
-            Assert.Equal(sut.GetCurrentBalance().Value, 900);
+            Assert.Equal(deposited.Amount.Value, 100.0);
+            Assert.Equal(sut.CurrentBalance.Value, 900);
         }
 
         [Fact]
@@ -115,7 +115,7 @@ namespace Acerola.Domain.UnitTests
 
             customer.Register(account);
 
-            Account sut = customer.GetAccounts().First();
+            Account sut = customer.Accounts.First();
             Transaction transaction = Debit.Create(
                 customer.Id, Amount.Create(1000.0));
 
@@ -127,10 +127,10 @@ namespace Acerola.Domain.UnitTests
 
             //
             // Assert
-            var transactions = sut.GetTransactions();
+            var transactions = sut.Transactions;
             var closed = transactions.Where(e => e.Id == transaction.Id).First();
 
-            Assert.Equal(closed.GetAmount().Value, 1000.0);
+            Assert.Equal(closed.Amount.Value, 1000.0);
         }
 
         [Fact]
@@ -148,7 +148,7 @@ namespace Acerola.Domain.UnitTests
 
             customer.Register(account);
 
-            Account sut = customer.GetAccounts().First();
+            Account sut = customer.Accounts.First();
 
             //
             // Act and Assert
@@ -172,7 +172,7 @@ namespace Acerola.Domain.UnitTests
 
             customer.Register(account);
 
-            Account sut = customer.GetAccounts().First();
+            Account sut = customer.Accounts.First();
 
             Transaction transaction = Debit.Create(
                 customer.Id, Amount.Create(5000.0));

@@ -26,6 +26,11 @@
             }
         }
 
+        public Customer()
+        {
+            accounts = new List<Account>();
+        }
+
         public static Customer Create(PIN pin, Name name)
         {
             if (pin == null)
@@ -46,7 +51,6 @@
             if (account == null)
                 throw new ArgumentNullException(nameof(account));
 
-            accounts = new List<Account>();
             accounts.Add(account);
         }
     }
