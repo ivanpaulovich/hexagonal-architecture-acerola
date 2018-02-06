@@ -1,13 +1,11 @@
 ﻿namespace Acerola.UI.Controllers
 {
-    using MediatR;
-    using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.Mvc;
-    using Acerola.Domain.Customers;
     using Acerola.Application.Commands.Customers;
     using Acerola.Application.Queries;
+    using Acerola.Domain.Customers;
+    using MediatR;
+    using Microsoft.AspNetCore.Mvc;
     using System;
-    using System.Linq;
     using System.Threading.Tasks;
 
     [Route("api/[controller]")]
@@ -36,7 +34,9 @@
         {
             Customer customer = await mediator.Send(command);
 
-            return CreatedAtRoute("GetCustomer", new { id = customer.Id }, customer);
+            dynamic loadedCustomer = (dynamic)await customersQueries.GetAsync(customer.Id);
+
+            return CreatedAtRoute("GetCustomer", new { id = loadedCustomer._id }, loadedCustomer);
         }
 
         /// <summary>

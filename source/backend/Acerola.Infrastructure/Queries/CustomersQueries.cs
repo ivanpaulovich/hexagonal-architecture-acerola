@@ -73,6 +73,7 @@
                 BsonClassMap.RegisterClassMap<Customer>(cm =>
                 {
                     cm.AutoMap();
+                    cm.UnmapProperty(p => p.Accounts);
                 });
         }
 
