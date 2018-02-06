@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AccountService } from '../account.service';
 import { Account } from '../model/account';
 import { ActivatedRoute } from '@angular/router';
+import { CurrencyPipe } from '@angular/common';
 
 @Component({
   selector: 'app-my-accounts',
@@ -9,7 +10,8 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./my-accounts.component.css']
 })
 export class MyAccountsComponent implements OnInit {
-  accounts: Account[];
+  accountsModel: Account[];
+  displayedColumns = ['description'];
 
   constructor(
     private route: ActivatedRoute,
@@ -21,10 +23,9 @@ export class MyAccountsComponent implements OnInit {
 
   getAccounts() {
     const customerId = this.route.snapshot.paramMap.get('customerId');
-
     this.accountService
-    .getAccounts(customerId)
-    .subscribe(accounts => this.accounts = accounts);
+      .getAccounts(customerId)
+      .subscribe(accounts => this.accountsModel = accounts);
   }
 
 }

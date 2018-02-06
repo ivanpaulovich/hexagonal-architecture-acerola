@@ -1,19 +1,2 @@
-
-<ul>
-  <li>
-    <span>{{ customer._id }}</span>
-  </li>
-
-  <li>
-    <span>{{ customer.Version }}</span>
-  </li>
-
-  <li>
-    <span>{{ customer.PIN.Text }}</span>
-  </li>
-
-  <li>
-    <span>{{ customer.Name.Text }}</span>
-  </li>
-  <app-my-accounts></app-my-accounts>
-</ul>
+<h2>Account Balance for {{ customerModel.Name.Text }} ({{ customerModel.PIN.Text }})</h2>
+<app-my-accounts></app-my-accounts>

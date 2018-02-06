@@ -22,6 +22,7 @@ import {
   MatChipsModule,
   MatDatepickerModule,
   MatDialogModule,
+  MatDividerModule,
   MatExpansionModule,
   MatGridListModule,
   MatIconModule,
@@ -40,11 +41,11 @@ import {
   MatSlideToggleModule,
   MatSnackBarModule,
   MatSortModule,
+  MatStepperModule,
   MatTableModule,
   MatTabsModule,
   MatToolbarModule,
   MatTooltipModule,
-  MatStepperModule,
 } from '@angular/material';
 import {HttpModule} from '@angular/http';
 import {HttpClientModule} from '@angular/common/http';
@@ -75,6 +76,7 @@ import { CustomerComponent } from './customer/customer.component';
     MatStepperModule,
     MatDatepickerModule,
     MatDialogModule,
+    MatDividerModule,
     MatExpansionModule,
     MatGridListModule,
     MatIconModule,
@@ -96,7 +98,7 @@ import { CustomerComponent } from './customer/customer.component';
     MatTableModule,
     MatTabsModule,
     MatToolbarModule,
-    MatTooltipModule,
+    MatTooltipModule
   ],
   imports: [
     BrowserModule,

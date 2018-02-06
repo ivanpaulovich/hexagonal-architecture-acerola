@@ -11,7 +11,7 @@ import { Customer } from '../model/customer';
   styleUrls: ['./customer.component.css']
 })
 export class CustomerComponent implements OnInit {
-  customer: Customer;
+  customerModel: Customer = { _id: '', Version: 0, Name: { Text: ''}, PIN: { Text: '' } };
 
   constructor(
     private route: ActivatedRoute,
@@ -26,6 +26,6 @@ export class CustomerComponent implements OnInit {
 
     this.customerService
       .getCustomer(customerId)
-      .subscribe(customer => this.customer = customer);
+      .subscribe(customer => this.customerModel = customer);
   }
 }
