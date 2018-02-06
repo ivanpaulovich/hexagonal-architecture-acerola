@@ -1,5 +1,5 @@
 
-<h2>PIN {{ register.pin | uppercase }}</h2>
+<h2>PIN {{ registerModel.pin | uppercase }}</h2>
 
 <div class="example-container">
 
@@ -15,7 +15,7 @@
     <input matInput [(ngModel)]="registerModel.initialAmount" placeholder="Initial Amount">
   </mat-form-field>
 
-  <button mat-raised-button color="primary" (click)="register(registerModel.pin, registerModel.name, registerModel.initialAmount);">
+  <button mat-raised-button color="primary" (click)="register();">
     Register
   </button>
 </div>
