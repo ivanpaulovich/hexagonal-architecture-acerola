@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Register } from '../model/register';
+import { RegisterCommand } from '../model/register-command';
 import { CustomerService } from '../customer.service';
 import { Customer } from '../model/customer';
 import { Router } from '@angular/router';
@@ -13,7 +13,7 @@ import { MatButtonModule } from '@angular/material';
 })
 export class RegistrationComponent implements OnInit {
 
-  registerModel: Register = { pin: '', name: '', initialAmount: 0};
+  registerModel: RegisterCommand = { pin: '', name: '', initialAmount: 0};
 
   constructor(private customerService: CustomerService,
     private router: Router) { }

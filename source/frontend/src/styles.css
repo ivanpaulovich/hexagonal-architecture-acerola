@@ -8,3 +8,12 @@ body {
 .basic-container {
   padding: 5px;
 }
+
+.example-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.example-container > * {
+  width: 100%;
+}

@@ -1,4 +1,4 @@
-export class Register {
+export class RegisterCommand {
     constructor(
         public pin: string,
         public name: string,

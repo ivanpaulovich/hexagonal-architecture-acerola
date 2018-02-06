@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Register } from './model/register';
+import { RegisterCommand } from './model/register-command';
 
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
@@ -20,7 +20,7 @@ export class CustomerService {
   constructor(
     private http: HttpClient) { }
 
-  public register(register: Register): Observable<Customer> {
+  public register(register: RegisterCommand): Observable<Customer> {
     return this.http.post<Customer>(this.customersUrl, register, httpOptions);
   }
 

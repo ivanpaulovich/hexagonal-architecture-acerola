@@ -25,4 +25,9 @@ export class AccountService {
     const url = `${this.accountsUrl}/?customerId=${customerId}`;
     return this.http.get<Account[]>(url);
   }
+
+  deposit(amount: number): void {
+    const url = `${this.accountsUrl}/?customerId=${customerId}`;
+    this.http.patch(url, );
+  }
 }
