@@ -1,4 +1,4 @@
-export class PIN {
+export class PINValue {
     constructor(public Text: string) {
 
     }

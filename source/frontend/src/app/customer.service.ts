@@ -20,12 +20,8 @@ export class CustomerService {
   constructor(
     private http: HttpClient) { }
 
-  public register(register: Register): Observable<string> {
-    return this.http.post<string>(this.customersUrl, register, httpOptions)
-      .pipe(
-        map(res => res['id']),
-        tap(h => { console.log(h); })
-      );
+  public register(register: Register): Observable<Customer> {
+    return this.http.post<Customer>(this.customersUrl, register, httpOptions);
   }
 
   public getCustomer(customerId: string): Observable<Customer> {

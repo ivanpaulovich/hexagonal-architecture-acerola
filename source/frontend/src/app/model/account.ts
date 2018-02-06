@@ -1,10 +1,10 @@
-import { Money } from './value-objects/money';
+import { MoneyValue } from './money-value';
 
 export class Account {
     constructor(
         public _id: string,
-        public Version: Number,
+        public Version: number,
         public CustomerId: string,
-        public CurrentBalance: Money
+        public CurrentBalance: MoneyValue
     ) { }
 }

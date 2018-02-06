@@ -1,13 +1,12 @@
-import { Name } from './value-objects/name';
-import { PIN } from './value-objects/pin';
+import { NameValue } from './name-value';
+import { PINValue } from './pin-value';
 import { Account } from './account';
 
 export class Customer {
     constructor(
-        public id: string,
-        public version: Number,
-    //    public name: Name,
-      //  public pin: PIN,
-      //  public Accounts: Account[]
+        public _id: string,
+        public Version: Number,
+        public Name: NameValue,
+        public PIN: PINValue
     ) { }
 }
