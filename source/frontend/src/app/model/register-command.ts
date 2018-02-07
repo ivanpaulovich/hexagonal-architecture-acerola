@@ -1,6 +1,6 @@
 export class RegisterCommand {
     constructor(
-        public pin: string,
-        public name: string,
-        public initialAmount: number) { }
+        public PIN: string,
+        public Name: string,
+        public InitialAmount: number) { }
 }

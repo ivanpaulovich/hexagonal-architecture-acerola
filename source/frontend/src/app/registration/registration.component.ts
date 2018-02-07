@@ -13,9 +13,10 @@ import { MatButtonModule } from '@angular/material';
 })
 export class RegistrationComponent implements OnInit {
 
-  registerModel: RegisterCommand = { pin: '', name: '', initialAmount: 0};
+  registerModel: RegisterCommand = { PIN: '', Name: '', InitialAmount: 0};
 
-  constructor(private customerService: CustomerService,
+  constructor(
+    private customerService: CustomerService,
     private router: Router) { }
 
   ngOnInit() {
@@ -24,7 +25,7 @@ export class RegistrationComponent implements OnInit {
   public register(): void {
     this.customerService.register(this.registerModel)
       .subscribe(customer => {
-        this.router.navigate([`/customer/${customer._id}` ]);
+        this.router.navigate([`/customer/${customer.CustomerId}`]);
       });
   }
 }

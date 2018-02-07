@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { RegisterCommand } from './model/register-command';
+import { DepositCommand } from './model/deposit-command';
+import { WithdrawCommand } from './model/withdraw-command';
 
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
@@ -27,5 +29,13 @@ export class CustomerService {
   public getCustomer(customerId: string): Observable<Customer> {
     const url = `${this.customersUrl}/${customerId}`;
     return this.http.get<Customer>(url);
+  }
+
+  public deposit(deposit: DepositCommand): void {
+    this.http.patch(this.customersUrl + 'Deposit', deposit, httpOptions);
+  }
+
+  public withdraw(withdraw: WithdrawCommand): void {
+    this.http.patch(this.customersUrl + 'Withdraw', withdraw, httpOptions);
   }
 }
