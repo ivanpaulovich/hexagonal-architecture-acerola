@@ -14,15 +14,11 @@
         {
             builder.RegisterType<CustomersQueries>()
                 .As<ICustomersQueries>()
-                .WithParameter("connectionString", ConnectionString)
-                .WithParameter("databaseName", DatabaseName)
-                .SingleInstance();
+                .InstancePerLifetimeScope();
 
             builder.RegisterType<AccountsQueries>()
                 .As<IAccountsQueries>()
-                .WithParameter("connectionString", ConnectionString)
-                .WithParameter("databaseName", DatabaseName)
-                .SingleInstance();
+                .InstancePerLifetimeScope();
         }
     }
 }

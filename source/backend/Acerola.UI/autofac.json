@@ -19,6 +19,11 @@
       "type": "Acerola.Infrastructure.Modules.MediatRModule",
       "properties": {
       }
+    },
+    {
+      "type": "Acerola.Infrastructure.Modules.AutoMapperModule",
+      "properties": {
+      }
     }
   ]
 }

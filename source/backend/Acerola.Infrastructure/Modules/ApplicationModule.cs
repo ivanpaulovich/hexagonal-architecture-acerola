@@ -18,7 +18,7 @@
                 .As<AccountBalanceContext>()
                 .WithParameter("connectionString", ConnectionString)
                 .WithParameter("databaseName", DatabaseName)
-                .SingleInstance();
+                .InstancePerLifetimeScope();
 
             builder.RegisterType<CustomerReadOnlyRepository>()
                 .As<ICustomerReadOnlyRepository>()

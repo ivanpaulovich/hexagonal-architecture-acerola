@@ -3,6 +3,7 @@
     using Acerola.Application.Queries;
     using Acerola.Application.ViewModels;
     using Acerola.Domain.Accounts;
+    using Acerola.Infrastructure.AutoMapper;
     using Acerola.Infrastructure.DataAccess;
     using MongoDB.Driver;
     using System;
@@ -12,10 +13,12 @@
     public class AccountsQueries : IAccountsQueries
     {
         private readonly AccountBalanceContext mongoDB;
+        private readonly DomainConverter domainConverter;
 
-        public AccountsQueries(AccountBalanceContext mongoDB)
+        public AccountsQueries(AccountBalanceContext mongoDB, DomainConverter domainConverter)
         {
             this.mongoDB = mongoDB;
+            this.domainConverter = domainConverter;
         }
 
         public async Task<AccountVM> GetAccount(Guid id)
@@ -27,27 +30,7 @@
             if (data == null)
                 throw new AccountNotFoundException($"The account {id} does not exists or is not processed yet.");
 
-            List<TransactionVM> transactions = new List<TransactionVM>();
-
-            foreach (Transaction transaction in data.Transactions)
-            {
-                TransactionVM transactionVM = new TransactionVM()
-                {
-                    Amount = transaction.Amount.Value,
-                    Description = transaction.Description,
-                    TransactionDate = transaction.TransactionDate
-                };
-
-                transactions.Add(transactionVM);
-            }
-
-            AccountVM accountVM = new AccountVM()
-            {
-                AccountId = data.Id,
-                CustomerId = data.CustomerId,
-                CurrentBalance = data.CurrentBalance.Value,
-                Transactions = transactions
-            };
+            AccountVM accountVM = this.domainConverter.Map(data);
 
             return accountVM;
         }
@@ -62,27 +45,7 @@
 
             foreach (Account item in data)
             {
-                List<TransactionVM> transactions = new List<TransactionVM>();
-
-                foreach (Transaction transaction in item.Transactions)
-                {
-                    TransactionVM transactionVM = new TransactionVM()
-                    {
-                        Amount = transaction.Amount.Value,
-                        Description = transaction.Description,
-                        TransactionDate = transaction.TransactionDate
-                    };
-
-                    transactions.Add(transactionVM);
-                }
-
-                AccountVM accountVM = new AccountVM()
-                {
-                    AccountId = item.Id,
-                    CustomerId = item.CustomerId,
-                    CurrentBalance = item.CurrentBalance.Value,
-                    Transactions = transactions
-                };
+                AccountVM accountVM = this.domainConverter.Map(item);
 
                 result.Add(accountVM);
             }
@@ -101,27 +64,7 @@
 
             foreach (Account item in data)
             {
-                List<TransactionVM> transactions = new List<TransactionVM>();
-
-                foreach (Transaction transaction in item.Transactions)
-                {
-                    TransactionVM transactionVM = new TransactionVM()
-                    {
-                        Amount = transaction.Amount.Value,
-                        Description = transaction.Description,
-                        TransactionDate = transaction.TransactionDate
-                    };
-
-                    transactions.Add(transactionVM);
-                }
-
-                AccountVM accountVM = new AccountVM()
-                {
-                    AccountId = item.Id,
-                    CustomerId = item.CustomerId,
-                    CurrentBalance = item.CurrentBalance.Value,
-                    Transactions = transactions
-                };
+                AccountVM accountVM = this.domainConverter.Map(item);
 
                 result.Add(accountVM);
             }
