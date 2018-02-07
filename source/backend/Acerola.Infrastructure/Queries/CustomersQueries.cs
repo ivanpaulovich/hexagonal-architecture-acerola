@@ -3,88 +3,61 @@
     using Acerola.Application.Queries;
     using MongoDB.Driver;
     using System;
-    using System.Dynamic;
     using System.Threading.Tasks;
     using System.Collections.Generic;
-    using MongoDB.Bson.Serialization;
+    using Acerola.Infrastructure.DataAccess;
+    using Acerola.Application.ViewModels;
     using Acerola.Domain.Customers;
-    using Acerola.Domain.Accounts;
-    using Acerola.Domain;
 
     public class CustomersQueries : ICustomersQueries
     {
-        private readonly IMongoDatabase database;
-        public IMongoCollection<ExpandoObject> Customers
+        private readonly AccountBalanceContext mongoDB;
+
+        public CustomersQueries(AccountBalanceContext mongoDB)
         {
-            get
+            this.mongoDB = mongoDB;
+        }
+
+        public async Task<IEnumerable<CustomerVM>> GetAll()
+        {
+            IEnumerable<Customer> data = await this.mongoDB.Customers
+                .Find(e => true)
+                .ToListAsync();
+
+            List<CustomerVM> result = new List<CustomerVM>();
+
+            foreach (Customer item in data)
             {
-                return database.GetCollection<ExpandoObject>("Customers");
+                CustomerVM customerVM = new CustomerVM()
+                {
+                    CustomerId = item.Id,
+                    Personnummer = item.PIN.Text,
+                    Name = item.Name.Text
+                };
+
+                result.Add(customerVM);
             }
+
+            return result;
         }
 
-        public CustomersQueries(string connectionString, string databaseName)
+        public async Task<CustomerVM> GetCustomer(Guid id)
         {
-            if (string.IsNullOrWhiteSpace(connectionString))
-                throw new ArgumentNullException(nameof(connectionString));
+            Customer data = await this.mongoDB.Customers
+                .Find(Builders<Customer>.Filter.Eq("_id", id))
+                .SingleOrDefaultAsync();
 
-            if (string.IsNullOrWhiteSpace(databaseName))
-                throw new ArgumentNullException(nameof(databaseName));
+            if (data == null)
+                throw new CustomerNotFoundException($"The account {id} does not exists or is not processed yet.");
 
-            MongoClient mongoClient = new MongoClient(connectionString);
-            this.database = mongoClient.GetDatabase(databaseName);
-            this.Map();
-        }
+            CustomerVM customerVM = new CustomerVM()
+            {
+                CustomerId = data.Id,
+                Personnummer = data.PIN.Text,
+                Name = data.Name.Text
+            };
 
-        private void Map()
-        {
-            if (!BsonClassMap.IsClassMapRegistered(typeof(Entity)))
-                BsonClassMap.RegisterClassMap<Entity>(cm =>
-                {
-                    cm.AutoMap();
-                });
-
-            if (!BsonClassMap.IsClassMapRegistered(typeof(AggregateRoot)))
-                BsonClassMap.RegisterClassMap<AggregateRoot>(cm =>
-                {
-                    cm.AutoMap();
-                });
-
-            if (!BsonClassMap.IsClassMapRegistered(typeof(Account)))
-                BsonClassMap.RegisterClassMap<Account>(cm =>
-                {
-                    cm.AutoMap();
-                });
-
-            if (!BsonClassMap.IsClassMapRegistered(typeof(Transaction)))
-                BsonClassMap.RegisterClassMap<Transaction>(cm =>
-                {
-                    cm.AutoMap();
-                    cm.SetIsRootClass(true);
-                    cm.AddKnownType(typeof(Debit));
-                    cm.AddKnownType(typeof(Credit));
-                });
-
-            if (!BsonClassMap.IsClassMapRegistered(typeof(Credit)))
-                BsonClassMap.RegisterClassMap<Credit>();
-            if (!BsonClassMap.IsClassMapRegistered(typeof(Debit)))
-                BsonClassMap.RegisterClassMap<Debit>();
-
-            if (!BsonClassMap.IsClassMapRegistered(typeof(Customer)))
-                BsonClassMap.RegisterClassMap<Customer>(cm =>
-                {
-                    cm.AutoMap();
-                    cm.UnmapProperty(p => p.Accounts);
-                });
-        }
-
-        public async Task<ExpandoObject> GetAsync(Guid id)
-        {
-            return await Customers.Find(Builders<ExpandoObject>.Filter.Eq("_id", id)).SingleOrDefaultAsync();
-        }
-
-        public async Task<IEnumerable<ExpandoObject>> GetAsync()
-        {
-            return await Customers.Find(e => true).ToListAsync();
+            return customerVM;
         }
     }
 }

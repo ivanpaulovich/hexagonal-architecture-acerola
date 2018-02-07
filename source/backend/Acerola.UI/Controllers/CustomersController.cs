@@ -2,10 +2,12 @@
 {
     using Acerola.Application.Commands.Customers;
     using Acerola.Application.Queries;
+    using Acerola.Application.ViewModels;
     using Acerola.Domain.Customers;
     using MediatR;
     using Microsoft.AspNetCore.Mvc;
     using System;
+    using System.Collections.Generic;
     using System.Threading.Tasks;
 
     [Route("api/[controller]")]
@@ -34,9 +36,14 @@
         {
             Customer customer = await mediator.Send(command);
 
-            dynamic loadedCustomer = (dynamic)await customersQueries.GetAsync(customer.Id);
+            CustomerVM result = new CustomerVM
+            {
+                CustomerId = customer.Id,
+                Name = customer.Name.Text,
+                Personnummer = customer.PIN.Text
+            };
 
-            return CreatedAtRoute("GetCustomer", new { id = loadedCustomer._id }, loadedCustomer);
+            return CreatedAtRoute("GetCustomer", new { id = result.CustomerId }, result);
         }
 
         /// <summary>
@@ -45,7 +52,7 @@
         [HttpGet("{id}", Name = "GetCustomer")]
         public async Task<IActionResult> GetCustomer(Guid id)
         {
-            var customer = await customersQueries.GetAsync(id);
+            CustomerVM customer = await customersQueries.GetCustomer(id);
 
             return Ok(customer);
         }
@@ -56,7 +63,7 @@
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            var customers = await customersQueries.GetAsync();
+            IEnumerable<CustomerVM> customers = await customersQueries.GetAll();
 
             return Ok(customers);
         }

@@ -7,12 +7,17 @@
     using System.Threading.Tasks;
     using Acerola.Application.Commands.Accounts;
     using Acerola.Application.Queries;
+    using Acerola.Domain.Accounts;
+    using System.Collections.Generic;
+    using Acerola.Application.ViewModels;
 
     [Route("api/[controller]")]
     public class AccountsController : Controller
     {
         private readonly IMediator mediator;
         private readonly IAccountsQueries accountsQueries;
+
+        public int AccoutVM { get; private set; }
 
         public AccountsController(IMediator mediator, IAccountsQueries accountsQueries)
         {
@@ -32,7 +37,7 @@
         [HttpPatch("Deposit")]
         public async Task<IActionResult> Deposit([FromBody]DepositCommand command)
         {
-            await mediator.Send(command);
+            Transaction transaction = await mediator.Send(command);
             return (IActionResult)Ok();
         }
 
@@ -42,7 +47,7 @@
         [HttpPatch("Withdraw")]
         public async Task<IActionResult> Withdraw([FromBody]WithdrawCommand command)
         {
-            await mediator.Send(command);
+            Transaction transaction = await mediator.Send(command);
             return (IActionResult)Ok();
         }
 
@@ -62,7 +67,7 @@
         [HttpGet("{id}", Name = "GetAccount")]
         public async Task<IActionResult> Get(Guid id)
         {
-            var account = await accountsQueries.GetAsync(id);
+            var account = await accountsQueries.GetAccount(id);
 
             return Ok(account);
         }
@@ -73,8 +78,15 @@
         [HttpGet]
         public async Task<IActionResult> List([FromQuery]Guid? customerId)
         {
-            var accounts = await accountsQueries.GetAsync(customerId);
+            IEnumerable<AccountVM> accounts = null;
 
+            if (customerId.HasValue)
+            {
+                accounts = await accountsQueries.Get(customerId.Value);
+                return Ok(accounts);
+            }
+
+            accounts = await accountsQueries.GetAll();
             return Ok(accounts);
         }
     }
