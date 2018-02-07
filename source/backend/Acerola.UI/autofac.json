@@ -5,14 +5,14 @@
       "type": "Acerola.Infrastructure.Modules.ApplicationModule",
       "properties": {
         "ConnectionString": "mongodb://10.0.75.1:27017",
-        "DatabaseName": "MyAccountBalanceAPIv01"
+        "DatabaseName": "AcerolaV01"
       }
     },
     {
       "type": "Acerola.Infrastructure.Modules.QueriesModule",
       "properties": {
         "ConnectionString": "mongodb://10.0.75.1:27017",
-        "DatabaseName": "MyAccountBalanceAPIv01"
+        "DatabaseName": "AcerolaV01"
       }
     },
     {

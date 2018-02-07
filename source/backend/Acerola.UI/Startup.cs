@@ -50,9 +50,9 @@
 
                 options.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info
                 {
-                    Title = "My Account API",
+                    Title = "Acerola",
                     Version = "v1",
-                    Description = "The My Account Service HTTP API",
+                    Description = "The Acerola HTTP API",
                     TermsOfService = "Terms Of Service"
                 });
             });
