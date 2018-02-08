@@ -3,7 +3,6 @@
     using Acerola.Application.Queries;
     using Acerola.Application.DTO;
     using Acerola.Domain.Accounts;
-    using Acerola.Infrastructure.AutoMapper;
     using Acerola.Infrastructure.DataAccess;
     using MongoDB.Driver;
     using System;
@@ -14,12 +13,12 @@
     public class AccountsQueries : IAccountsQueries
     {
         private readonly AccountBalanceContext mongoDB;
-        private readonly IAccountsMapper _mapper;
+        private readonly IAccountsMapper mapper;
 
         public AccountsQueries(AccountBalanceContext mongoDB, IAccountsMapper mapper)
         {
             this.mongoDB = mongoDB;
-            this._mapper = mapper;
+            this.mapper = mapper;
         }
 
         public async Task<AccountData> GetAccount(Guid id)
@@ -31,7 +30,7 @@
             if (data == null)
                 throw new AccountNotFoundException($"The account {id} does not exists or is not processed yet.");
 
-            AccountData accountVM = this._mapper.Map(data);
+            AccountData accountVM = this.mapper.Map(data);
 
             return accountVM;
         }
@@ -46,7 +45,7 @@
 
             foreach (Account item in data)
             {
-                AccountData accountVM = this._mapper.Map(item);
+                AccountData accountVM = this.mapper.Map(item);
 
                 result.Add(accountVM);
             }
@@ -65,7 +64,7 @@
 
             foreach (Account item in data)
             {
-                AccountData accountVM = this._mapper.Map(item);
+                AccountData accountVM = this.mapper.Map(item);
 
                 result.Add(accountVM);
             }

@@ -1,11 +1,8 @@
-﻿using Acerola.Application.DTO;
-using Acerola.Domain.Customers;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Acerola.Application.Mappers
+﻿namespace Acerola.Application.Mappers
 {
+    using Acerola.Application.DTO;
+    using Acerola.Domain.Customers;
+
     public interface ICustomersMapper
     {
         CustomerData Map(Customer customer);

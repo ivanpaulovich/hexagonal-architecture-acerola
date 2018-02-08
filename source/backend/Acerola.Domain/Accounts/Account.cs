@@ -33,14 +33,11 @@
             }
         }
 
-        public static Account Create(Customer customer, Amount initialAmount)
+        public static Account Create(Customer customer)
         {
-            if (initialAmount == null)
-                throw new ArgumentNullException(nameof(initialAmount));
-
             Account account = new Account();
             account.CustomerId = customer.Id;
-            account.CurrentBalance = initialAmount;
+
             return account;
         }
 

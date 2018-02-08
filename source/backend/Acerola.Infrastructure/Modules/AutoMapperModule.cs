@@ -1,10 +1,7 @@
 ﻿namespace Acerola.Infrastructure.Modules
 {
     using Autofac;
-    using Acerola.Application.Queries;
-    using Acerola.Infrastructure.Queries;
-    using System;
-    using Acerola.Infrastructure.AutoMapper;
+    using Acerola.Infrastructure.Mappings;
     using Acerola.Application.Mappers;
 
     public class AutoMapperModule : Module

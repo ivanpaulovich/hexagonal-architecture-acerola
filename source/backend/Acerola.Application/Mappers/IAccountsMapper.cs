@@ -1,11 +1,8 @@
-﻿using Acerola.Application.DTO;
-using Acerola.Domain.Accounts;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Acerola.Application.Mappers
+﻿namespace Acerola.Application.Mappers
 {
+    using Acerola.Application.DTO;
+    using Acerola.Domain.Accounts;
+
     public interface IAccountsMapper
     {
         AccountData Map(Account account);
