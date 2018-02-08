@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Acerola.Application.ViewModels
+namespace Acerola.Application.DTO
 {
-    public class TransactionVM
+    public class TransactionData
     {
         public string Description { get; set; }
         public double Amount { get; set; }

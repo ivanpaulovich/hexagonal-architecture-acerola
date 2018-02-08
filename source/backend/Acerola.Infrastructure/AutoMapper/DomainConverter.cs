@@ -1,6 +1,6 @@
 ﻿namespace Acerola.Infrastructure.AutoMapper
 {
-    using Acerola.Application.ViewModels;
+    using Acerola.Application.DTO;
     using Acerola.Domain.Accounts;
     using Acerola.Domain.Customers;
     using global::AutoMapper;
@@ -12,37 +12,20 @@
         public DomainConverter()
         {
             Mapper.Initialize(cfg => {
-                cfg.CreateMap<Customer, CustomerVM>()
-                    .ForMember(dest => dest.CustomerId, opt => opt.MapFrom(src => src.Id))
-                    .ForMember(dest => dest.Personnummer, opt => opt.MapFrom(src => src.PIN.Text))
-                    .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name.Text));
-
-                cfg.CreateMap<Account, AccountVM>()
-                    .ForMember(dest => dest.AccountId, opt => opt.MapFrom(src => src.Id))
-                    .ForMember(dest => dest.CurrentBalance, opt => opt.MapFrom(src => src.CurrentBalance.Value))
-                    .ForMember(dest => dest.CustomerId, opt => opt.MapFrom(src => src.CustomerId));
-
-                cfg.CreateMap<Debit, TransactionVM>()
-                    .ForMember(dest => dest.Amount, opt => opt.MapFrom(src => src.Amount.Value))
-                    .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
-                    .ForMember(dest => dest.TransactionDate, opt => opt.MapFrom(src => src.TransactionDate));
-
-                cfg.CreateMap<Credit, TransactionVM>()
-                    .ForMember(dest => dest.Amount, opt => opt.MapFrom(src => src.Amount.Value))
-                    .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
-                    .ForMember(dest => dest.TransactionDate, opt => opt.MapFrom(src => src.TransactionDate));
+                cfg.AddProfile<AccountsProfile>();
+                cfg.AddProfile<CustomersProfile>();
             });
         }
 
-        public AccountVM Map(Account account)
+        public AccountData Map(Account account)
         {
-            AccountVM vm = Mapper.Map<AccountVM>(account);
+            AccountData vm = Mapper.Map<AccountData>(account);
             return vm;
         }
 
-        public CustomerVM Map(Customer customer)
+        public CustomerData Map(Customer customer)
         {
-            CustomerVM vm = Mapper.Map<CustomerVM>(customer);
+            CustomerData vm = Mapper.Map<CustomerData>(customer);
             return vm;
         }
     }

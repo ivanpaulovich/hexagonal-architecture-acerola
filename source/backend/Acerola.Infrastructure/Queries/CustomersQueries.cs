@@ -6,7 +6,7 @@
     using System.Threading.Tasks;
     using System.Collections.Generic;
     using Acerola.Infrastructure.DataAccess;
-    using Acerola.Application.ViewModels;
+    using Acerola.Application.DTO;
     using Acerola.Domain.Customers;
     using Acerola.Infrastructure.AutoMapper;
 
@@ -21,17 +21,17 @@
             this.domainConverter = domainConverter;
         }
 
-        public async Task<IEnumerable<CustomerVM>> GetAll()
+        public async Task<IEnumerable<CustomerData>> GetAll()
         {
             IEnumerable<Customer> data = await this.mongoDB.Customers
                 .Find(e => true)
                 .ToListAsync();
 
-            List<CustomerVM> result = new List<CustomerVM>();
+            List<CustomerData> result = new List<CustomerData>();
 
             foreach (Customer item in data)
             {
-                CustomerVM customerVM = this.domainConverter.Map(item);
+                CustomerData customerVM = this.domainConverter.Map(item);
 
                 result.Add(customerVM);
             }
@@ -39,7 +39,7 @@
             return result;
         }
 
-        public async Task<CustomerVM> GetCustomer(Guid id)
+        public async Task<CustomerData> GetCustomer(Guid id)
         {
             Customer data = await this.mongoDB.Customers
                 .Find(Builders<Customer>.Filter.Eq("_id", id))
@@ -48,7 +48,7 @@
             if (data == null)
                 throw new CustomerNotFoundException($"The account {id} does not exists or is not processed yet.");
 
-            CustomerVM customerVM = this.domainConverter.Map(data);
+            CustomerData customerVM = this.domainConverter.Map(data);
 
             return customerVM;
         }

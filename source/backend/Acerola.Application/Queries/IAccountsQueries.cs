@@ -1,14 +1,14 @@
 ﻿namespace Acerola.Application.Queries
 {
-    using Acerola.Application.ViewModels;
+    using Acerola.Application.DTO;
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
     public interface IAccountsQueries
     {
-        Task<AccountVM> GetAccount(Guid id);
-        Task<IEnumerable<AccountVM>> GetAll();
-        Task<IEnumerable<AccountVM>> Get(Guid customerId);
+        Task<AccountData> GetAccount(Guid id);
+        Task<IEnumerable<AccountData>> GetAll();
+        Task<IEnumerable<AccountData>> Get(Guid customerId);
     }
 }
