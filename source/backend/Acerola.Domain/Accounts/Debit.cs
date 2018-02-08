@@ -18,7 +18,7 @@
             }
         }
 
-        public static Debit Create(Guid customerId, Amount amount)
+        public static Debit Create(Amount amount)
         {
             if (amount == null)
                 throw new ArgumentNullException(nameof(amount));

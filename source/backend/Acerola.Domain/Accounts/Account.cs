@@ -41,14 +41,14 @@
             return account;
         }
 
-        public void Deposit(Transaction transaction)
+        public void Deposit(Credit transaction)
         {
             transactions.Add(transaction);
 
             CurrentBalance = CurrentBalance + transaction.Amount;
         }
 
-        public void Withdraw(Transaction transaction)
+        public void Withdraw(Debit transaction)
         {
             if (CurrentBalance < transaction.Amount)
                 throw new InsuficientFundsException($"The account {Id} does not have enough funds to withdraw {transaction.Amount}.");

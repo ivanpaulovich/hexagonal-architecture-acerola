@@ -54,8 +54,7 @@ namespace Acerola.Domain.UnitTests
             DepositCommand command = new DepositCommand()
             {
                 AccountId = Guid.NewGuid(),
-                Amount = 600,
-                CustomerId = Guid.NewGuid()
+                Amount = 600
             };
 
             accountReadOnlyRepository

@@ -32,12 +32,12 @@
             if (account == null)
                 throw new AccountNotFoundException($"The account {command.AccountId} does not exists or is already closed.");
 
-            Transaction transaction = Debit.Create(command.CustomerId, Amount.Create(command.Amount));
-            account.Withdraw(transaction);
+            Debit debit = Debit.Create(Amount.Create(command.Amount));
+            account.Withdraw(debit);
 
             await accountWriteOnlyRepository.Update(account);
 
-            return transaction;
+            return debit;
         }
     }
 }

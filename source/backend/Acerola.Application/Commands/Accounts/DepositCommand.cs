@@ -9,9 +9,6 @@
     public class DepositCommand : IRequest<Transaction>
     {
         [DataMember]
-        public Guid CustomerId { get; set; }
-
-        [DataMember]
         public Guid AccountId { get; set; }
 
         [DataMember]

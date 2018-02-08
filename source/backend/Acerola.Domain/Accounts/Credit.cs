@@ -18,7 +18,7 @@
             }
         }
 
-        public static Credit Create(Guid customerId, Amount amount)
+        public static Credit Create(Amount amount)
         {
             if (amount == null)
                 throw new ArgumentNullException(nameof(amount));

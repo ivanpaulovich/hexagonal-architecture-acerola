@@ -2,6 +2,5 @@
 {
     public interface IAggregateRoot
     {
-        int Version { get; }
     }
 }

@@ -14,7 +14,6 @@
     <PackageReference Include="MediatR" Version="3.0.1" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="2.0.0" />
     <PackageReference Include="MongoDB.Driver" Version="2.4.4" />
-    <PackageReference Include="Confluent.Kafka" Version="0.11.0" NoWarn="NU1701" />
     <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
   </ItemGroup>
 
