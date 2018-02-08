@@ -7,7 +7,7 @@
     using Acerola.Domain.Accounts;
     using Acerola.Domain.ValueObjects;
 
-    public class WithdrawCommandHandler : IAsyncRequestHandler<WithdrawCommand, Transaction>
+    public class WithdrawCommandHandler : IAsyncRequestHandler<WithdrawCommand, Debit>
     {
         private readonly IAccountReadOnlyRepository accountReadOnlyRepository;
         private readonly IAccountWriteOnlyRepository accountWriteOnlyRepository;
@@ -26,7 +26,7 @@
             this.accountWriteOnlyRepository = accountWriteOnlyRepository;
         }
 
-        public async Task<Transaction> Handle(WithdrawCommand command)
+        public async Task<Debit> Handle(WithdrawCommand command)
         {
             Account account = await accountReadOnlyRepository.Get(command.AccountId);
             if (account == null)

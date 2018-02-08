@@ -13,11 +13,8 @@ namespace Acerola.Domain.UnitTests
         {
             //
             // Arrange
-            Customer sut = Customer.Create(
-                PIN.Create("08724050601"),
-                Name.Create("Ivan Paulovich"));
-
-            Account account = Account.Create(sut);
+            Customer sut = Substitute.For<Customer>();
+            Account account = Substitute.For<Account>();
 
             //
             // Act

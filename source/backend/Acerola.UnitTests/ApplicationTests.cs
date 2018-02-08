@@ -2,15 +2,14 @@ namespace Acerola.Domain.UnitTests
 {
     using System;
     using Xunit;
-    using System.Linq;
     using Acerola.Domain.Accounts;
     using Acerola.Domain.Customers;
-    using Acerola.Domain.ValueObjects;
     using Acerola.Application.Commands.Accounts;
     using Acerola.Application.Commands.Customers;
     using Acerola.Application.CommandHandlers.Customers;
     using NSubstitute;
     using Acerola.Application.CommandHandlers.Accounts;
+    using Acerola.Domain.ValueObjects;
 
     public class ApplicationTests
     {
@@ -46,10 +45,11 @@ namespace Acerola.Domain.UnitTests
 
             Assert.Equal(command.PIN, registered.PIN.Text);
             Assert.Equal(command.Name, registered.Name.Text);
+            Assert.True(registered.Id != Guid.Empty);
         }
 
         [Fact]
-        public async void Deposit_Valid_User_Amount()
+        public async void Deposit_Valid_Amount()
         {
             DepositCommand command = new DepositCommand()
             {
@@ -65,10 +65,38 @@ namespace Acerola.Domain.UnitTests
                 accountReadOnlyRepository,
                 accountWriteOnlyRepository);
 
-            Transaction transaction = await sut.Handle(command);
+            Credit credit = await sut.Handle(command);
 
-            Assert.Equal(command.Amount, transaction.Amount.Value);
-            Assert.Equal("Credit", transaction.Description);
+            Assert.Equal(command.Amount, credit.Amount.Value);
+            Assert.Equal("Credit", credit.Description);
+            Assert.True(credit.Id != Guid.Empty);
+        }
+
+        [Fact]
+        public async void Withdraw_Valid_Amount()
+        {
+            WithdrawCommand command = new WithdrawCommand()
+            {
+                AccountId = Guid.NewGuid(),
+                Amount = 600
+            };
+
+            Account account = Substitute.For<Account>();
+            account.Deposit(Credit.Create(Amount.Create(1000)));
+
+            accountReadOnlyRepository
+                .Get(command.AccountId)
+                .Returns(account);
+
+            WithdrawCommandHandler sut = new WithdrawCommandHandler(
+                accountReadOnlyRepository,
+                accountWriteOnlyRepository);
+
+            Debit debit = await sut.Handle(command);
+
+            Assert.Equal(command.Amount, debit.Amount.Value);
+            Assert.Equal("Debit", debit.Description);
+            Assert.True(debit.Id != Guid.Empty);
         }
     }
 }

@@ -6,7 +6,7 @@
     using Acerola.Domain.Accounts;
 
     [DataContract]
-    public class DepositCommand : IRequest<Transaction>
+    public class DepositCommand : IRequest<Credit>
     {
         [DataMember]
         public Guid AccountId { get; set; }
