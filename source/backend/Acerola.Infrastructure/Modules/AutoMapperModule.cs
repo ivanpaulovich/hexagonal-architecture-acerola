@@ -11,9 +11,7 @@
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<DomainConverter>()
-                .As<DomainConverter>()
-                .SingleInstance();
+            MapperConfig.Register();
 
             builder.RegisterType<AccountsMapper>()
                .As<IAccountsMapper>()

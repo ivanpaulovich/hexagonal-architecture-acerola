@@ -5,11 +5,9 @@
     using Acerola.Domain.Customers;
     using global::AutoMapper;
 
-    public class DomainConverter
-    {
-        private readonly MapperConfiguration config;
-        
-        public DomainConverter()
+    public class MapperConfig
+    {   
+        public static void Register()
         {
             Mapper.Initialize(cfg => {
                 cfg.AddProfile<AccountsProfile>();
