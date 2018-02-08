@@ -9,16 +9,17 @@
     using Acerola.Application.DTO;
     using Acerola.Domain.Customers;
     using Acerola.Infrastructure.AutoMapper;
+    using Acerola.Application.Mappers;
 
     public class CustomersQueries : ICustomersQueries
     {
         private readonly AccountBalanceContext mongoDB;
-        private readonly DomainConverter domainConverter;
+        private readonly ICustomersMapper _mapper;
 
-        public CustomersQueries(AccountBalanceContext mongoDB, DomainConverter domainConverter)
+        public CustomersQueries(AccountBalanceContext mongoDB, ICustomersMapper mapper)
         {
             this.mongoDB = mongoDB;
-            this.domainConverter = domainConverter;
+            this._mapper = mapper;
         }
 
         public async Task<IEnumerable<CustomerData>> GetAll()
@@ -31,7 +32,7 @@
 
             foreach (Customer item in data)
             {
-                CustomerData customerVM = this.domainConverter.Map(item);
+                CustomerData customerVM = this._mapper.Map(item);
 
                 result.Add(customerVM);
             }
@@ -48,7 +49,7 @@
             if (data == null)
                 throw new CustomerNotFoundException($"The account {id} does not exists or is not processed yet.");
 
-            CustomerData customerVM = this.domainConverter.Map(data);
+            CustomerData customerVM = this._mapper.Map(data);
 
             return customerVM;
         }

@@ -9,16 +9,17 @@
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
+    using Acerola.Application.Mappers;
 
     public class AccountsQueries : IAccountsQueries
     {
         private readonly AccountBalanceContext mongoDB;
-        private readonly DomainConverter domainConverter;
+        private readonly IAccountsMapper _mapper;
 
-        public AccountsQueries(AccountBalanceContext mongoDB, DomainConverter domainConverter)
+        public AccountsQueries(AccountBalanceContext mongoDB, IAccountsMapper mapper)
         {
             this.mongoDB = mongoDB;
-            this.domainConverter = domainConverter;
+            this._mapper = mapper;
         }
 
         public async Task<AccountData> GetAccount(Guid id)
@@ -30,7 +31,7 @@
             if (data == null)
                 throw new AccountNotFoundException($"The account {id} does not exists or is not processed yet.");
 
-            AccountData accountVM = this.domainConverter.Map(data);
+            AccountData accountVM = this._mapper.Map(data);
 
             return accountVM;
         }
@@ -45,7 +46,7 @@
 
             foreach (Account item in data)
             {
-                AccountData accountVM = this.domainConverter.Map(item);
+                AccountData accountVM = this._mapper.Map(item);
 
                 result.Add(accountVM);
             }
@@ -64,7 +65,7 @@
 
             foreach (Account item in data)
             {
-                AccountData accountVM = this.domainConverter.Map(item);
+                AccountData accountVM = this._mapper.Map(item);
 
                 result.Add(accountVM);
             }
