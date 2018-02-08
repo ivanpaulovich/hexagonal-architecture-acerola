@@ -1,7 +1,7 @@
 ﻿namespace Acerola.Infrastructure.Queries
 {
     using Acerola.Application.Queries;
-    using Acerola.Application.ViewModels;
+    using Acerola.Application.DTO;
     using Acerola.Domain.Accounts;
     using Acerola.Infrastructure.AutoMapper;
     using Acerola.Infrastructure.DataAccess;
@@ -21,7 +21,7 @@
             this.domainConverter = domainConverter;
         }
 
-        public async Task<AccountVM> GetAccount(Guid id)
+        public async Task<AccountData> GetAccount(Guid id)
         {
             Account data = await this.mongoDB.Accounts
                 .Find(Builders<Account>.Filter.Eq("_id", id))
@@ -30,22 +30,22 @@
             if (data == null)
                 throw new AccountNotFoundException($"The account {id} does not exists or is not processed yet.");
 
-            AccountVM accountVM = this.domainConverter.Map(data);
+            AccountData accountVM = this.domainConverter.Map(data);
 
             return accountVM;
         }
 
-        public async Task<IEnumerable<AccountVM>> GetAll()
+        public async Task<IEnumerable<AccountData>> GetAll()
         {
             IEnumerable<Account> data = await this.mongoDB.Accounts
                 .Find(e => true)
                 .ToListAsync();
 
-            List<AccountVM> result = new List<AccountVM>();
+            List<AccountData> result = new List<AccountData>();
 
             foreach (Account item in data)
             {
-                AccountVM accountVM = this.domainConverter.Map(item);
+                AccountData accountVM = this.domainConverter.Map(item);
 
                 result.Add(accountVM);
             }
@@ -53,18 +53,18 @@
             return result;
         }
 
-        public async Task<IEnumerable<AccountVM>> Get(Guid customerId)
+        public async Task<IEnumerable<AccountData>> Get(Guid customerId)
         {
             IEnumerable<Account> data = await this.mongoDB.Accounts
                 .Find(Builders<Account>
                 .Filter.Eq("CustomerId", customerId))
                 .ToListAsync();
 
-            List<AccountVM> result = new List<AccountVM>();
+            List<AccountData> result = new List<AccountData>();
 
             foreach (Account item in data)
             {
-                AccountVM accountVM = this.domainConverter.Map(item);
+                AccountData accountVM = this.domainConverter.Map(item);
 
                 result.Add(accountVM);
             }

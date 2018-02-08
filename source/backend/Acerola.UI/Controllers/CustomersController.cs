@@ -2,7 +2,7 @@
 {
     using Acerola.Application.Commands.Customers;
     using Acerola.Application.Queries;
-    using Acerola.Application.ViewModels;
+    using Acerola.Application.DTO;
     using Acerola.Domain.Customers;
     using MediatR;
     using Microsoft.AspNetCore.Mvc;
@@ -36,7 +36,7 @@
         {
             Customer customer = await mediator.Send(command);
 
-            CustomerVM result = new CustomerVM
+            CustomerData result = new CustomerData
             {
                 CustomerId = customer.Id,
                 Name = customer.Name.Text,
@@ -52,7 +52,7 @@
         [HttpGet("{id}", Name = "GetCustomer")]
         public async Task<IActionResult> GetCustomer(Guid id)
         {
-            CustomerVM customer = await customersQueries.GetCustomer(id);
+            CustomerData customer = await customersQueries.GetCustomer(id);
 
             return Ok(customer);
         }
@@ -63,7 +63,7 @@
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            IEnumerable<CustomerVM> customers = await customersQueries.GetAll();
+            IEnumerable<CustomerData> customers = await customersQueries.GetAll();
 
             return Ok(customers);
         }

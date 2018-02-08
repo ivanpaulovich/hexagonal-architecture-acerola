@@ -9,7 +9,7 @@
     using Acerola.Application.Queries;
     using Acerola.Domain.Accounts;
     using System.Collections.Generic;
-    using Acerola.Application.ViewModels;
+    using Acerola.Application.DTO;
 
     [Route("api/[controller]")]
     public class AccountsController : Controller
@@ -78,7 +78,7 @@
         [HttpGet]
         public async Task<IActionResult> List([FromQuery]Guid? customerId)
         {
-            IEnumerable<AccountVM> accounts = null;
+            IEnumerable<AccountData> accounts = null;
 
             if (customerId.HasValue)
             {
