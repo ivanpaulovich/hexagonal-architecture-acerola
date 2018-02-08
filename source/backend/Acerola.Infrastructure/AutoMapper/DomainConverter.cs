@@ -16,17 +16,5 @@
                 cfg.AddProfile<CustomersProfile>();
             });
         }
-
-        public AccountData Map(Account account)
-        {
-            AccountData vm = Mapper.Map<AccountData>(account);
-            return vm;
-        }
-
-        public CustomerData Map(Customer customer)
-        {
-            CustomerData vm = Mapper.Map<CustomerData>(customer);
-            return vm;
-        }
     }
 }
