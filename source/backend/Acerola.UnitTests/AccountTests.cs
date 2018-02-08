@@ -2,31 +2,13 @@ namespace Acerola.Domain.UnitTests
 {
     using Xunit;
     using Acerola.Domain.Accounts;
-    using Acerola.Domain.Customers;
     using Acerola.Domain.ValueObjects;
     using NSubstitute;
 
-    public class DomainTests
+    public class AccountTests
     {
         [Fact]
-        public void Register_Valid_User_Account()
-        {
-            //
-            // Arrange
-            Customer sut = Substitute.For<Customer>();
-            Account account = Substitute.For<Account>();
-
-            //
-            // Act
-            sut.Register(account);
-
-            //
-            // Assert
-            Assert.Equal(1, sut.Accounts.Count);
-        }
-
-        [Fact]
-        public void Deposit_100()
+        public void New_Account_Should_Have_100_After_Deposit()
         {
             //
             // Arrange
@@ -39,11 +21,11 @@ namespace Acerola.Domain.UnitTests
 
             //
             // Assert
-            Assert.True(true);
+            Assert.Equal(100, sut.CurrentBalance.Value);
         }
 
         [Fact]
-        public void Withdraw_100()
+        public void New_Account_With_1000_Balance_Should_Have_900_After_Withdraw()
         {
             //
             // Arrange
@@ -59,11 +41,11 @@ namespace Acerola.Domain.UnitTests
 
             //
             // Assert
-            Assert.True(true);
+            Assert.Equal(900, sut.CurrentBalance.Value);
         }
 
         [Fact]
-        public void Close_A_New_Account()
+        public void New_Account_Should_Allow_Close()
         {
             //
             // Arrange
@@ -79,7 +61,7 @@ namespace Acerola.Domain.UnitTests
         }
 
         [Fact]
-        public void Close_Account_With_Funds()
+        public void Account_With_Funds_Should_Not_Allow_Close()
         {
             //
             // Arrange
@@ -95,7 +77,7 @@ namespace Acerola.Domain.UnitTests
 
 
         [Fact]
-        public void Withdraw_More_Than_The_Current_Balance()
+        public void Account_With_200_Balance_Should_Not_Allow_50000_Withdraw()
         {
             //
             // Arrange

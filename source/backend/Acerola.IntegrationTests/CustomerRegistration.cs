@@ -36,13 +36,15 @@ namespace Acerola.IntegrationTests
         [Fact]
         public async Task ListCustomers()
         {
-            string result = await client.GetStringAsync("/api/Customers");
+            var response = await client.GetAsync("/api/Customers");
+            response.EnsureSuccessStatusCode();
         }
 
         [Fact]
         public async Task ListAccounts()
         {
-            string result = await client.GetStringAsync("/api/Accounts");
+            var response = await client.GetAsync("/api/Accounts");
+            response.EnsureSuccessStatusCode();
         }
 
         [Fact]
