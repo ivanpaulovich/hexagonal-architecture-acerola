@@ -1,28 +1,33 @@
 namespace Acerola.IntegrationTests
 {
-    using Acerola.UI;
     using Microsoft.AspNetCore.Hosting;
+    using Autofac.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Configuration;
+    using Acerola.UI;
     using Microsoft.AspNetCore.TestHost;
-    using System.Net.Http;
     using Xunit;
+    using System.Threading.Tasks;
 
     public class CustomerRegistration
     {
-        private readonly TestServer _server;
-        private readonly HttpClient _client;
-
-        public CustomerRegistration()
+        [Fact]
+        public async Task ListCustomers()
         {
-            _server = new TestServer(new WebHostBuilder()
-                .UseStartup<Startup>());
-            _client = _server.CreateClient();
-        }
+            var webHostBuilder = new WebHostBuilder()
+                .UseStartup<Startup>()
+                .ConfigureAppConfiguration((builderContext, config) =>
+                {
+                    IHostingEnvironment env = builderContext.HostingEnvironment;
+                    config.AddJsonFile("autofac.json")
+                    .AddEnvironmentVariables();
+                })
+                .ConfigureServices(services => services.AddAutofac());
 
-        //[Fact]
-        //public void Test1()
-        //{
-        //    // Arrange
-            
-        //}
+            using (var server = new TestServer(webHostBuilder))
+            using (var client = server.CreateClient())
+            {
+                string result = await client.GetStringAsync("/api/Customers");
+            }
+        }
     }
 }
