@@ -8,17 +8,12 @@
     public class RegisterCustomerCommand : IRequest<Customer>
     {
         [DataMember]
-        public string PIN { get; private set; }
+        public string PIN { get; set; }
 
         [DataMember]
-        public string Name { get; private set; }
+        public string Name { get; set; }
 
         [DataMember]
-        public double InitialAmount { get; private set; }
-
-        public RegisterCustomerCommand()
-        {
-
-        }
+        public double InitialAmount { get; set; }
     }
 }

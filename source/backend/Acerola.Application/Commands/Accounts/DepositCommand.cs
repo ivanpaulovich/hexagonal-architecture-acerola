@@ -9,17 +9,12 @@
     public class DepositCommand : IRequest<Transaction>
     {
         [DataMember]
-        public Guid CustomerId { get; private set; }
+        public Guid CustomerId { get; set; }
 
         [DataMember]
-        public Guid AccountId { get; private set; }
+        public Guid AccountId { get; set; }
 
         [DataMember]
-        public Double Amount { get; private set; }
-
-        public DepositCommand()
-        {
-
-        }
+        public Double Amount { get; set; }
     }
 }

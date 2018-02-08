@@ -9,17 +9,12 @@
     public class WithdrawCommand : IRequest<Transaction>
     {
         [DataMember]
-        public Guid CustomerId { get; private set; }
+        public Guid CustomerId { get; set; }
 
         [DataMember]
-        public Guid AccountId { get; private set; }
+        public Guid AccountId { get; set; }
 
         [DataMember]
-        public Double Amount { get; private set; }
-
-        public WithdrawCommand()
-        {
-
-        }
+        public Double Amount { get; set; }
     }
 }

@@ -1,12 +1,12 @@
-using System;
-using Xunit;
-using System.Linq;
-using Acerola.Domain.Accounts;
-using Acerola.Domain.Customers;
-using Acerola.Domain.ValueObjects;
-
 namespace Acerola.Domain.UnitTests
 {
+    using System;
+    using Xunit;
+    using System.Linq;
+    using Acerola.Domain.Accounts;
+    using Acerola.Domain.Customers;
+    using Acerola.Domain.ValueObjects;
+
     public class DomainTests
     {
         [Fact]
@@ -31,7 +31,7 @@ namespace Acerola.Domain.UnitTests
             var accounts = sut.Accounts;
             var registered = accounts.Where(e => e.Id == account.Id).First();
 
-            Assert.Equal(registered.CurrentBalance.Value, 1000.0);
+            Assert.Equal(1000.0, registered.CurrentBalance.Value);
         }
 
         [Fact]
@@ -63,8 +63,8 @@ namespace Acerola.Domain.UnitTests
             var transactions = sut.Transactions;
             var deposited = transactions.Where(e => e.Id == transaction.Id).First();
 
-            Assert.Equal(deposited.Amount.Value, 100.0);
-            Assert.Equal(sut.CurrentBalance.Value, 1100);
+            Assert.Equal(100.0, deposited.Amount.Value);
+            Assert.Equal(1100, sut.CurrentBalance.Value);
         }
 
         [Fact]
@@ -96,8 +96,8 @@ namespace Acerola.Domain.UnitTests
             var transactions = sut.Transactions;
             var deposited = transactions.Where(e => e.Id == transaction.Id).First();
 
-            Assert.Equal(deposited.Amount.Value, 100.0);
-            Assert.Equal(sut.CurrentBalance.Value, 900);
+            Assert.Equal(100.0, deposited.Amount.Value);
+            Assert.Equal(900, sut.CurrentBalance.Value);
         }
 
         [Fact]
@@ -130,7 +130,7 @@ namespace Acerola.Domain.UnitTests
             var transactions = sut.Transactions;
             var closed = transactions.Where(e => e.Id == transaction.Id).First();
 
-            Assert.Equal(closed.Amount.Value, 1000.0);
+            Assert.Equal(1000.0, closed.Amount.Value);
         }
 
         [Fact]

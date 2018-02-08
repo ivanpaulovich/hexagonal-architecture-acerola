@@ -1,8 +1,8 @@
-using Acerola.Domain.ValueObjects;
-using Xunit;
-
 namespace Acerola.Domain.UnitTests
 {
+    using Acerola.Domain.ValueObjects;
+    using Xunit;
+
     public class ValueObjectsTests
     {
         [Fact]

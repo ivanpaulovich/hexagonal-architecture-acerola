@@ -14,6 +14,7 @@
         public Account()
         {
             transactions = new List<Transaction>();
+            CurrentBalance = Amount.Create(0);
         }
 
         private List<Transaction> transactions;
