@@ -1,11 +1,11 @@
 ﻿namespace Acerola.Application.UseCases
 {
-    using MediatR;
     using System;
     using System.Threading.Tasks;
     using Acerola.Domain.Accounts;
+    using Acerola.Application.Boundary;
 
-    public class Close : IAsyncRequestHandler<CloseCommand>
+    public class Close : IClose
     {
         private readonly IAccountReadOnlyRepository accountReadOnlyRepository;
         private readonly IAccountWriteOnlyRepository accountWriteOnlyRepository;
@@ -24,7 +24,7 @@
             this.accountWriteOnlyRepository = accountWriteOnlyRepository;
         }
 
-        public async Task Handle(CloseCommand command)
+        public async Task Handle(CloseMessage command)
         {
             Account account = accountReadOnlyRepository.Get(command.AccountId).Result;
 

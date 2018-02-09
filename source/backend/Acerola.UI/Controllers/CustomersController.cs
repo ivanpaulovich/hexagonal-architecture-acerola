@@ -3,38 +3,39 @@
     using Acerola.Application.Queries;
     using Acerola.Application.DTO;
     using Acerola.Domain.Customers;
-    using MediatR;
     using Microsoft.AspNetCore.Mvc;
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
+    using Acerola.Application.Boundary;
     using Acerola.Application.UseCases;
 
     [Route("api/[controller]")]
     public class CustomersController : Controller
     {
-        private readonly IMediator mediator;
         private readonly ICustomersQueries customersQueries;
+        private readonly IRegister register;
 
-        public CustomersController(IMediator mediator, ICustomersQueries customersQueries)
+        public CustomersController(ICustomersQueries customersQueries,
+            IRegister register)
         {
-            if (mediator == null)
-                throw new ArgumentNullException(nameof(mediator));
-
             if (customersQueries == null)
                 throw new ArgumentNullException(nameof(customersQueries));
 
-            this.mediator = mediator;
+            if (register == null)
+                throw new ArgumentNullException(nameof(register));
+
             this.customersQueries = customersQueries;
+            this.register = register;
         }
 
         /// <summary>
         /// Register a new Customer
         /// </summary>
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody]RegisterCommand command)
+        public async Task<IActionResult> Post([FromBody]RegisterMessage command)
         {
-            Customer customer = await mediator.Send(command);
+            Customer customer = await register.Handle(command);
 
             CustomerData result = new CustomerData
             {

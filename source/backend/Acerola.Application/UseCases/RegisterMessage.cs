@@ -1,11 +1,9 @@
 ﻿namespace Acerola.Application.UseCases
 {
-    using Acerola.Domain.Customers;
-    using MediatR;
     using System.Runtime.Serialization;
 
     [DataContract]
-    public class RegisterCommand : IRequest<Customer>
+    public class RegisterMessage
     {
         [DataMember]
         public string PIN { get; set; }

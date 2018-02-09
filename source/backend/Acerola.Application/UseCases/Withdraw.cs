@@ -1,12 +1,12 @@
 ﻿namespace Acerola.Application.UseCases
 {
-    using MediatR;
     using System;
     using System.Threading.Tasks;
+    using Acerola.Application.Boundary;
     using Acerola.Domain.Accounts;
     using Acerola.Domain.ValueObjects;
 
-    public class Withdraw : IAsyncRequestHandler<WithdrawCommand, Debit>
+    public class Withdraw : IWithdraw
     {
         private readonly IAccountReadOnlyRepository accountReadOnlyRepository;
         private readonly IAccountWriteOnlyRepository accountWriteOnlyRepository;
@@ -25,7 +25,7 @@
             this.accountWriteOnlyRepository = accountWriteOnlyRepository;
         }
 
-        public async Task<Debit> Handle(WithdrawCommand command)
+        public async Task<Debit> Handle(WithdrawMessage command)
         {
             Account account = await accountReadOnlyRepository.Get(command.AccountId);
             if (account == null)

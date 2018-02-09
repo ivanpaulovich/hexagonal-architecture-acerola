@@ -1,12 +1,12 @@
 ﻿namespace Acerola.Application.UseCases
 {
-    using MediatR;
     using System;
     using System.Threading.Tasks;
+    using Acerola.Application.Boundary;
     using Acerola.Domain.Accounts;
     using Acerola.Domain.ValueObjects;
 
-    public class Deposit : IAsyncRequestHandler<DepositCommand, Credit>
+    public class Deposit : IDeposit
     {
         private readonly IAccountReadOnlyRepository accountReadOnlyRepository;
         private readonly IAccountWriteOnlyRepository accountWriteOnlyRepository;
@@ -25,7 +25,7 @@
             this.accountWriteOnlyRepository = accountWriteOnlyRepository;
         }
 
-        public async Task<Credit> Handle(DepositCommand command)
+        public async Task<Credit> Handle(DepositMessage command)
         {
             Account account = await accountReadOnlyRepository.Get(command.AccountId);
             if (account == null)

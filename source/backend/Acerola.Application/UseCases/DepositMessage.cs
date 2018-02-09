@@ -1,12 +1,10 @@
 ﻿namespace Acerola.Application.UseCases
 {
-    using MediatR;
     using System;
     using System.Runtime.Serialization;
-    using Acerola.Domain.Accounts;
 
     [DataContract]
-    public class DepositCommand : IRequest<Credit>
+    public class DepositMessage
     {
         [DataMember]
         public Guid AccountId { get; set; }

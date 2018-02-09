@@ -1,13 +1,13 @@
 ﻿namespace Acerola.Application.UseCases
 {
-    using MediatR;
     using System;
     using System.Threading.Tasks;
     using Acerola.Domain.Customers;
     using Acerola.Domain.ValueObjects;
     using Acerola.Domain.Accounts;
+    using Acerola.Application.Boundary;
 
-    public class Register : IAsyncRequestHandler<RegisterCommand, Customer>
+    public class Register : IRegister
     {
         private readonly ICustomerWriteOnlyRepository customerWriteOnlyRepository;
         private readonly IAccountWriteOnlyRepository accountWriteOnlyRepository;
@@ -26,7 +26,7 @@
             this.accountWriteOnlyRepository = accountWriteOnlyRepository;
         }
 
-        public async Task<Customer> Handle(RegisterCommand command)
+        public async Task<Customer> Handle(RegisterMessage command)
         {
             Customer customer = Customer.Create(
                 PIN.Create(command.PIN),

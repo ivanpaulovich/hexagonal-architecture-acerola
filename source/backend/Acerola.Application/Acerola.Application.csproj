@@ -5,10 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MediatR" Version="3.0.1" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Acerola.Domain\Acerola.Domain.csproj" />
   </ItemGroup>
 

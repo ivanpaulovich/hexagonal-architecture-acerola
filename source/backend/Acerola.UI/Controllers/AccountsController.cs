@@ -1,6 +1,5 @@
 ﻿namespace Acerola.UI.Controllers
 {
-    using MediatR;
     using Microsoft.AspNetCore.Mvc;
     using System;
     using System.Threading.Tasks;
@@ -9,24 +8,37 @@
     using System.Collections.Generic;
     using Acerola.Application.DTO;
     using Acerola.Application.UseCases;
+    using Acerola.Application.Boundary;
 
     [Route("api/[controller]")]
     public class AccountsController : Controller
     {
-        private readonly IMediator mediator;
+        private readonly IDeposit deposit;
+        private readonly IWithdraw withdraw;
+        private readonly IClose close;
         private readonly IAccountsQueries accountsQueries;
 
-        public int AccoutVM { get; private set; }
-
-        public AccountsController(IMediator mediator, IAccountsQueries accountsQueries)
+        public AccountsController(
+            IDeposit deposit, 
+            IWithdraw withdraw,
+            IClose close,
+            IAccountsQueries accountsQueries)
         {
-            if (mediator == null)
-                throw new ArgumentNullException(nameof(mediator));
+            if (deposit == null)
+                throw new ArgumentNullException(nameof(deposit));
+
+            if (withdraw == null)
+                throw new ArgumentNullException(nameof(withdraw));
+
+            if (close == null)
+                throw new ArgumentNullException(nameof(close));
 
             if (accountsQueries == null)
                 throw new ArgumentNullException(nameof(accountsQueries));
 
-            this.mediator = mediator;
+            this.deposit = deposit;
+            this.withdraw = withdraw;
+            this.close = close;
             this.accountsQueries = accountsQueries;
         }
 
@@ -34,30 +46,30 @@
         /// Deposit from an account
         /// </summary>
         [HttpPatch("Deposit")]
-        public async Task<IActionResult> Deposit([FromBody]DepositCommand command)
+        public async Task<IActionResult> Deposit([FromBody]DepositMessage message)
         {
-            Transaction transaction = await mediator.Send(command);
-            return (IActionResult)Ok();
+            Credit credit = await deposit.Handle(message);
+            return Ok();
         }
 
         /// <summary>
         /// Withdraw from an account
         /// </summary>
         [HttpPatch("Withdraw")]
-        public async Task<IActionResult> Withdraw([FromBody]WithdrawCommand command)
+        public async Task<IActionResult> Withdraw([FromBody]WithdrawMessage message)
         {
-            Transaction transaction = await mediator.Send(command);
-            return (IActionResult)Ok();
+            Debit debit = await withdraw.Handle(message);
+            return Ok();
         }
 
         /// <summary>
         /// Close an account
         /// </summary>
         [HttpDelete]
-        public async Task<IActionResult> Close([FromBody]CloseCommand command)
+        public async Task<IActionResult> Close([FromBody]CloseMessage message)
         {
-            await mediator.Send(command);
-            return (IActionResult)Ok();
+            await close.Handle(message);
+            return Ok();
         }
 
         /// <summary>

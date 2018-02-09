@@ -27,7 +27,7 @@ namespace Acerola.Domain.UnitTests
         [Fact]
         public async void Register_Valid_User_Account()
         {
-            RegisterCommand command = new RegisterCommand()
+            RegisterMessage command = new RegisterMessage()
             {
                 PIN = "08724050601",
                 InitialAmount = 300,
@@ -48,7 +48,7 @@ namespace Acerola.Domain.UnitTests
         [Fact]
         public async void Deposit_Valid_Amount()
         {
-            DepositCommand command = new DepositCommand()
+            DepositMessage command = new DepositMessage()
             {
                 AccountId = Guid.NewGuid(),
                 Amount = 600
@@ -72,7 +72,7 @@ namespace Acerola.Domain.UnitTests
         [Fact]
         public async void Withdraw_Valid_Amount()
         {
-            WithdrawCommand command = new WithdrawCommand()
+            WithdrawMessage command = new WithdrawMessage()
             {
                 AccountId = Guid.NewGuid(),
                 Amount = 600
