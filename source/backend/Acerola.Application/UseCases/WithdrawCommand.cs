@@ -1,4 +1,4 @@
-﻿namespace Acerola.Application.Commands.Accounts
+﻿namespace Acerola.Application.UseCases
 {
     using MediatR;
     using System;

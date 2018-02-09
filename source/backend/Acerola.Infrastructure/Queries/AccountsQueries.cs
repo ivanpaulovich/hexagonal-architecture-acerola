@@ -13,9 +13,9 @@
     public class AccountsQueries : IAccountsQueries
     {
         private readonly AccountBalanceContext mongoDB;
-        private readonly IAccountsMapper mapper;
+        private readonly IDTOMapper mapper;
 
-        public AccountsQueries(AccountBalanceContext mongoDB, IAccountsMapper mapper)
+        public AccountsQueries(AccountBalanceContext mongoDB, IDTOMapper mapper)
         {
             this.mongoDB = mongoDB;
             this.mapper = mapper;
@@ -30,7 +30,7 @@
             if (data == null)
                 throw new AccountNotFoundException($"The account {id} does not exists or is not processed yet.");
 
-            AccountData accountVM = this.mapper.Map(data);
+            AccountData accountVM = this.mapper.Map<AccountData>(data);
 
             return accountVM;
         }
@@ -41,14 +41,7 @@
                 .Find(e => true)
                 .ToListAsync();
 
-            List<AccountData> result = new List<AccountData>();
-
-            foreach (Account item in data)
-            {
-                AccountData accountVM = this.mapper.Map(item);
-
-                result.Add(accountVM);
-            }
+            List<AccountData> result = this.mapper.Map<List<AccountData>>(data);
 
             return result;
         }
@@ -60,14 +53,7 @@
                 .Filter.Eq("CustomerId", customerId))
                 .ToListAsync();
 
-            List<AccountData> result = new List<AccountData>();
-
-            foreach (Account item in data)
-            {
-                AccountData accountVM = this.mapper.Map(item);
-
-                result.Add(accountVM);
-            }
+            List<AccountData> result = this.mapper.Map<List<AccountData>>(data);
 
             return result;
         }

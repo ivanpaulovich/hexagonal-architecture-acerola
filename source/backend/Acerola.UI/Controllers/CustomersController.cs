@@ -1,6 +1,5 @@
 ﻿namespace Acerola.UI.Controllers
 {
-    using Acerola.Application.Commands.Customers;
     using Acerola.Application.Queries;
     using Acerola.Application.DTO;
     using Acerola.Domain.Customers;
@@ -9,6 +8,7 @@
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
+    using Acerola.Application.UseCases;
 
     [Route("api/[controller]")]
     public class CustomersController : Controller
@@ -32,7 +32,7 @@
         /// Register a new Customer
         /// </summary>
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody]RegisterCustomerCommand command)
+        public async Task<IActionResult> Post([FromBody]RegisterCommand command)
         {
             Customer customer = await mediator.Send(command);
 

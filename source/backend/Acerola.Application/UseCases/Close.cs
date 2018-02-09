@@ -1,18 +1,16 @@
-﻿namespace Acerola.Application.CommandHandlers.Accounts
+﻿namespace Acerola.Application.UseCases
 {
     using MediatR;
     using System;
     using System.Threading.Tasks;
-    using Acerola.Application.Commands.Accounts;
     using Acerola.Domain.Accounts;
-    using Acerola.Domain.ValueObjects;
 
-    public class WithdrawCommandHandler : IAsyncRequestHandler<WithdrawCommand, Debit>
+    public class Close : IAsyncRequestHandler<CloseCommand>
     {
         private readonly IAccountReadOnlyRepository accountReadOnlyRepository;
         private readonly IAccountWriteOnlyRepository accountWriteOnlyRepository;
 
-        public WithdrawCommandHandler(
+        public Close(
             IAccountReadOnlyRepository accountReadOnlyRepository,
             IAccountWriteOnlyRepository accountWriteOnlyRepository)
         {
@@ -26,18 +24,11 @@
             this.accountWriteOnlyRepository = accountWriteOnlyRepository;
         }
 
-        public async Task<Debit> Handle(WithdrawCommand command)
+        public async Task Handle(CloseCommand command)
         {
-            Account account = await accountReadOnlyRepository.Get(command.AccountId);
-            if (account == null)
-                throw new AccountNotFoundException($"The account {command.AccountId} does not exists or is already closed.");
+            Account account = accountReadOnlyRepository.Get(command.AccountId).Result;
 
-            Debit debit = Debit.Create(Amount.Create(command.Amount));
-            account.Withdraw(debit);
-
-            await accountWriteOnlyRepository.Update(account);
-
-            return debit;
+            await accountWriteOnlyRepository.Delete(account);
         }
     }
 }

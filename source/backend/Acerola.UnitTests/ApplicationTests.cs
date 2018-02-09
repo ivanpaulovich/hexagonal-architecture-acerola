@@ -4,11 +4,8 @@ namespace Acerola.Domain.UnitTests
     using Xunit;
     using Acerola.Domain.Accounts;
     using Acerola.Domain.Customers;
-    using Acerola.Application.Commands.Accounts;
-    using Acerola.Application.Commands.Customers;
-    using Acerola.Application.CommandHandlers.Customers;
+    using Acerola.Application.UseCases;
     using NSubstitute;
-    using Acerola.Application.CommandHandlers.Accounts;
     using Acerola.Domain.ValueObjects;
 
     public class ApplicationTests
@@ -30,14 +27,14 @@ namespace Acerola.Domain.UnitTests
         [Fact]
         public async void Register_Valid_User_Account()
         {
-            RegisterCustomerCommand command = new RegisterCustomerCommand()
+            RegisterCommand command = new RegisterCommand()
             {
                 PIN = "08724050601",
                 InitialAmount = 300,
                 Name = "Ivan Paulovich"
             };
 
-            RegisterCustomerCommandHandler sut = new RegisterCustomerCommandHandler(
+            Register sut = new Register(
                 customerWriteOnlyRepository,
                 accountWriteOnlyRepository);
 
@@ -61,7 +58,7 @@ namespace Acerola.Domain.UnitTests
                 .Get(command.AccountId)
                 .Returns(new Account());
 
-            DepositCommandHandler sut = new DepositCommandHandler(
+            Deposit sut = new Deposit(
                 accountReadOnlyRepository,
                 accountWriteOnlyRepository);
 
@@ -88,7 +85,7 @@ namespace Acerola.Domain.UnitTests
                 .Get(command.AccountId)
                 .Returns(account);
 
-            WithdrawCommandHandler sut = new WithdrawCommandHandler(
+            Withdraw sut = new Withdraw(
                 accountReadOnlyRepository,
                 accountWriteOnlyRepository);
 

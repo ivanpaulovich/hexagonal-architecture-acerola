@@ -1,4 +1,4 @@
-﻿namespace Acerola.Application.Commands.Accounts
+﻿namespace Acerola.Application.UseCases
 {
     using MediatR;
     using System;
@@ -8,11 +8,6 @@
     public class CloseCommand : IRequest
     {
         [DataMember]
-        public Guid AccountId { get; private set; }
-
-        public CloseCommand()
-        {
-
-        }
+        public Guid AccountId { get; set; }
     }
 }

@@ -1,18 +1,17 @@
-﻿namespace Acerola.Application.CommandHandlers.Accounts
+﻿namespace Acerola.Application.UseCases
 {
     using MediatR;
     using System;
     using System.Threading.Tasks;
-    using Acerola.Application.Commands.Accounts;
     using Acerola.Domain.Accounts;
     using Acerola.Domain.ValueObjects;
 
-    public class DepositCommandHandler : IAsyncRequestHandler<DepositCommand, Credit>
+    public class Deposit : IAsyncRequestHandler<DepositCommand, Credit>
     {
         private readonly IAccountReadOnlyRepository accountReadOnlyRepository;
         private readonly IAccountWriteOnlyRepository accountWriteOnlyRepository;
 
-        public DepositCommandHandler(
+        public Deposit(
             IAccountReadOnlyRepository accountReadOnlyRepository,
             IAccountWriteOnlyRepository accountWriteOnlyRepository)
         {

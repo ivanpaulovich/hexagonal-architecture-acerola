@@ -8,14 +8,8 @@
     {
         protected override void Load(ContainerBuilder builder)
         {
-            MapperConfig.Register();
-
-            builder.RegisterType<AccountsMapper>()
-               .As<IAccountsMapper>()
-               .InstancePerLifetimeScope();
-
-            builder.RegisterType<CustomersMapper>()
-               .As<ICustomersMapper>()
+            builder.RegisterType<DTOMapper>()
+               .As<IDTOMapper>()
                .InstancePerLifetimeScope();
         }
     }

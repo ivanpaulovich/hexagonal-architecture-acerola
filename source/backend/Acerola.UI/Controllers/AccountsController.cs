@@ -1,15 +1,14 @@
 ﻿namespace Acerola.UI.Controllers
 {
     using MediatR;
-    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using System;
     using System.Threading.Tasks;
-    using Acerola.Application.Commands.Accounts;
     using Acerola.Application.Queries;
     using Acerola.Domain.Accounts;
     using System.Collections.Generic;
     using Acerola.Application.DTO;
+    using Acerola.Application.UseCases;
 
     [Route("api/[controller]")]
     public class AccountsController : Controller

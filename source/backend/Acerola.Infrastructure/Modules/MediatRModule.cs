@@ -1,11 +1,11 @@
 ﻿namespace Acerola.Infrastructure.Modules
 {
+    using Acerola.Application.UseCases;
     using Autofac;
     using Autofac.Features.Variance;
     using MediatR;
     using System.Collections.Generic;
     using System.Reflection;
-    using Acerola.Application.Commands.Customers;
 
     public class MediatRModule : Autofac.Module
     {
@@ -32,7 +32,9 @@
                 })
                 .InstancePerLifetimeScope();
 
-            builder.RegisterAssemblyTypes(typeof(RegisterCustomerCommand).GetTypeInfo().Assembly).AsImplementedInterfaces(); // via assembly scan
+            builder
+                .RegisterAssemblyTypes(typeof(RegisterCommand).GetTypeInfo().Assembly)
+                .AsImplementedInterfaces();
         }
     }
 }
