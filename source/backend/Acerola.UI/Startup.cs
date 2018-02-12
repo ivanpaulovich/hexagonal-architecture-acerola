@@ -50,11 +50,13 @@
 
                 options.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info
                 {
-                    Title = "Acerola",
-                    Version = "v1",
-                    Description = "The Acerola HTTP API",
-                    TermsOfService = "Terms Of Service"
+                    Title = Configuration["App:Title"],
+                    Version = Configuration["App:Version"],
+                    Description = Configuration["App:Description"],
+                    TermsOfService = Configuration["App:TermsOfService"]
                 });
+
+                options.CustomSchemaIds(x => x.FullName);
             });
         }
 
