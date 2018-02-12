@@ -1,0 +1,22 @@
+﻿{
+  "defaultAssembly": "Manga.UI",
+  "modules": [
+    {
+      "type": "Manga.UI.Modules.UIModuley",
+      "properties": {
+      }
+    },
+    {
+      "type": "Manga.UI.Modules.ApplicationModule",
+      "properties": {
+      }
+    },
+    {
+      "type": "Manga.UI.Modules.InfrastructureModule",
+      "properties": {
+        "ConnectionString": "mongodb://10.0.75.1:27017",
+        "DatabaseName": "Manga-Tests-V01"
+      }
+    }
+  ]
+}

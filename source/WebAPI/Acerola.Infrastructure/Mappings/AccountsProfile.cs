@@ -1,4 +1,4 @@
-﻿namespace Manga.Infrastructure.Mappings
+﻿namespace Acerola.Infrastructure.Mappings
 {
     using AutoMapper;
     using Acerola.Application.Results;

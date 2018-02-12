@@ -1,9 +1,10 @@
 namespace Acerola.Domain.UnitTests
 {
     using Xunit;
-    using Acerola.Domain.Accounts;
     using Acerola.Domain.Customers;
     using NSubstitute;
+    using Acerola.Domain.Customers.Accounts;
+    using Acerola.Domain.ValueObjects;
 
     public class CustomerTests
     {
@@ -12,7 +13,7 @@ namespace Acerola.Domain.UnitTests
         {
             //
             // Arrange
-            Customer sut = Substitute.For<Customer>();
+            Customer sut = new Customer(new PIN("08724050601"), new Name("Ivan Paulovich"));
             Account account = Substitute.For<Account>();
 
             //

@@ -8,7 +8,7 @@
         protected override void Load(ContainerBuilder builder)
         {
             //
-            // Register all Types in Manga.Application
+            // Register all Types in Acerola.Application
             //
             builder.RegisterAssemblyTypes(typeof(RegisterHandler).Assembly)
                 .AsImplementedInterfaces()

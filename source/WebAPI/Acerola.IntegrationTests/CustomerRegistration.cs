@@ -34,23 +34,10 @@ namespace Acerola.IntegrationTests
         }
 
         [Fact]
-        public async Task ListCustomers()
-        {
-            var response = await client.GetAsync("/api/Customers");
-            response.EnsureSuccessStatusCode();
-        }
-
-        [Fact]
-        public async Task ListAccounts()
-        {
-            var response = await client.GetAsync("/api/Accounts");
-            response.EnsureSuccessStatusCode();
-        }
-
-        [Fact]
         public async Task Register_Then_GetDetails()
         {
-            var command = new {
+            var command = new
+            {
                 pin = "08724050601",
                 name = "Ivan Paulovich",
                 initialAmount = "1200"

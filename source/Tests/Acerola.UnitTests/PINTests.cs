@@ -3,10 +3,10 @@ namespace Acerola.Domain.UnitTests
     using Acerola.Domain.ValueObjects;
     using Xunit;
 
-    public class NameTests
+    public class PINTests
     {
         [Fact]
-        public void Empty_Name_Should_Be_Created()
+        public void Empty_PIN_Should_Be_Created()
         {
             //
             // Arrange
@@ -14,24 +14,23 @@ namespace Acerola.Domain.UnitTests
 
             //
             // Act and Assert
-            Assert.Throws<NameShouldNotBeEmptyException>(
-                () => Name.Create(empty));
+            Assert.Throws<PINShouldNotBeEmptyException>(
+                () => new PIN(empty));
         }
 
         [Fact]
-        public void Full_Name_Shoud_Be_Created()
+        public void Valid_PIN_Should_Be_Created()
         {
             //
             // Arrange
-            string valid = "Ivan Paulovich";
+            string valid = "08724050601";
 
             //
             // Act
-            Name name = Name.Create(valid);
+            PIN pin = new PIN(valid);
 
-            //
             // Assert
-            Assert.Equal(valid, name.Text);
+            Assert.Equal(valid, pin.Text);
         }
     }
 }
