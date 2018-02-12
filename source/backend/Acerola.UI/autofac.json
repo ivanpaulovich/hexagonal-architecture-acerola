@@ -1,23 +1,21 @@
 ﻿{
-  "defaultAssembly": "Acerola.Infrastructure",
+  "defaultAssembly": "Acerola.UI",
   "modules": [
     {
-      "type": "Acerola.Infrastructure.Modules.ApplicationModule",
+      "type": "Acerola.UI.Modules.UIModuley",
       "properties": {
-        "ConnectionString": "mongodb://10.0.75.1:27017",
-        "DatabaseName": "AcerolaV01"
       }
     },
     {
-      "type": "Acerola.Infrastructure.Modules.QueriesModule",
+      "type": "Acerola.UI.Modules.ApplicationModule",
       "properties": {
-        "ConnectionString": "mongodb://10.0.75.1:27017",
-        "DatabaseName": "AcerolaV01"
       }
     },
     {
-      "type": "Acerola.Infrastructure.Modules.AutoMapperModule",
+      "type": "Acerola.UI.Modules.InfrastructureModule",
       "properties": {
+        "ConnectionString": "mongodb://10.0.75.1:27017",
+        "DatabaseName": "Acerola-V01"
       }
     }
   ]

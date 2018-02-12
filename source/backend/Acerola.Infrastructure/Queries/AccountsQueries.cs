@@ -1,61 +1,47 @@
 ﻿namespace Acerola.Infrastructure.Queries
 {
     using Acerola.Application.Queries;
-    using Acerola.Application.DTO;
-    using Acerola.Domain.Accounts;
+    using Acerola.Application.Results;
     using Acerola.Infrastructure.DataAccess;
     using MongoDB.Driver;
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
-    using Acerola.Application.Mappers;
+    using Acerola.Application;
+    using Acerola.Domain.Customers.Accounts;
+    using Acerola.Domain.Customers;
 
     public class AccountsQueries : IAccountsQueries
     {
         private readonly AccountBalanceContext mongoDB;
-        private readonly IDTOMapper mapper;
+        private readonly IResultConverter mapper;
 
-        public AccountsQueries(AccountBalanceContext mongoDB, IDTOMapper mapper)
+        public AccountsQueries(AccountBalanceContext mongoDB, IResultConverter mapper)
         {
             this.mongoDB = mongoDB;
             this.mapper = mapper;
         }
 
-        public async Task<AccountData> GetAccount(Guid id)
+        public async Task<AccountResult> GetAccount(Guid accountId)
         {
-            Account data = await this.mongoDB.Accounts
-                .Find(Builders<Account>.Filter.Eq("_id", id))
+            Customer customer = await mongoDB.Customers
+                .Find(Builders<Customer>.Filter.ElemMatch(x => x.Accounts, e => e.Id == accountId))
                 .SingleOrDefaultAsync();
 
-            if (data == null)
-                throw new AccountNotFoundException($"The account {id} does not exists or is not processed yet.");
+            Account data = null;
 
-            AccountData accountVM = this.mapper.Map<AccountData>(data);
+            foreach (var item in customer.Accounts)
+            {
+                if (item.Id == accountId)
+                    data = item;
+            }
+
+            if (data == null)
+                throw new AccountNotFoundException($"The account {accountId} does not exists or is not processed yet.");
+
+            AccountResult accountVM = this.mapper.Map<AccountResult>(data);
 
             return accountVM;
-        }
-
-        public async Task<IEnumerable<AccountData>> GetAll()
-        {
-            IEnumerable<Account> data = await this.mongoDB.Accounts
-                .Find(e => true)
-                .ToListAsync();
-
-            List<AccountData> result = this.mapper.Map<List<AccountData>>(data);
-
-            return result;
-        }
-
-        public async Task<IEnumerable<AccountData>> Get(Guid customerId)
-        {
-            IEnumerable<Account> data = await this.mongoDB.Accounts
-                .Find(Builders<Account>
-                .Filter.Eq("CustomerId", customerId))
-                .ToListAsync();
-
-            List<AccountData> result = this.mapper.Map<List<AccountData>>(data);
-
-            return result;
         }
     }
 }

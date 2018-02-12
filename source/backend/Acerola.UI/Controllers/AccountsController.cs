@@ -4,41 +4,29 @@
     using System;
     using System.Threading.Tasks;
     using Acerola.Application.Queries;
-    using Acerola.Domain.Accounts;
-    using System.Collections.Generic;
-    using Acerola.Application.DTO;
-    using Acerola.Application.UseCases;
-    using Acerola.Application.Boundary;
+    using Acerola.Application.Commands.Close;
+    using Acerola.Application.Commands.Withdraw;
+    using Acerola.Application.Commands.Deposit;
+    using Acerola.UI.Requests;
+    using Acerola.Domain.Customers.Accounts;
 
     [Route("api/[controller]")]
     public class AccountsController : Controller
     {
-        private readonly IDeposit deposit;
-        private readonly IWithdraw withdraw;
-        private readonly IClose close;
+        private readonly IDepositHandler depositHandler;
+        private readonly IWithdrawHandler withdrawHandler;
+        private readonly ICloseHandler closeHandler;
         private readonly IAccountsQueries accountsQueries;
 
         public AccountsController(
-            IDeposit deposit, 
-            IWithdraw withdraw,
-            IClose close,
+            IDepositHandler depositHandler, 
+            IWithdrawHandler withdrawHandler,
+            ICloseHandler closeHandler,
             IAccountsQueries accountsQueries)
         {
-            if (deposit == null)
-                throw new ArgumentNullException(nameof(deposit));
-
-            if (withdraw == null)
-                throw new ArgumentNullException(nameof(withdraw));
-
-            if (close == null)
-                throw new ArgumentNullException(nameof(close));
-
-            if (accountsQueries == null)
-                throw new ArgumentNullException(nameof(accountsQueries));
-
-            this.deposit = deposit;
-            this.withdraw = withdraw;
-            this.close = close;
+            this.depositHandler = depositHandler;
+            this.withdrawHandler = withdrawHandler;
+            this.closeHandler = closeHandler;
             this.accountsQueries = accountsQueries;
         }
 
@@ -46,9 +34,13 @@
         /// Deposit from an account
         /// </summary>
         [HttpPatch("Deposit")]
-        public async Task<IActionResult> Deposit([FromBody]DepositMessage message)
+        public async Task<IActionResult> Deposit([FromBody]DepositRequest request)
         {
-            Credit credit = await deposit.Handle(message);
+            var command = new DepositCommand(
+                request.AccountId,
+                request.Amount);
+
+            Credit credit = await depositHandler.Handle(command);
             return Ok();
         }
 
@@ -56,9 +48,13 @@
         /// Withdraw from an account
         /// </summary>
         [HttpPatch("Withdraw")]
-        public async Task<IActionResult> Withdraw([FromBody]WithdrawMessage message)
+        public async Task<IActionResult> Withdraw([FromBody]WithdrawRequest request)
         {
-            Debit debit = await withdraw.Handle(message);
+            var command = new WithdrawCommand(
+                request.AccountId,
+                request.Amount);
+
+            Debit debit = await withdrawHandler.Handle(command);
             return Ok();
         }
 
@@ -66,9 +62,12 @@
         /// Close an account
         /// </summary>
         [HttpDelete]
-        public async Task<IActionResult> Close([FromBody]CloseMessage message)
+        public async Task<IActionResult> Close([FromBody]CloseRequest request)
         {
-            await close.Handle(message);
+            var command = new CloseCommand(
+                request.AccountId);
+
+            await closeHandler.Handle(command);
             return Ok();
         }
 
@@ -81,24 +80,6 @@
             var account = await accountsQueries.GetAccount(id);
 
             return Ok(account);
-        }
-
-        /// <summary>
-        /// List all accounts
-        /// </summary>
-        [HttpGet]
-        public async Task<IActionResult> List([FromQuery]Guid? customerId)
-        {
-            IEnumerable<AccountData> accounts = null;
-
-            if (customerId.HasValue)
-            {
-                accounts = await accountsQueries.Get(customerId.Value);
-                return Ok(accounts);
-            }
-
-            accounts = await accountsQueries.GetAll();
-            return Ok(accounts);
         }
     }
 }

@@ -1,14 +1,14 @@
-﻿namespace Acerola.Infrastructure.Mappings
+﻿namespace Manga.Infrastructure.Mappings
 {
-    using Acerola.Application.DTO;
-    using Acerola.Domain.Customers;
     using AutoMapper;
+    using Acerola.Application.Results;
+    using Acerola.Domain.Customers;
 
     public class CustomersProfile : Profile
     {
         public CustomersProfile()
         {
-            CreateMap<Customer, CustomerData>()
+            CreateMap<Customer, CustomerResult>()
                     .ForMember(dest => dest.CustomerId, opt => opt.MapFrom(src => src.Id))
                     .ForMember(dest => dest.Personnummer, opt => opt.MapFrom(src => src.PIN.Text))
                     .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name.Text));

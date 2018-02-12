@@ -4,7 +4,7 @@ namespace Acerola.Domain.UnitTests
     using Xunit;
     using Acerola.Domain.Accounts;
     using Acerola.Domain.Customers;
-    using Acerola.Application.UseCases;
+    using Acerola.Application.Commands;
     using NSubstitute;
     using Acerola.Domain.ValueObjects;
 
@@ -27,7 +27,7 @@ namespace Acerola.Domain.UnitTests
         [Fact]
         public async void Register_Valid_User_Account()
         {
-            RegisterMessage command = new RegisterMessage()
+            RegisterCommand command = new RegisterCommand()
             {
                 PIN = "08724050601",
                 InitialAmount = 300,
@@ -85,7 +85,7 @@ namespace Acerola.Domain.UnitTests
                 .Get(command.AccountId)
                 .Returns(account);
 
-            Withdraw sut = new Withdraw(
+            WithdrawHandler sut = new WithdrawHandler(
                 accountReadOnlyRepository,
                 accountWriteOnlyRepository);
 

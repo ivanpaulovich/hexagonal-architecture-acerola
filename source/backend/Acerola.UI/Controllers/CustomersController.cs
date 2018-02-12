@@ -1,50 +1,44 @@
 ﻿namespace Acerola.UI.Controllers
 {
     using Acerola.Application.Queries;
-    using Acerola.Application.DTO;
+    using Acerola.Application.Results;
     using Acerola.Domain.Customers;
     using Microsoft.AspNetCore.Mvc;
     using System;
-    using System.Collections.Generic;
     using System.Threading.Tasks;
-    using Acerola.Application.Boundary;
-    using Acerola.Application.UseCases;
+    using Acerola.UI.Requests;
+    using Acerola.Application.Commands.Register;
+    using Acerola.UI.Model;
 
     [Route("api/[controller]")]
     public class CustomersController : Controller
     {
         private readonly ICustomersQueries customersQueries;
-        private readonly IRegister register;
+        private readonly IRegisterHandler registerHandler;
 
         public CustomersController(ICustomersQueries customersQueries,
-            IRegister register)
+            IRegisterHandler registerHandler)
         {
-            if (customersQueries == null)
-                throw new ArgumentNullException(nameof(customersQueries));
-
-            if (register == null)
-                throw new ArgumentNullException(nameof(register));
-
             this.customersQueries = customersQueries;
-            this.register = register;
+            this.registerHandler = registerHandler;
         }
 
         /// <summary>
         /// Register a new Customer
         /// </summary>
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody]RegisterMessage command)
+        public async Task<IActionResult> Post([FromBody]RegisterRequest request)
         {
-            Customer customer = await register.Handle(command);
+            var command = new RegisterCommand(request.PIN, request.Name, request.InitialAmount);
+            Customer customer = await registerHandler.Handle(command);
 
-            CustomerData result = new CustomerData
-            {
-                CustomerId = customer.Id,
-                Name = customer.Name.Text,
-                Personnummer = customer.PIN.Text
-            };
+            RegisterModel result = new RegisterModel(
+                customer.Id,
+                customer.PIN.Text,
+                customer.Name.Text
+            );
 
-            return CreatedAtRoute("GetCustomer", new { id = result.CustomerId }, result);
+            return CreatedAtRoute("GetCustomer", new { id = customer.Id }, result);
         }
 
         /// <summary>
@@ -53,20 +47,9 @@
         [HttpGet("{id}", Name = "GetCustomer")]
         public async Task<IActionResult> GetCustomer(Guid id)
         {
-            CustomerData customer = await customersQueries.GetCustomer(id);
+            CustomerResult customer = await customersQueries.GetCustomer(id);
 
             return Ok(customer);
-        }
-
-        /// <summary>
-        /// List all customers
-        /// </summary>
-        [HttpGet]
-        public async Task<IActionResult> Get()
-        {
-            IEnumerable<CustomerData> customers = await customersQueries.GetAll();
-
-            return Ok(customers);
         }
     }
 }
