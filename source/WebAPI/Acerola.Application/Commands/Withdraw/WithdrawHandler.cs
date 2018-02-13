@@ -1,6 +1,7 @@
 ﻿namespace Acerola.Application.Commands.Withdraw
 {
     using System.Threading.Tasks;
+    using Acerola.Application.Results;
     using Acerola.Domain.Customers;
     using Acerola.Domain.Customers.Accounts;
     using Acerola.Domain.ValueObjects;
@@ -9,16 +10,19 @@
     {
         private readonly ICustomerReadOnlyRepository customerReadOnlyRepository;
         private readonly ICustomerWriteOnlyRepository customerWriteOnlyRepository;
+        private readonly IResultConverter resultConverter;
 
         public WithdrawHandler(
             ICustomerReadOnlyRepository customerReadOnlyRepository,
-            ICustomerWriteOnlyRepository customerWriteOnlyRepository)
+            ICustomerWriteOnlyRepository customerWriteOnlyRepository,
+            IResultConverter resultConverter)
         {
             this.customerReadOnlyRepository = customerReadOnlyRepository;
             this.customerWriteOnlyRepository = customerWriteOnlyRepository;
+            this.resultConverter = resultConverter;
         }
 
-        public async Task<Debit> Handle(WithdrawCommand command)
+        public async Task<WithdrawResult> Handle(WithdrawCommand command)
         {
             Customer customer = await customerReadOnlyRepository.GetByAccount(command.AccountId);
             if (customer == null)
@@ -30,7 +34,13 @@
 
             await customerWriteOnlyRepository.Update(customer);
 
-            return debit;
+            TransactionResult transactionResult = resultConverter.Map<TransactionResult>(debit);
+            WithdrawResult response = new WithdrawResult(
+                transactionResult,
+                account.CurrentBalance.Value
+            );
+
+            return response;
         }
     }
 }

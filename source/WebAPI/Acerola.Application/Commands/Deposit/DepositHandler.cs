@@ -1,6 +1,7 @@
 ﻿namespace Acerola.Application.Commands.Deposit
 {
     using System.Threading.Tasks;
+    using Acerola.Application.Results;
     using Acerola.Domain.Customers;
     using Acerola.Domain.Customers.Accounts;
     using Acerola.Domain.ValueObjects;
@@ -9,16 +10,19 @@
     {
         private readonly ICustomerReadOnlyRepository customerReadOnlyRepository;
         private readonly ICustomerWriteOnlyRepository customerWriteOnlyRepository;
+        private readonly IResultConverter resultConverter;
 
         public DepositHandler(
             ICustomerReadOnlyRepository customerReadOnlyRepository,
-            ICustomerWriteOnlyRepository customerWriteOnlyRepository)
+            ICustomerWriteOnlyRepository customerWriteOnlyRepository,
+            IResultConverter resultConverter)
         {
             this.customerReadOnlyRepository = customerReadOnlyRepository;
             this.customerWriteOnlyRepository = customerWriteOnlyRepository;
+            this.resultConverter = resultConverter;
         }
 
-        public async Task<Credit> Handle(DepositCommand command)
+        public async Task<DepositResult> Handle(DepositCommand command)
         {
             Customer customer = await customerReadOnlyRepository.GetByAccount(command.AccountId);
             if (customer == null)
@@ -30,7 +34,10 @@
 
             await customerWriteOnlyRepository.Update(customer);
 
-            return credit;
+            TransactionResult transactionResult = resultConverter.Map<TransactionResult>(credit);
+            DepositResult response = new DepositResult(transactionResult, account.CurrentBalance.Value);
+
+            return response;
         }
     }
 }

@@ -4,6 +4,6 @@
 
     public interface ICloseHandler
     {
-        Task Handle(CloseCommand command);
+        Task<CloseResult> Handle(CloseCommand command);
     }
 }

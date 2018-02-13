@@ -2,7 +2,6 @@
 {
     using Acerola.Application.Queries;
     using Acerola.Application.Results;
-    using Acerola.Domain.Customers;
     using Microsoft.AspNetCore.Mvc;
     using System;
     using System.Threading.Tasks;
@@ -30,15 +29,15 @@
         public async Task<IActionResult> Post([FromBody]RegisterRequest request)
         {
             var command = new RegisterCommand(request.PIN, request.Name, request.InitialAmount);
-            Customer customer = await registerHandler.Handle(command);
+            RegisterResult registerResult = await registerHandler.Handle(command);
 
-            RegisterModel result = new RegisterModel(
-                customer.Id,
-                customer.PIN.Text,
-                customer.Name.Text
+            RegisterModel model = new RegisterModel(
+                registerResult.Customer.CustomerId,
+                registerResult.Customer.Personnummer,
+                registerResult.Customer.Name
             );
 
-            return CreatedAtRoute("GetCustomer", new { id = customer.Id }, result);
+            return CreatedAtRoute("GetCustomer", new { id = model.CustomerId }, model);
         }
 
         /// <summary>

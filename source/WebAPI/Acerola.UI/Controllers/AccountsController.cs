@@ -9,6 +9,7 @@
     using Acerola.Application.Commands.Deposit;
     using Acerola.UI.Requests;
     using Acerola.Domain.Customers.Accounts;
+    using Acerola.UI.Model;
 
     [Route("api/[controller]")]
     public class AccountsController : Controller
@@ -40,8 +41,21 @@
                 request.AccountId,
                 request.Amount);
 
-            Credit credit = await depositHandler.Handle(command);
-            return Ok();
+            DepositResult depositResult = await depositHandler.Handle(command);
+
+            if (depositResult == null)
+            {
+                return new NoContentResult();
+            }
+
+            DepositModel model = new DepositModel(
+                depositResult.Transaction.Amount,
+                depositResult.Transaction.Description,
+                depositResult.Transaction.TransactionDate,
+                depositResult.UpdatedBalance
+            );
+
+            return new ObjectResult(model);
         }
 
         /// <summary>
@@ -54,8 +68,21 @@
                 request.AccountId,
                 request.Amount);
 
-            Debit debit = await withdrawHandler.Handle(command);
-            return Ok();
+            WithdrawResult depositResult = await withdrawHandler.Handle(command);
+
+            if (depositResult == null)
+            {
+                return new NoContentResult();
+            }
+
+            WithdrawModel model = new WithdrawModel(
+                depositResult.Transaction.Amount,
+                depositResult.Transaction.Description,
+                depositResult.Transaction.TransactionDate,
+                depositResult.UpdatedBalance
+            );
+
+            return new ObjectResult(model);
         }
 
         /// <summary>
@@ -67,7 +94,13 @@
             var command = new CloseCommand(
                 request.AccountId);
 
-            await closeHandler.Handle(command);
+            CloseResult closeResult = await closeHandler.Handle(command);
+
+            if (closeResult == null)
+            {
+                return new NoContentResult();
+            }
+
             return Ok();
         }
 

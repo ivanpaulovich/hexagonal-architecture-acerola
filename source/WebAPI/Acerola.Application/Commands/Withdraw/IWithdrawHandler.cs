@@ -5,6 +5,6 @@
 
     public interface IWithdrawHandler
     {
-        Task<Debit> Handle(WithdrawCommand message);
+        Task<WithdrawResult> Handle(WithdrawCommand message);
     }
 }
