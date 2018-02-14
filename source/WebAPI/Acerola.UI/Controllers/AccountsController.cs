@@ -8,26 +8,25 @@
     using Acerola.Application.Commands.Withdraw;
     using Acerola.Application.Commands.Deposit;
     using Acerola.UI.Requests;
-    using Acerola.Domain.Customers.Accounts;
     using Acerola.UI.Model;
 
     [Route("api/[controller]")]
     public class AccountsController : Controller
     {
-        private readonly IDepositHandler depositHandler;
-        private readonly IWithdrawHandler withdrawHandler;
-        private readonly ICloseHandler closeHandler;
+        private readonly IDepositService depositService;
+        private readonly IWithdrawService withdrawService;
+        private readonly ICloseService closeService;
         private readonly IAccountsQueries accountsQueries;
 
         public AccountsController(
-            IDepositHandler depositHandler, 
-            IWithdrawHandler withdrawHandler,
-            ICloseHandler closeHandler,
+            IDepositService depositService, 
+            IWithdrawService withdrawService,
+            ICloseService closeService,
             IAccountsQueries accountsQueries)
         {
-            this.depositHandler = depositHandler;
-            this.withdrawHandler = withdrawHandler;
-            this.closeHandler = closeHandler;
+            this.depositService = depositService;
+            this.withdrawService = withdrawService;
+            this.closeService = closeService;
             this.accountsQueries = accountsQueries;
         }
 
@@ -41,7 +40,7 @@
                 request.AccountId,
                 request.Amount);
 
-            DepositResult depositResult = await depositHandler.Handle(command);
+            DepositResult depositResult = await depositService.Handle(command);
 
             if (depositResult == null)
             {
@@ -68,7 +67,7 @@
                 request.AccountId,
                 request.Amount);
 
-            WithdrawResult depositResult = await withdrawHandler.Handle(command);
+            WithdrawResult depositResult = await withdrawService.Handle(command);
 
             if (depositResult == null)
             {
@@ -94,7 +93,7 @@
             var command = new CloseCommand(
                 request.AccountId);
 
-            CloseResult closeResult = await closeHandler.Handle(command);
+            CloseResult closeResult = await closeService.Handle(command);
 
             if (closeResult == null)
             {

@@ -2,7 +2,7 @@
 {
     using System.Threading.Tasks;
 
-    public interface IRegisterHandler
+    public interface IRegisterService
     {
         Task<RegisterResult> Handle(RegisterCommand message);
     }

@@ -2,7 +2,7 @@
 {
     using System.Threading.Tasks;
 
-    public interface IDepositHandler
+    public interface IDepositService
     {
         Task<DepositResult> Handle(DepositCommand command);
     }

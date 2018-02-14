@@ -6,12 +6,12 @@
     using Acerola.Domain.Customers.Accounts;
     using Acerola.Domain.ValueObjects;
 
-    public class RegisterHandler : IRegisterHandler
+    public class RegisterService : IRegisterService
     {
         private readonly ICustomerWriteOnlyRepository customerWriteOnlyRepository;
         private readonly IResultConverter resultConverter;
 
-        public RegisterHandler(
+        public RegisterService(
             ICustomerWriteOnlyRepository customerWriteOnlyRepository,
             IResultConverter resultConverter)
         {

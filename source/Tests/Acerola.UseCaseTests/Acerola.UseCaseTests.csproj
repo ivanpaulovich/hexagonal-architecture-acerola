@@ -15,9 +15,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\WebAPI\Manga.Application\Manga.Application.csproj" />
-    <ProjectReference Include="..\..\WebAPI\Manga.Domain\Manga.Domain.csproj" />
-    <ProjectReference Include="..\..\WebAPI\Manga.Infrastructure\Manga.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\WebAPI\Acerola.Application\Acerola.Application.csproj" />
+    <ProjectReference Include="..\..\WebAPI\Acerola.Domain\Acerola.Domain.csproj" />
+    <ProjectReference Include="..\..\WebAPI\Acerola.Infrastructure\Acerola.Infrastructure.csproj" />
   </ItemGroup>
+
 
 </Project>

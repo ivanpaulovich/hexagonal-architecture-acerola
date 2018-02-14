@@ -1,18 +1,15 @@
-﻿namespace Acerola.Application.Commands.Deposit
+﻿namespace Acerola.Application.Commands.Close
 {
     using System.Threading.Tasks;
-    using Acerola.Application.Results;
     using Acerola.Domain.Customers;
-    using Acerola.Domain.Customers.Accounts;
-    using Acerola.Domain.ValueObjects;
 
-    public class DepositHandler : IDepositHandler
+    public class CloseService : ICloseService
     {
         private readonly ICustomerReadOnlyRepository customerReadOnlyRepository;
         private readonly ICustomerWriteOnlyRepository customerWriteOnlyRepository;
         private readonly IResultConverter resultConverter;
 
-        public DepositHandler(
+        public CloseService(
             ICustomerReadOnlyRepository customerReadOnlyRepository,
             ICustomerWriteOnlyRepository customerWriteOnlyRepository,
             IResultConverter resultConverter)
@@ -22,20 +19,13 @@
             this.resultConverter = resultConverter;
         }
 
-        public async Task<DepositResult> Handle(DepositCommand command)
+        public async Task<CloseResult> Handle(CloseCommand command)
         {
             Customer customer = await customerReadOnlyRepository.GetByAccount(command.AccountId);
-            if (customer == null)
-                throw new AccountNotFoundException($"The account {command.AccountId} does not exists or is already closed.");
-
-            Credit credit = new Credit(new Amount(command.Amount));
-            Account account = customer.FindAccount(command.AccountId);
-            account.Deposit(credit);
-
+            customer.RemoveAccount(command.AccountId);
             await customerWriteOnlyRepository.Update(customer);
 
-            TransactionResult transactionResult = resultConverter.Map<TransactionResult>(credit);
-            DepositResult response = new DepositResult(transactionResult, account.CurrentBalance.Value);
+            CloseResult response = resultConverter.Map<CloseResult>(customer);
 
             return response;
         }

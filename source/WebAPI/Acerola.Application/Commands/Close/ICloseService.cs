@@ -2,7 +2,7 @@
 {
     using System.Threading.Tasks;
 
-    public interface ICloseHandler
+    public interface ICloseService
     {
         Task<CloseResult> Handle(CloseCommand command);
     }

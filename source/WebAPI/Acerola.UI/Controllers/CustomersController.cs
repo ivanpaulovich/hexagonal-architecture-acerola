@@ -13,13 +13,13 @@
     public class CustomersController : Controller
     {
         private readonly ICustomersQueries customersQueries;
-        private readonly IRegisterHandler registerHandler;
+        private readonly IRegisterService registerService;
 
         public CustomersController(ICustomersQueries customersQueries,
-            IRegisterHandler registerHandler)
+            IRegisterService registerService)
         {
             this.customersQueries = customersQueries;
-            this.registerHandler = registerHandler;
+            this.registerService = registerService;
         }
 
         /// <summary>
@@ -29,7 +29,7 @@
         public async Task<IActionResult> Post([FromBody]RegisterRequest request)
         {
             var command = new RegisterCommand(request.PIN, request.Name, request.InitialAmount);
-            RegisterResult registerResult = await registerHandler.Handle(command);
+            RegisterResult registerResult = await registerService.Handle(command);
 
             RegisterModel model = new RegisterModel(
                 registerResult.Customer.CustomerId,

@@ -6,13 +6,13 @@
     using Acerola.Domain.Customers.Accounts;
     using Acerola.Domain.ValueObjects;
 
-    public class WithdrawHandler : IWithdrawHandler
+    public class WithdrawService : IWithdrawService
     {
         private readonly ICustomerReadOnlyRepository customerReadOnlyRepository;
         private readonly ICustomerWriteOnlyRepository customerWriteOnlyRepository;
         private readonly IResultConverter resultConverter;
 
-        public WithdrawHandler(
+        public WithdrawService(
             ICustomerReadOnlyRepository customerReadOnlyRepository,
             ICustomerWriteOnlyRepository customerWriteOnlyRepository,
             IResultConverter resultConverter)

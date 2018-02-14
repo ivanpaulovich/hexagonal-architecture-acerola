@@ -10,7 +10,7 @@
             //
             // Register all Types in Acerola.Application
             //
-            builder.RegisterAssemblyTypes(typeof(RegisterHandler).Assembly)
+            builder.RegisterAssemblyTypes(typeof(RegisterService).Assembly)
                 .AsImplementedInterfaces()
                 .InstancePerLifetimeScope();
         }
