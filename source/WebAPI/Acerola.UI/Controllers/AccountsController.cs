@@ -87,7 +87,7 @@
         /// <summary>
         /// Close an account
         /// </summary>
-        [HttpDelete]
+        [HttpDelete("{accountId}")]
         public async Task<IActionResult> Close(Guid accountId)
         {
             var command = new CloseCommand(accountId);
