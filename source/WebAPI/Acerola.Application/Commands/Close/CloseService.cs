@@ -2,6 +2,7 @@
 {
     using System.Threading.Tasks;
     using Acerola.Domain.Customers;
+    using Acerola.Domain.Customers.Accounts;
 
     public class CloseService : ICloseService
     {
@@ -22,10 +23,11 @@
         public async Task<CloseResult> Handle(CloseCommand command)
         {
             Customer customer = await customerReadOnlyRepository.GetByAccount(command.AccountId);
+            Account account = customer.FindAccount(command.AccountId);
             customer.RemoveAccount(command.AccountId);
             await customerWriteOnlyRepository.Update(customer);
 
-            CloseResult response = resultConverter.Map<CloseResult>(customer);
+            CloseResult response = resultConverter.Map<CloseResult>(account);
 
             return response;
         }

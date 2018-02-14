@@ -3,6 +3,7 @@
     using AutoMapper;
     using Acerola.Application.Results;
     using Acerola.Domain.Customers.Accounts;
+    using Acerola.Application.Commands.Close;
 
     public class AccountsProfile : Profile
     {
@@ -21,6 +22,9 @@
                 .ForMember(dest => dest.Amount, opt => opt.MapFrom(src => src.Amount.Value))
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
                 .ForMember(dest => dest.TransactionDate, opt => opt.MapFrom(src => src.TransactionDate));
+
+            CreateMap<Account, CloseResult>()
+                .ForMember(dest => dest.AccountId, opt => opt.MapFrom(src => src.Id));
         }
     }
 }

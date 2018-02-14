@@ -59,16 +59,16 @@
                 accounts
             );
 
-            return CreatedAtRoute("GetCustomer", new { id = model.CustomerId }, model);
+            return CreatedAtRoute("GetCustomer", new { customerId = model.CustomerId }, model);
         }
 
         /// <summary>
         /// Get a Customer details 
         /// </summary>
-        [HttpGet("{id}", Name = "GetCustomer")]
-        public async Task<IActionResult> GetCustomer(Guid id)
+        [HttpGet("{customerId}", Name = "GetCustomer")]
+        public async Task<IActionResult> GetCustomer(Guid customerId)
         {
-            CustomerResult customer = await customersQueries.GetCustomer(id);
+            CustomerResult customer = await customersQueries.GetCustomer(customerId);
 
             return Ok(customer);
         }

@@ -88,10 +88,9 @@
         /// Close an account
         /// </summary>
         [HttpDelete]
-        public async Task<IActionResult> Close([FromBody]CloseRequest request)
+        public async Task<IActionResult> Close(Guid accountId)
         {
-            var command = new CloseCommand(
-                request.AccountId);
+            var command = new CloseCommand(accountId);
 
             CloseResult closeResult = await closeService.Handle(command);
 
@@ -106,10 +105,10 @@
         /// <summary>
         /// Get an account balance
         /// </summary>
-        [HttpGet("{id}", Name = "GetAccount")]
-        public async Task<IActionResult> Get(Guid id)
+        [HttpGet("{accountId}", Name = "GetAccount")]
+        public async Task<IActionResult> Get(Guid accountId)
         {
-            var account = await accountsQueries.GetAccount(id);
+            var account = await accountsQueries.GetAccount(accountId);
 
             return Ok(account);
         }
