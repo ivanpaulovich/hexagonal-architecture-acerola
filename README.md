@@ -31,7 +31,7 @@ Even though the definition of microservice may be different for different profes
 Loggin is a detail. We plugged Serilog and configured it to redirect every log message to files.
 
 ## Docker
-Docker is a detail of this architecture. And it was implemented to help us make a faster and reliable deployment. You could pull the [Manga latest image any time.](https://hub.docker.com/r/ivanpaulovich/manga/)
+Docker is a detail of this architecture. And it was implemented to help us make a faster and reliable deployment. You could pull the [Manga latest image any time.](https://hub.docker.com/r/ivanpaulovich/acerola/)
 
 ## Mongo DB
 Mongo DB is a detail. At infrastructure layer we implemented the ICustomerWriteOnlyRepository to update the Mongo database.
