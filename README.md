@@ -47,3 +47,9 @@ $ docker run -p 8000:80 -d \
 		ivanpaulovich/acerola:latest
 ```
 Then navigate to http://localhost:8000/swagger and play with de Web API.
+
+# We are live on Azure
+
+![Live on Azure](Swagger.png)
+
+You can play with the latest build by navigating to [the Swagger client](http://grape.westus2.cloudapp.azure.com:8000/swagger "Acerola Swagger") (All data is restored weekly)
