@@ -1,6 +1,8 @@
 # Acerola: Hexagonal Architecture
 A solution with Ports and Adapters.
 
+![Flow of Control: Customer Registration](Acerola-Flow-Of-Control.png)
+
 # Requirements
 * [Visual Studio 2017 with Update 3](https://www.visualstudio.com/en-us/news/releasenotes/vs2017-relnotes)
 * [.NET SDK 2.0](https://www.microsoft.com/net/download/core)
@@ -8,7 +10,7 @@ A solution with Ports and Adapters.
 
 # Environment setup
 
-* Run the `./prerequisites.sh` script to download the MongoDB image and run as a Docker container. 
+* Run the `./prerequisites.sh` script to download the MongoDB image and run it as a Docker container. 
 Please wait until the ~400mb download to be complete.
 
 ```
@@ -32,4 +34,16 @@ CONTAINER ID        IMAGE               COMMAND                  CREATED        
 ba28cf144478        mongo               "docker-entrypoint..."   2 days ago          Up 2 days           0.0.0.0:27017->27017/tcp                         setup_mongodb_1
 ```
 
-If everything goes well MongoDB will be running with the `mongodb://10.0.75.1:27017` connection string.
+If everything goes well MongoDB will be running with the following connection string `mongodb://10.0.75.1:27017`.
+
+# Running the latest Docker Build ![Authorization](https://dockerbuildbadges.quelltext.eu/status.svg?organization=ivanpaulovich&repository=acerola)
+
+If you like you can run the latest Docker image of this project as following:
+
+```
+$ docker run -p 8000:80 -d \
+		-e modules__2__properties__ConnectionString=mongodb://10.0.75.1:27017 \
+		--name acerola-backend \
+		ivanpaulovich/acerola:latest
+```
+Then navigate to http://localhost:8000/swagger and play with de Web API.
