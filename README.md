@@ -81,4 +81,6 @@ Then navigate to http://localhost:8000/swagger and play with de Web API.
 
 ![Live on Azure](https://github.com/ivanpaulovich/acerola/blob/master/Swagger.png)
 
-You can play with the latest build by navigating to [the Swagger client](http://grape.westus2.cloudapp.azure.com:8000/swagger "Acerola Swagger") (All data is restored weekly)
+You can play with the latest build by navigating to [the Swagger client](http://grape.westus2.cloudapp.azure.com:8000/swagger "Acerola Swagger").
+
+This source code and website should be used only for learning purposes and **all data will be erased weekly**.
