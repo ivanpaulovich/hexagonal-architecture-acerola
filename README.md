@@ -8,6 +8,26 @@ A solution with Ports and Adapters.
 * [.NET SDK 2.0](https://www.microsoft.com/net/download/core)
 * [Docker](https://docs.docker.com/docker-for-windows/install/)
 
+# Main Concepts
+
+## DDD
+Soon..
+
+## TDD
+Soon..
+
+## CQRS
+Soon..
+
+## SOLID
+Soon..
+
+## Ports And Adapters
+Soon..
+
+## Microservice
+Soon..
+
 # Environment setup
 
 * Run the `./prerequisites.sh` script to download the MongoDB image and run it as a Docker container. 
