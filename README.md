@@ -22,7 +22,7 @@ Soon..
 ## SOLID
 Soon..
 
-## Entity-Boundary-Interactor (EBI)
+## Hexagonal Architecture / Ports and Adapters
 Soon..
 
 ## Microservice
