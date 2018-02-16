@@ -9,6 +9,8 @@ A solution with Ports and Adapters.
 * [Docker](https://docs.docker.com/docker-for-windows/install/)
 
 # Main Arquitetural Concepts
+![Flow of Control: Customer Registration](https://github.com/ivanpaulovich/acerola/blob/master/hexagonal-arhcitecture-alistair-cockburn.gif)
+
 Allow an application to equally be driven by users, programs, automated test or batch scripts, and to be developed and tested in isolation from its eventual run-time devices and databases.
 
 As events arrive from the outside world at a port, a technology-specific adapter converts it into a usable procedure call and passes it to the application. The application is blissfully ignorant of the nature of the input device. When the application has something to send out, it sends it out through a port to an adapter, which creates the appropriate signals needed by the receiving technology (human or automated). The application has a semantically sound interaction with the adapters on all sides of it, without actually knowing the nature of the things on the other side of the adapters. Check out [Alistair Cockburn blog post.](http://alistair.cockburn.us/Hexagonal+architecture)
