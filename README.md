@@ -8,7 +8,7 @@ A solution with Ports and Adapters.
 * [.NET SDK 2.0](https://www.microsoft.com/net/download/core)
 * [Docker](https://docs.docker.com/docker-for-windows/install/)
 
-# Main Concepts
+# Main Arquitetural Concepts
 
 ## DDD
 Soon..
@@ -22,10 +22,16 @@ Soon..
 ## SOLID
 Soon..
 
-## Ports And Adapters
+## Entity-Boundary-Interactor (EBI)
 Soon..
 
 ## Microservice
+Soon..
+
+## Docker
+Soon..
+
+## .NET Core 2.0
 Soon..
 
 # Environment setup
