@@ -23,7 +23,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\WebAPI\Manga.UI\Manga.UI.csproj" />
+    <ProjectReference Include="..\..\WebAPI\Acerola.UI\Acerola.UI.csproj" />
   </ItemGroup>
+
 
 </Project>

@@ -1,21 +1,21 @@
 ﻿{
-  "defaultAssembly": "Manga.UI",
+  "defaultAssembly": "Acerola.UI",
   "modules": [
     {
-      "type": "Manga.UI.Modules.UIModuley",
+      "type": "Acerola.UI.Modules.UIModuley",
       "properties": {
       }
     },
     {
-      "type": "Manga.UI.Modules.ApplicationModule",
+      "type": "Acerola.UI.Modules.ApplicationModule",
       "properties": {
       }
     },
     {
-      "type": "Manga.UI.Modules.InfrastructureModule",
+      "type": "Acerola.UI.Modules.InfrastructureModule",
       "properties": {
         "ConnectionString": "mongodb://10.0.75.1:27017",
-        "DatabaseName": "Manga-Tests-V01"
+        "DatabaseName": "Acerola-Tests-V01"
       }
     }
   ]

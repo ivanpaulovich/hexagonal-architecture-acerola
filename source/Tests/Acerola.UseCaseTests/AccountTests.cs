@@ -82,5 +82,16 @@ namespace Acerola.UseCaseTests
 
             Assert.Equal(request.Amount, result.Transaction.Amount);
         }
+
+        [Theory]
+        [InlineData(100)]
+        public void Account_With_Credits_Should_Not_Allow_Close(double amount)
+        {
+            var account = new Account();
+            account.Deposit(new Credit(new Amount(100)));
+
+            Assert.Throws<AccountCannotBeClosedException>(
+                () => account.Close());
+        }
     }
 }
