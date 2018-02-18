@@ -1,4 +1,5 @@
-# Acerola: Hexagonal Architecture
+![Flow of Control: Customer Registration](https://github.com/ivanpaulovich/acerola/blob/master/logo.png)
+# Arquitetural Style
 A solution with Ports and Adapters.
 
 ![Flow of Control: Customer Registration](https://github.com/ivanpaulovich/acerola/blob/master/Acerola-Flow-Of-Control.png)
