@@ -1,8 +1,8 @@
-![Flow of Control: Customer Registration](https://github.com/ivanpaulovich/acerola/blob/master/logo.png)
+![Flow of Control: Customer Registration](https://raw.githubusercontent.com/ivanpaulovich/acerola/master/logo.png)
 # Architectural Style
 A solution with Ports and Adapters.
 
-![Flow of Control: Customer Registration](https://github.com/ivanpaulovich/acerola/blob/master/Acerola-Flow-Of-Control.png)
+![Flow of Control: Customer Registration](https://raw.githubusercontent.com/ivanpaulovich/acerola/master/Acerola-Flow-Of-Control.png)
 
 # Requirements
 * [Visual Studio 2017 with Update 3](https://www.visualstudio.com/en-us/news/releasenotes/vs2017-relnotes)
@@ -10,7 +10,7 @@ A solution with Ports and Adapters.
 * [Docker](https://docs.docker.com/docker-for-windows/install/)
 
 # Main Architectural Concepts
-![Flow of Control: Customer Registration](https://github.com/ivanpaulovich/acerola/blob/master/hexagonal-arhcitecture-alistair-cockburn.gif)
+![Flow of Control: Customer Registration](https://raw.githubusercontent.com/ivanpaulovich/acerola/master/hexagonal-arhcitecture-alistair-cockburn.gif)
 
 Allow an application to equally be driven by users, programs, automated test or batch scripts, and to be developed and tested in isolation from its eventual run-time devices and databases.
 
@@ -82,7 +82,7 @@ Then navigate to http://localhost:8000/swagger and play with de Web API.
 
 # We are live on Azure
 
-![Live on Azure](https://github.com/ivanpaulovich/acerola/blob/master/Swagger.png)
+![Live on Azure](https://raw.githubusercontent.com/ivanpaulovich/acerola/master/Swagger.png)
 
 You can play with the latest build by navigating to [the Swagger client](http://grape.westus2.cloudapp.azure.com:8000/swagger "Acerola Swagger").
 
