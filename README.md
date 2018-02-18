@@ -1,5 +1,5 @@
 ![Flow of Control: Customer Registration](https://github.com/ivanpaulovich/acerola/blob/master/logo.png)
-# Arquitetural Style
+# Architectural Style
 A solution with Ports and Adapters.
 
 ![Flow of Control: Customer Registration](https://github.com/ivanpaulovich/acerola/blob/master/Acerola-Flow-Of-Control.png)
@@ -9,7 +9,7 @@ A solution with Ports and Adapters.
 * [.NET SDK 2.0](https://www.microsoft.com/net/download/core)
 * [Docker](https://docs.docker.com/docker-for-windows/install/)
 
-# Main Arquitetural Concepts
+# Main Architectural Concepts
 ![Flow of Control: Customer Registration](https://github.com/ivanpaulovich/acerola/blob/master/hexagonal-arhcitecture-alistair-cockburn.gif)
 
 Allow an application to equally be driven by users, programs, automated test or batch scripts, and to be developed and tested in isolation from its eventual run-time devices and databases.
@@ -23,7 +23,7 @@ The use cases of this project is to manage an account balance with deposit and c
 From the beginning of the project we developed Unit Tests and that helped us to enforce the business rules and to create an application that prevents bugs intead of finding them. We also have Use Case tests and Mapping Tests and a more sophistecated Integration Tests. 
 
 ## SOLID
-The SOLID principles are all over the the solution. Knoleadge of SOLID is not a prerequisite to understand and run the solution but it is highly recommended.
+The SOLID principles are all over the the solution. Knwoleadge of SOLID is not a prerequisite to understand and run the solution but it is highly recommended.
 
 ## Microservice
 Even though the definition of microservice may be different for different professionals. We have tried to value some aspects like Continous Delivery, modelled around Business Domain and Independent Deployment.
