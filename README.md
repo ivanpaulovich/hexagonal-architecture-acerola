@@ -19,6 +19,9 @@ As events arrive from the outside world at a port, a technology-specific adapter
 ## DDD
 The use cases of this project is to manage an account balance with deposit and credits and its concepts is enforced by the Domain and Application. Also we use the Eric Evans terms like Entities, Value Object, Aggregates, Aggregate Root and etc. And everything is on a single Bounded Context.
 
+## CQRS
+**[CQRS](https://martinfowler.com/bliki/CQRS.html)** is an acronym for *Command Query Responsibility Segregation*. This pattern allow splitting our conceptual business model into two representations. The main representation resides on the Command Stack, to perform creates, updates and deletions. The display model resides inside the Query stack, where we can build a Query Model that make easier to aggregate information to display to clients and UI. 
+
 ## TDD
 From the beginning of the project we developed Unit Tests and that helped us to enforce the business rules and to create an application that prevents bugs intead of finding them. We also have Use Case tests and Mapping Tests and a more sophistecated Integration Tests. 
 
