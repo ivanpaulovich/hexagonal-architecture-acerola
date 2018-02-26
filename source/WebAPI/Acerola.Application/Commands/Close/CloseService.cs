@@ -20,7 +20,7 @@
             this.resultConverter = resultConverter;
         }
 
-        public async Task<CloseResult> Handle(CloseCommand command)
+        public async Task<CloseResult> Process(CloseCommand command)
         {
             Customer customer = await customerReadOnlyRepository.GetByAccount(command.AccountId);
             Account account = customer.FindAccount(command.AccountId);

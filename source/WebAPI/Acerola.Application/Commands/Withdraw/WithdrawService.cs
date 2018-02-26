@@ -22,7 +22,7 @@
             this.resultConverter = resultConverter;
         }
 
-        public async Task<WithdrawResult> Handle(WithdrawCommand command)
+        public async Task<WithdrawResult> Process(WithdrawCommand command)
         {
             Customer customer = await customerReadOnlyRepository.GetByAccount(command.AccountId);
             if (customer == null)

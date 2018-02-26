@@ -4,6 +4,6 @@
 
     public interface IWithdrawService
     {
-        Task<WithdrawResult> Handle(WithdrawCommand message);
+        Task<WithdrawResult> Process(WithdrawCommand message);
     }
 }

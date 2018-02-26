@@ -41,7 +41,7 @@ namespace Acerola.Domain.UnitTests
                 amount
             );
 
-            RegisterResult result = await registerUseCase.Handle(request);
+            RegisterResult result = await registerUseCase.Process(request);
 
             Assert.Equal(request.PIN, result.Customer.Personnummer);
             Assert.Equal(request.Name, result.Customer.Name);

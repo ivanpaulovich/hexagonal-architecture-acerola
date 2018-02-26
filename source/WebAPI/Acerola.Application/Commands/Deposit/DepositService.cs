@@ -22,7 +22,7 @@
             this.resultConverter = resultConverter;
         }
 
-        public async Task<DepositResult> Handle(DepositCommand command)
+        public async Task<DepositResult> Process(DepositCommand command)
         {
             Customer customer = await customerReadOnlyRepository.GetByAccount(command.AccountId);
             if (customer == null)

@@ -4,6 +4,6 @@
 
     public interface IDepositService
     {
-        Task<DepositResult> Handle(DepositCommand command);
+        Task<DepositResult> Process(DepositCommand command);
     }
 }

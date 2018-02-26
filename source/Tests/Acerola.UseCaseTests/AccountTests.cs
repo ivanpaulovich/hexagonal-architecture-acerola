@@ -45,7 +45,7 @@ namespace Acerola.UseCaseTests
                 amount
             );
 
-            RegisterResult result = await registerUseCase.Handle(request);
+            RegisterResult result = await registerUseCase.Process(request);
 
             Assert.Equal(request.PIN, result.Customer.Personnummer);
             Assert.Equal(request.Name, result.Customer.Name);
@@ -55,8 +55,8 @@ namespace Acerola.UseCaseTests
 
 
         [Theory]
-        [InlineData("08724050601", "Ivan Paulovich", "c725315a-1de6-4bf7-aecf-3af8f0083681", 100)]
-        public async void Deposit_Valid_Amount(string pin, string name, string accountId, double amount)
+        [InlineData("c725315a-1de6-4bf7-aecf-3af8f0083681", 100)]
+        public async void Deposit_Valid_Amount(string accountId, double amount)
         {
             var account = Substitute.For<Account>();
             var customer = Substitute.For<Customer>();
@@ -78,7 +78,7 @@ namespace Acerola.UseCaseTests
                 amount
             );
 
-            DepositResult result = await depositUseCase.Handle(request);
+            DepositResult result = await depositUseCase.Process(request);
 
             Assert.Equal(request.Amount, result.Transaction.Amount);
         }
@@ -88,7 +88,7 @@ namespace Acerola.UseCaseTests
         public void Account_With_Credits_Should_Not_Allow_Close(double amount)
         {
             var account = new Account();
-            account.Deposit(new Credit(new Amount(100)));
+            account.Deposit(new Credit(new Amount(amount)));
 
             Assert.Throws<AccountCannotBeClosedException>(
                 () => account.Close());

@@ -40,7 +40,7 @@
                 request.AccountId,
                 request.Amount);
 
-            DepositResult depositResult = await depositService.Handle(command);
+            DepositResult depositResult = await depositService.Process(command);
 
             if (depositResult == null)
             {
@@ -67,7 +67,7 @@
                 request.AccountId,
                 request.Amount);
 
-            WithdrawResult depositResult = await withdrawService.Handle(command);
+            WithdrawResult depositResult = await withdrawService.Process(command);
 
             if (depositResult == null)
             {
@@ -92,7 +92,7 @@
         {
             var command = new CloseCommand(accountId);
 
-            CloseResult closeResult = await closeService.Handle(command);
+            CloseResult closeResult = await closeService.Process(command);
 
             if (closeResult == null)
             {

@@ -19,7 +19,7 @@
             this.resultConverter = resultConverter;
         }
 
-        public async Task<RegisterResult> Handle(RegisterCommand command)
+        public async Task<RegisterResult> Process(RegisterCommand command)
         {
             Customer customer = new Customer(new PIN(command.PIN), new Name(command.Name));
 

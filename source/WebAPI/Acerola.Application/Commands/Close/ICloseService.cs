@@ -4,6 +4,6 @@
 
     public interface ICloseService
     {
-        Task<CloseResult> Handle(CloseCommand command);
+        Task<CloseResult> Process(CloseCommand command);
     }
 }

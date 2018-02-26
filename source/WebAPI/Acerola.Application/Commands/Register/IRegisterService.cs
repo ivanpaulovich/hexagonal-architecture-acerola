@@ -4,6 +4,6 @@
 
     public interface IRegisterService
     {
-        Task<RegisterResult> Handle(RegisterCommand message);
+        Task<RegisterResult> Process(RegisterCommand message);
     }
 }
