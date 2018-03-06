@@ -2,7 +2,7 @@
   "defaultAssembly": "Acerola.UI",
   "modules": [
     {
-      "type": "Acerola.UI.Modules.UIModuley",
+      "type": "Acerola.UI.Modules.UIModule",
       "properties": {
       }
     },
@@ -15,7 +15,7 @@
       "type": "Acerola.UI.Modules.InfrastructureModule",
       "properties": {
         "ConnectionString": "mongodb://10.0.75.1:27017",
-        "DatabaseName": "Acerola-Tests-V01"
+        "DatabaseName": "Acerola-Tests-V02"
       }
     }
   ]

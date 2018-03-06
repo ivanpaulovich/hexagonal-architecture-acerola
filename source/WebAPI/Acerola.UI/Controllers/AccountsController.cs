@@ -9,6 +9,7 @@
     using Acerola.Application.Commands.Deposit;
     using Acerola.UI.Requests;
     using Acerola.UI.Model;
+    using System.Collections.Generic;
 
     [Route("api/[controller]")]
     public class AccountsController : Controller
@@ -110,7 +111,22 @@
         {
             var account = await accountsQueries.GetAccount(accountId);
 
-            return Ok(account);
+            List<TransactionModel> transactions = new List<TransactionModel>();
+
+            foreach (var item in account.Transactions)
+            {
+                var transaction = new TransactionModel(
+                    item.Amount,
+                    item.Description,
+                    item.TransactionDate);
+
+                transactions.Add(transaction);
+            }
+
+            return new ObjectResult(new AccountDetailsModel(
+                account.AccountId,
+                account.CurrentBalance,
+                transactions));
         }
     }
 }

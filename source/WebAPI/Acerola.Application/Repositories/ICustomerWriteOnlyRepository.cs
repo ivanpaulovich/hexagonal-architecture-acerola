@@ -1,5 +1,6 @@
-﻿namespace Acerola.Domain.Customers
+﻿namespace Acerola.Application.Repositories
 {
+    using Acerola.Domain.Customers;
     using System.Threading.Tasks;
 
     public interface ICustomerWriteOnlyRepository

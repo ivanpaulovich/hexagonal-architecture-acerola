@@ -1,10 +1,10 @@
-namespace Acerola.Domain.UnitTests
+namespace Acerola.UnitTests
 {
     using Xunit;
     using Acerola.Domain.Customers;
     using NSubstitute;
-    using Acerola.Domain.Customers.Accounts;
     using Acerola.Domain.ValueObjects;
+    using Acerola.Domain.Accounts;
 
     public class CustomerTests
     {
@@ -18,11 +18,11 @@ namespace Acerola.Domain.UnitTests
 
             //
             // Act
-            sut.Register(account);
+            sut.Register(account.Id);
 
             //
             // Assert
-            Assert.Equal(1, sut.Accounts.Count);
+            Assert.Equal(1, sut.Accounts.Items.Count);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿namespace Acerola.Infrastructure.DataAccess
 {
+    using Acerola.Application.Repositories;
     using Acerola.Domain.Customers;
     using MongoDB.Driver;
     using System;
@@ -33,15 +34,6 @@
         {
             await mongoContext.Customers
                 .ReplaceOneAsync(e => e.Id == customer.Id, customer);
-        }
-
-        public async Task<Customer> GetByAccount(Guid accountId)
-        {
-            Customer customer = await mongoContext.Customers
-                .Find(Builders<Customer>.Filter.ElemMatch(x => x.Accounts, e => e.Id == accountId))
-                .SingleOrDefaultAsync();
-
-            return customer;
         }
     }
 }

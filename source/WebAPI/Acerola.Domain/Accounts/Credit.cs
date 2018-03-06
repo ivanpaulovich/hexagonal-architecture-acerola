@@ -1,4 +1,4 @@
-﻿namespace Acerola.Domain.Customers.Accounts
+﻿namespace Acerola.Domain.Accounts
 {
     using Acerola.Domain.ValueObjects;
 

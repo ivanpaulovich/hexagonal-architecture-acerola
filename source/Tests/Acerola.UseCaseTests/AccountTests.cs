@@ -7,14 +7,15 @@ namespace Acerola.UseCaseTests
     using Acerola.Infrastructure.Mappings;
     using System;
     using Acerola.Domain.ValueObjects;
-    using Acerola.Domain.Customers.Accounts;
-    using System.Collections.Generic;
     using Acerola.Application.Commands.Register;
     using Acerola.Application.Commands.Deposit;
-    using Acerola.Application.Commands.Withdraw;
+    using Acerola.Domain.Accounts;
+    using Acerola.Application.Repositories;
 
     public class AccountTests
     {
+        public IAccountReadOnlyRepository accountReadOnlyRepository;
+        public IAccountWriteOnlyRepository accountWriteOnlyRepository;
         public ICustomerReadOnlyRepository customerReadOnlyRepository;
         public ICustomerWriteOnlyRepository customerWriteOnlyRepository;
 
@@ -22,8 +23,11 @@ namespace Acerola.UseCaseTests
 
         public AccountTests()
         {
+            accountReadOnlyRepository = Substitute.For<IAccountReadOnlyRepository>();
+            accountWriteOnlyRepository = Substitute.For<IAccountWriteOnlyRepository>();
             customerReadOnlyRepository = Substitute.For<ICustomerReadOnlyRepository>();
             customerWriteOnlyRepository = Substitute.For<ICustomerWriteOnlyRepository>();
+
             converter = new ResultConverter();
         }
 
@@ -36,6 +40,7 @@ namespace Acerola.UseCaseTests
         {
             var registerUseCase = new RegisterService(
                 customerWriteOnlyRepository,
+                accountWriteOnlyRepository,
                 converter
             );
 
@@ -60,16 +65,14 @@ namespace Acerola.UseCaseTests
         {
             var account = Substitute.For<Account>();
             var customer = Substitute.For<Customer>();
-            customer.FindAccount(Arg.Any<Guid>())
+
+            accountReadOnlyRepository
+                .Get(Guid.Parse(accountId))
                 .Returns(account);
 
-            customerReadOnlyRepository
-                .GetByAccount(Guid.Parse(accountId))
-                .Returns(customer);
-
             var depositUseCase = new DepositService(
-                customerReadOnlyRepository,
-                customerWriteOnlyRepository,
+                accountReadOnlyRepository,
+                accountWriteOnlyRepository,
                 converter
             );
 

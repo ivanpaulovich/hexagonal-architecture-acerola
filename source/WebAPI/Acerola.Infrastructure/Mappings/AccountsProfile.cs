@@ -2,8 +2,8 @@
 {
     using AutoMapper;
     using Acerola.Application.Results;
-    using Acerola.Domain.Customers.Accounts;
     using Acerola.Application.Commands.Close;
+    using Acerola.Domain.Accounts;
 
     public class AccountsProfile : Profile
     {
@@ -11,7 +11,8 @@
         {
             CreateMap<Account, AccountResult>()
                 .ForMember(dest => dest.AccountId, opt => opt.MapFrom(src => src.Id))
-                .ForMember(dest => dest.CurrentBalance, opt => opt.MapFrom(src => src.CurrentBalance.Value));
+                .ForMember(dest => dest.CurrentBalance, opt => opt.MapFrom(src => src.GetCurrentBalance().Value))
+                .ForMember(dest => dest.Transactions, opt => opt.MapFrom(src => src.Transactions.Items));
 
             CreateMap<Debit, TransactionResult>()
                 .ForMember(dest => dest.Amount, opt => opt.MapFrom(src => src.Amount.Value))

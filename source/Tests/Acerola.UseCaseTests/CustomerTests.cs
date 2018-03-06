@@ -1,15 +1,17 @@
-namespace Acerola.Domain.UnitTests
+namespace Acerola.UseCaseTests
 {
     using Xunit;
-    using Acerola.Domain.Customers;
     using NSubstitute;
     using Acerola.Application;
     using Acerola.Infrastructure.Mappings;
     using System;
     using Acerola.Application.Commands.Register;
+    using Acerola.Application.Repositories;
 
     public class CustomerTests
     {
+        public IAccountReadOnlyRepository accountReadOnlyRepository;
+        public IAccountWriteOnlyRepository accountWriteOnlyRepository;
         public ICustomerReadOnlyRepository customerReadOnlyRepository;
         public ICustomerWriteOnlyRepository customerWriteOnlyRepository;
 
@@ -17,8 +19,11 @@ namespace Acerola.Domain.UnitTests
 
         public CustomerTests()
         {
+            accountReadOnlyRepository = Substitute.For<IAccountReadOnlyRepository>();
+            accountWriteOnlyRepository = Substitute.For<IAccountWriteOnlyRepository>();
             customerReadOnlyRepository = Substitute.For<ICustomerReadOnlyRepository>();
             customerWriteOnlyRepository = Substitute.For<ICustomerWriteOnlyRepository>();
+
             converter = new ResultConverter();
         }
 
@@ -29,9 +34,9 @@ namespace Acerola.Domain.UnitTests
         [InlineData("08724050", "Ivan Paulovich", 300)]
         public async void Register_Valid_User_Account(string personnummer, string name, double amount)
         {
-
             var registerUseCase = new RegisterService(
                 customerWriteOnlyRepository,
+                accountWriteOnlyRepository,
                 converter
             );
 

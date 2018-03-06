@@ -2,42 +2,41 @@
 {
     using System.Threading.Tasks;
     using Acerola.Application.Results;
-    using Acerola.Domain.Customers;
-    using Acerola.Domain.Customers.Accounts;
     using Acerola.Domain.ValueObjects;
+    using Acerola.Application.Repositories;
+    using Acerola.Domain.Accounts;
 
     public class DepositService : IDepositService
     {
-        private readonly ICustomerReadOnlyRepository customerReadOnlyRepository;
-        private readonly ICustomerWriteOnlyRepository customerWriteOnlyRepository;
+        private readonly IAccountReadOnlyRepository accountReadOnlyRepository;
+        private readonly IAccountWriteOnlyRepository accountWriteOnlyRepository;
         private readonly IResultConverter resultConverter;
 
         public DepositService(
-            ICustomerReadOnlyRepository customerReadOnlyRepository,
-            ICustomerWriteOnlyRepository customerWriteOnlyRepository,
+            IAccountReadOnlyRepository accountReadOnlyRepository,
+            IAccountWriteOnlyRepository accountWriteOnlyRepository,
             IResultConverter resultConverter)
         {
-            this.customerReadOnlyRepository = customerReadOnlyRepository;
-            this.customerWriteOnlyRepository = customerWriteOnlyRepository;
+            this.accountReadOnlyRepository = accountReadOnlyRepository;
+            this.accountWriteOnlyRepository = accountWriteOnlyRepository;
             this.resultConverter = resultConverter;
         }
 
         public async Task<DepositResult> Process(DepositCommand command)
         {
-            Customer customer = await customerReadOnlyRepository.GetByAccount(command.AccountId);
-            if (customer == null)
+            Account account = await accountReadOnlyRepository.Get(command.AccountId);
+            if (account == null)
                 throw new AccountNotFoundException($"The account {command.AccountId} does not exists or is already closed.");
 
             Credit credit = new Credit(new Amount(command.Amount));
-            Account account = customer.FindAccount(command.AccountId);
             account.Deposit(credit);
 
-            await customerWriteOnlyRepository.Update(customer);
+            await accountWriteOnlyRepository.Update(account);
 
             TransactionResult transactionResult = resultConverter.Map<TransactionResult>(credit);
-            DepositResult response = new DepositResult(transactionResult, account.CurrentBalance.Value);
+            DepositResult result = new DepositResult(transactionResult, account.GetCurrentBalance().Value);
 
-            return response;
+            return result;
         }
     }
 }

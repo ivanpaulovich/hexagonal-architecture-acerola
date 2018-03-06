@@ -1,4 +1,4 @@
-namespace Acerola.Domain.UnitTests
+namespace Acerola.UnitTests
 {
     using Acerola.Domain.ValueObjects;
     using Xunit;

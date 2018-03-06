@@ -1,35 +1,35 @@
 ﻿namespace Acerola.Application.Commands.Close
 {
     using System.Threading.Tasks;
-    using Acerola.Domain.Customers;
-    using Acerola.Domain.Customers.Accounts;
+    using Acerola.Application.Repositories;
+    using Acerola.Domain.Accounts;
 
     public class CloseService : ICloseService
     {
-        private readonly ICustomerReadOnlyRepository customerReadOnlyRepository;
-        private readonly ICustomerWriteOnlyRepository customerWriteOnlyRepository;
+        private readonly IAccountReadOnlyRepository accountReadOnlyRepository;
+        private readonly IAccountWriteOnlyRepository accountWriteOnlyRepository;
         private readonly IResultConverter resultConverter;
 
         public CloseService(
-            ICustomerReadOnlyRepository customerReadOnlyRepository,
-            ICustomerWriteOnlyRepository customerWriteOnlyRepository,
+            IAccountReadOnlyRepository accountReadOnlyRepository,
+            IAccountWriteOnlyRepository accountWriteOnlyRepository,
             IResultConverter resultConverter)
         {
-            this.customerReadOnlyRepository = customerReadOnlyRepository;
-            this.customerWriteOnlyRepository = customerWriteOnlyRepository;
+            this.accountReadOnlyRepository = accountReadOnlyRepository;
+            this.accountWriteOnlyRepository = accountWriteOnlyRepository;
             this.resultConverter = resultConverter;
         }
 
         public async Task<CloseResult> Process(CloseCommand command)
         {
-            Customer customer = await customerReadOnlyRepository.GetByAccount(command.AccountId);
-            Account account = customer.FindAccount(command.AccountId);
-            customer.RemoveAccount(command.AccountId);
-            await customerWriteOnlyRepository.Update(customer);
+            Account account = await accountReadOnlyRepository.Get(command.AccountId);
+            account.Close();
 
-            CloseResult response = resultConverter.Map<CloseResult>(account);
+            await accountWriteOnlyRepository.Delete(account);
 
-            return response;
+            CloseResult result = resultConverter.Map<CloseResult>(account);
+
+            return result;
         }
     }
 }

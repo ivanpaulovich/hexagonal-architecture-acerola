@@ -2,7 +2,7 @@
   "defaultAssembly": "Acerola.UI",
   "modules": [
     {
-      "type": "Acerola.UI.Modules.UIModuley",
+      "type": "Acerola.UI.Modules.UIModule",
       "properties": {
       }
     },

@@ -2,7 +2,7 @@ namespace Acerola.MappingsTests
 {
     using Acerola.Application;
     using Acerola.Application.Results;
-    using Acerola.Domain.Customers.Accounts;
+    using Acerola.Domain.Accounts;
     using Acerola.Domain.ValueObjects;
     using Acerola.Infrastructure.Mappings;
     using Xunit;

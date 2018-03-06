@@ -5,11 +5,9 @@
     using Acerola.Infrastructure.DataAccess;
     using MongoDB.Driver;
     using System;
-    using System.Collections.Generic;
     using System.Threading.Tasks;
     using Acerola.Application;
-    using Acerola.Domain.Customers.Accounts;
-    using Acerola.Domain.Customers;
+    using Acerola.Domain.Accounts;
 
     public class AccountsQueries : IAccountsQueries
     {
@@ -24,24 +22,17 @@
 
         public async Task<AccountResult> GetAccount(Guid accountId)
         {
-            Customer customer = await mongoDB.Customers
-                .Find(Builders<Customer>.Filter.ElemMatch(x => x.Accounts, e => e.Id == accountId))
+            Account data = await mongoDB
+                .Accounts
+                .Find(e => e.Id == accountId)
                 .SingleOrDefaultAsync();
-
-            Account data = null;
-
-            foreach (var item in customer.Accounts)
-            {
-                if (item.Id == accountId)
-                    data = item;
-            }
 
             if (data == null)
                 throw new AccountNotFoundException($"The account {accountId} does not exists or is not processed yet.");
 
-            AccountResult accountVM = this.mapper.Map<AccountResult>(data);
+            AccountResult accountResult = this.mapper.Map<AccountResult>(data);
 
-            return accountVM;
+            return accountResult;
         }
     }
 }

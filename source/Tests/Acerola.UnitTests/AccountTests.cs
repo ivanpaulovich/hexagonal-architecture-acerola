@@ -1,9 +1,9 @@
-namespace Acerola.Domain.UnitTests
+namespace Acerola.UnitTests
 {
     using Xunit;
     using Acerola.Domain.ValueObjects;
     using NSubstitute;
-    using Acerola.Domain.Customers.Accounts;
+    using Acerola.Domain.Accounts;
 
     public class AccountTests
     {
@@ -21,7 +21,7 @@ namespace Acerola.Domain.UnitTests
 
             //
             // Assert
-            Assert.Equal(100, sut.CurrentBalance.Value);
+            Assert.Equal(100, sut.GetCurrentBalance().Value);
         }
 
         [Fact]
@@ -41,7 +41,7 @@ namespace Acerola.Domain.UnitTests
 
             //
             // Assert
-            Assert.Equal(900, sut.CurrentBalance.Value);
+            Assert.Equal(900, sut.GetCurrentBalance().Value);
         }
 
         [Fact]
