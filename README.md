@@ -36,7 +36,7 @@ As events arrive from the outside world at a port, a technology-specific adapter
 
 ## Flow of Control: The Register Use Case
 
-![Flow of Control: Customer Registration](https://raw.githubusercontent.com/ivanpaulovich/acerola/master/docs/Flow-Of-Control.png)
+![Flow of Control: Customer Registration](https://raw.githubusercontent.com/ivanpaulovich/acerola/master/docs/Acerola-Flow-Of-Control.png)
 
 ## Requirements
 * [Visual Studio 2017 with Update 3](https://www.visualstudio.com/en-us/news/releasenotes/vs2017-relnotes)
