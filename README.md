@@ -61,7 +61,7 @@ Then navigate to http://localhost:8000/swagger and play with de Swagger.
 
 ## Live Demo on Azure
 
-[![Acerola Live Demo on Azure](https://raw.githubusercontent.com/ivanpaulovich/acerola/master/docs/Swagger.png)](http://grape.westus2.cloudapp.azure.com:8040/swagger)
+[![Acerola Live Demo on Azure](https://raw.githubusercontent.com/ivanpaulovich/acerola/master/docs/Swagger.png)](http://grape.westus2.cloudapp.azure.com:8000/swagger)
 
-You can play with the latest build of [Acerola](http://grape.westus2.cloudapp.azure.com:8040/swagger "Acerola").
+You can play with the latest build of [Acerola](http://grape.westus2.cloudapp.azure.com:8000/swagger "Acerola").
 > This source code and website should be used only for learning purposes and **all data will be erased weekly**.
