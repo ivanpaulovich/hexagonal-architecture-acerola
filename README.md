@@ -1,4 +1,4 @@
-![Acerola](https://raw.githubusercontent.com/ivanpaulovich/acerola/master/docs/acerola-icon.png)
+![Acerola](https://raw.githubusercontent.com/ivanpaulovich/acerola/master/docs/logo-icon.png)
 =========
 [![Acerola latest Docker build](https://dockerbuildbadges.quelltext.eu/status.svg?organization=ivanpaulovich&repository=acerola)](https://hub.docker.com/r/ivanpaulovich/acerola/)
 
