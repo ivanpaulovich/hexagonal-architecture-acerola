@@ -2,7 +2,7 @@
 =========
 [![Acerola latest Docker build](https://dockerbuildbadges.quelltext.eu/status.svg?organization=ivanpaulovich&repository=acerola)](https://hub.docker.com/r/ivanpaulovich/acerola/)
 
-Acerola is a Service Template for helping you to build evolvable, adaptable and maintainable Event Sourcing applications. It follows the principles from the [Clean Architecture book](https://www.amazon.com/Clean-Architecture-Craftsmans-Software-Structure/dp/0134494164) and has a Domain built on Domain-Driven Design. It is easy for you to start your new microservice based on its guidelines and patterns.
+Acerola is a Service Template for helping you to build evolvable, adaptable and maintainable applications. It follows the principles from the [Alistair Cockburn blog post.](http://alistair.cockburn.us/Hexagonal+architecture) and has a Domain built on Domain-Driven Design. It is easy for you to start your new microservice based on its guidelines and patterns.
 
 ## Compiling from source
 
@@ -19,7 +19,7 @@ dotnet run
 
 Allow an application to equally be driven by users, programs, automated test or batch scripts, and to be developed and tested in isolation from its eventual run-time devices and databases.
 
-As events arrive from the outside world at a port, a technology-specific adapter converts it into a usable procedure call and passes it to the application. The application is blissfully ignorant of the nature of the input device. When the application has something to send out, it sends it out through a port to an adapter, which creates the appropriate signals needed by the receiving technology (human or automated). The application has a semantically sound interaction with the adapters on all sides of it, without actually knowing the nature of the things on the other side of the adapters. Check out [Alistair Cockburn blog post.](http://alistair.cockburn.us/Hexagonal+architecture)
+As events arrive from the outside world at a port, a technology-specific adapter converts it into a usable procedure call and passes it to the application. The application is blissfully ignorant of the nature of the input device. When the application has something to send out, it sends it out through a port to an adapter, which creates the appropriate signals needed by the receiving technology (human or automated). The application has a semantically sound interaction with the adapters on all sides of it, without actually knowing the nature of the things on the other side of the adapters.
 
 | Concept | Description |
 | --- | --- |
@@ -33,8 +33,6 @@ As events arrive from the outside world at a port, a technology-specific adapter
 | MongoDB | MongoDB is a detail. You could create new Data Access implementation and setup it with Autofac. |
 | .NET Core 2.0 | .NET Core is a detail. Almost everything in this code base could be ported to other versions. |
 | CQRS | **[CQRS](https://martinfowler.com/bliki/CQRS.html)** is an acronym for *Command Query Responsibility Segregation*. This pattern allow splitting our conceptual business model into two representations. The main representation resides on the Command Stack, to perform creates, updates and deletions. The display model resides inside the Query stack, where we can build a Query Model that make easier to aggregate information to display to clients and UI. |
-
-
 
 ## Flow of Control: The Register Use Case
 
