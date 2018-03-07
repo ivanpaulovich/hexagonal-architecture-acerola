@@ -1,8 +1,8 @@
-![Acerola](https://raw.githubusercontent.com/ivanpaulovich/acerola/master/docs/logo-icon.png)
+![Acerola](https://raw.githubusercontent.com/ivanpaulovich/acerola/master/docs/logo-icon.png) Acerola: Hexagonal Architecture 
 =========
 [![Acerola latest Docker build](https://dockerbuildbadges.quelltext.eu/status.svg?organization=ivanpaulovich&repository=acerola)](https://hub.docker.com/r/ivanpaulovich/acerola/)
 
-Acerola is a Service Template for helping you to build evolvable, adaptable and maintainable applications. It follows the principles from the [Alistair Cockburn blog post.](http://alistair.cockburn.us/Hexagonal+architecture) and has a Domain built on Domain-Driven Design. It is easy for you to start your new microservice based on its guidelines and patterns.
+Acerola is a Service Template for helping you to build evolvable, adaptable and maintainable applications with Hexagonal Architecture. It follows the principles from the [Alistair Cockburn blog post.](http://alistair.cockburn.us/Hexagonal+architecture) and has a Domain built on Domain-Driven Design. It is easy for you to start your new microservice based on its guidelines and patterns.
 
 ## Compiling from source
 
