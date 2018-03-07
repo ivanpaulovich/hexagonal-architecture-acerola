@@ -9,84 +9,56 @@ A solution with Ports and Adapters.
 * [.NET SDK 2.0](https://www.microsoft.com/net/download/core)
 * [Docker](https://docs.docker.com/docker-for-windows/install/)
 
-# Main Architectural Concepts
-![Flow of Control: Customer Registration](https://raw.githubusercontent.com/ivanpaulovich/acerola/master/docs/hexagonal-arhcitecture-alistair-cockburn.gif)
+## The Architecture
+![Hexagonal Architecture](https://raw.githubusercontent.com/ivanpaulovich/acerola/master/docs/hexagonal-arhcitecture-alistair-cockburn.gif)
 
 Allow an application to equally be driven by users, programs, automated test or batch scripts, and to be developed and tested in isolation from its eventual run-time devices and databases.
 
 As events arrive from the outside world at a port, a technology-specific adapter converts it into a usable procedure call and passes it to the application. The application is blissfully ignorant of the nature of the input device. When the application has something to send out, it sends it out through a port to an adapter, which creates the appropriate signals needed by the receiving technology (human or automated). The application has a semantically sound interaction with the adapters on all sides of it, without actually knowing the nature of the things on the other side of the adapters. Check out [Alistair Cockburn blog post.](http://alistair.cockburn.us/Hexagonal+architecture)
 
-## DDD
-The use cases of this project is to manage an account balance with deposit and credits and its concepts is enforced by the Domain and Application. Also we use the Eric Evans terms like Entities, Value Object, Aggregates, Aggregate Root and etc. And everything is on a single Bounded Context.
+| Concept | Description |
+| --- | --- |
+| DDD | The Use Cases of the Account Balance are the Ubiquitious Language designed in the Domain and Application layers, we use the Eric Evans terms like Entities, Value Object, Aggregates Root and Bounded Context. |
+| TDD | From the beginning of the project we developed Unit Tests that helped us to enforce the business rules and to create an application that prevents bugs intead of finding them. We also have more sophisticated tests like Use Case Tests, Mapping Tests and Integration Tests. |
+| SOLID | The SOLID principles are all over the the solution. The knowledge of SOLID is not a prerequisite but it is highly recommended. |
+| Entity-Boundary-Interactor (EBI) | The goal of EBI architecture is to produce a software implementation agnostic to technology, framework, or database. The result is focus on  use cases and input/output. |
+| Microservice | We designed the software around the Business Domain, having Continous Delivery and Independent Deployment. |
+| Logging | Logging is a detail. We plugged Serilog and configured it to redirect every log message to the file system. |
+| Docker | Docker is a detail. It was implemented to help us make a faster and reliable deployment. |
+| MongoDB | MongoDB is a detail. You could create new Data Access implementation and setup it with Autofac. |
+| .NET Core 2.0 | .NET Core is a detail. Almost everything in this code base could be ported to other versions. |
+| CQRS | **[CQRS](https://martinfowler.com/bliki/CQRS.html)** is an acronym for *Command Query Responsibility Segregation*. This pattern allow splitting our conceptual business model into two representations. The main representation resides on the Command Stack, to perform creates, updates and deletions. The display model resides inside the Query stack, where we can build a Query Model that make easier to aggregate information to display to clients and UI. |
 
-## CQRS
-**[CQRS](https://martinfowler.com/bliki/CQRS.html)** is an acronym for *Command Query Responsibility Segregation*. This pattern allow splitting our conceptual business model into two representations. The main representation resides on the Command Stack, to perform creates, updates and deletions. The display model resides inside the Query stack, where we can build a Query Model that make easier to aggregate information to display to clients and UI. 
 
-## TDD
-From the beginning of the project we developed Unit Tests and that helped us to enforce the business rules and to create an application that prevents bugs intead of finding them. We also have Use Case tests and Mapping Tests and a more sophistecated Integration Tests. 
 
-## SOLID
-The SOLID principles are all over the the solution. Knwoleadge of SOLID is not a prerequisite to understand and run the solution but it is highly recommended.
+## Flow of Control: The Register Use Case
 
-## Microservice
-Even though the definition of microservice may be different for different professionals. We have tried to value some aspects like Continous Delivery, modelled around Business Domain and Independent Deployment.
+![Flow of Control: Customer Registration](https://raw.githubusercontent.com/ivanpaulovich/castanha/master/docs/Flow-Of-Control.png)
 
-## Logging
-Loggin is a detail. We plugged Serilog and configured it to redirect every log message to files.
+## Requirements
+* [Visual Studio 2017 with Update 3](https://www.visualstudio.com/en-us/news/releasenotes/vs2017-relnotes)
+* [.NET SDK 2.0](https://www.microsoft.com/net/download/core)
+* [Docker](https://docs.docker.com/docker-for-windows/install/)
 
-## Docker
-Docker is a detail of this architecture. And it was implemented to help us make a faster and reliable deployment. You could pull the [Manga latest image any time.](https://hub.docker.com/r/ivanpaulovich/acerola/)
+## Prerequisites Setup
 
-## Mongo DB
-Mongo DB is a detail. At infrastructure layer we implemented the ICustomerWriteOnlyRepository to update the Mongo database.
+The only one prerequisite to run the Web API is a valid connection string to MongoDB. To help you run it without hard work follow the steps on [prerequisites setup](https://github.com/ivanpaulovich/castanha/wiki/Prerequisites-setup) page.
 
-## .NET Core 2.0
-.NET Core is a detail. Almost everything in this code base could be ported to older versions.
+## Running the latest Docker Build
 
-# Environment setup
+You can run the Docker container of this project with the following command:
 
-* Run the `./prerequisites.sh` script to download the MongoDB image and run it as a Docker container. 
-Please wait until the ~400mb download to be complete.
-
-```
-$ ./prerequisites.sh
-Pulling mongodb (mongo:latest)...
-latest: Pulling from library/mongo
-Digest: sha256:2c55bcc870c269771aeade05fc3dd3657800540e0a48755876a1dc70db1e76d9
-Status: Downloaded newer image for mongo:latest
-Creating setup_mongodb_1 ...
-Creating setup_mongodb_1
-Creating setup_mongodb_1 ... done
-```
-* Check Mongo image with the the following commands:
-
-```
-$ docker images
-REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
-mongo               latest              d22888af0ce0        17 hours ago        361MB
-$ docker ps
-CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                                            NAMES
-ba28cf144478        mongo               "docker-entrypoint..."   2 days ago          Up 2 days           0.0.0.0:27017->27017/tcp                         setup_mongodb_1
-```
-
-If everything goes well MongoDB will be running with the following connection string `mongodb://10.0.75.1:27017`.
-
-# Running the latest Docker Build ![ivanpaulovich/acerola](https://dockerbuildbadges.quelltext.eu/status.svg?organization=ivanpaulovich&repository=acerola)
-
-If you like you can run the latest Docker image of this project as following:
-
-```
-$ docker run -p 8000:80 -d \
+```sh
+$ docker run -d -p 8000:80 \
 	-e modules__2__properties__ConnectionString=mongodb://10.0.75.1:27017 \
-	--name acerola-backend \
-	ivanpaulovich/acerola:latest
+	--name castanha \
+	ivanpaulovich/castanha:latest
 ```
-Then navigate to http://localhost:8000/swagger and play with de Web API.
+Then navigate to http://localhost:8000/swagger and play with de Swagger.
 
-# We are live on Azure
+## Live Demo on Azure
 
-![Live on Azure](https://raw.githubusercontent.com/ivanpaulovich/acerola/master/docs/Swagger.png)
+[![Castanha Live Demo on Azure](https://raw.githubusercontent.com/ivanpaulovich/castanha/master/docs/Swagger.png)](http://grape.westus2.cloudapp.azure.com:8040/swagger)
 
-You can play with the latest build by navigating to [the Swagger client](http://grape.westus2.cloudapp.azure.com:8000/swagger "Acerola Swagger").
-
-This source code and website should be used only for learning purposes and **all data will be erased weekly**.
+You can play with the latest build of [Castanha](http://grape.westus2.cloudapp.azure.com:8040/swagger "Castanha").
+> This source code and website should be used only for learning purposes and **all data will be erased weekly**.
