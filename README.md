@@ -1,13 +1,18 @@
-![Flow of Control: Customer Registration](https://raw.githubusercontent.com/ivanpaulovich/acerola/master/docs/logo.png)
-# Architectural Style
-A solution with Ports and Adapters.
+![Acerola](https://raw.githubusercontent.com/ivanpaulovich/acerola/master/docs/acerola-icon.png)
+=========
+[![Acerola latest Docker build](https://dockerbuildbadges.quelltext.eu/status.svg?organization=ivanpaulovich&repository=acerola)](https://hub.docker.com/r/ivanpaulovich/acerola/)
 
-![Flow of Control: Customer Registration](https://raw.githubusercontent.com/ivanpaulovich/acerola/master/docs/Acerola-Flow-Of-Control.png)
+Acerola is a Service Template for helping you to build evolvable, adaptable and maintainable Event Sourcing applications. It follows the principles from the [Clean Architecture book](https://www.amazon.com/Clean-Architecture-Craftsmans-Software-Structure/dp/0134494164) and has a Domain built on Domain-Driven Design. It is easy for you to start your new microservice based on its guidelines and patterns.
 
-# Requirements
-* [Visual Studio 2017 with Update 3](https://www.visualstudio.com/en-us/news/releasenotes/vs2017-relnotes)
-* [.NET SDK 2.0](https://www.microsoft.com/net/download/core)
-* [Docker](https://docs.docker.com/docker-for-windows/install/)
+## Compiling from source
+
+To run Acerola from source, clone this repository to your machine, compile and test it:
+
+```sh
+git clone https://github.com/ivanpaulovich/acerola.git
+cd acerola/source/WebAPI/Acerola.UI
+dotnet run
+```
 
 ## The Architecture
 ![Hexagonal Architecture](https://raw.githubusercontent.com/ivanpaulovich/acerola/master/docs/hexagonal-arhcitecture-alistair-cockburn.gif)
@@ -33,7 +38,7 @@ As events arrive from the outside world at a port, a technology-specific adapter
 
 ## Flow of Control: The Register Use Case
 
-![Flow of Control: Customer Registration](https://raw.githubusercontent.com/ivanpaulovich/castanha/master/docs/Flow-Of-Control.png)
+![Flow of Control: Customer Registration](https://raw.githubusercontent.com/ivanpaulovich/acerola/master/docs/Flow-Of-Control.png)
 
 ## Requirements
 * [Visual Studio 2017 with Update 3](https://www.visualstudio.com/en-us/news/releasenotes/vs2017-relnotes)
@@ -42,7 +47,7 @@ As events arrive from the outside world at a port, a technology-specific adapter
 
 ## Prerequisites Setup
 
-The only one prerequisite to run the Web API is a valid connection string to MongoDB. To help you run it without hard work follow the steps on [prerequisites setup](https://github.com/ivanpaulovich/castanha/wiki/Prerequisites-setup) page.
+The only one prerequisite to run the Web API is a valid connection string to MongoDB. To help you run it without hard work follow the steps on [prerequisites setup](https://github.com/ivanpaulovich/acerola/wiki/Prerequisites-setup) page.
 
 ## Running the latest Docker Build
 
@@ -51,14 +56,14 @@ You can run the Docker container of this project with the following command:
 ```sh
 $ docker run -d -p 8000:80 \
 	-e modules__2__properties__ConnectionString=mongodb://10.0.75.1:27017 \
-	--name castanha \
-	ivanpaulovich/castanha:latest
+	--name acerola \
+	ivanpaulovich/acerola:latest
 ```
 Then navigate to http://localhost:8000/swagger and play with de Swagger.
 
 ## Live Demo on Azure
 
-[![Castanha Live Demo on Azure](https://raw.githubusercontent.com/ivanpaulovich/castanha/master/docs/Swagger.png)](http://grape.westus2.cloudapp.azure.com:8040/swagger)
+[![Acerola Live Demo on Azure](https://raw.githubusercontent.com/ivanpaulovich/acerola/master/docs/Swagger.png)](http://grape.westus2.cloudapp.azure.com:8040/swagger)
 
-You can play with the latest build of [Castanha](http://grape.westus2.cloudapp.azure.com:8040/swagger "Castanha").
+You can play with the latest build of [Acerola](http://grape.westus2.cloudapp.azure.com:8040/swagger "Acerola").
 > This source code and website should be used only for learning purposes and **all data will be erased weekly**.
