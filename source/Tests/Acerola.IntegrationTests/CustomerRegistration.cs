@@ -3,7 +3,7 @@ namespace Acerola.IntegrationTests
     using Microsoft.AspNetCore.Hosting;
     using Autofac.Extensions.DependencyInjection;
     using Microsoft.Extensions.Configuration;
-    using Acerola.UI;
+    using Acerola.WebApi;
     using Microsoft.AspNetCore.TestHost;
     using Xunit;
     using System.Threading.Tasks;

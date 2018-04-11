@@ -63,7 +63,7 @@ namespace Acerola.UseCaseTests
         [InlineData("c725315a-1de6-4bf7-aecf-3af8f0083681", 100)]
         public async void Deposit_Valid_Amount(string accountId, double amount)
         {
-            var account = Substitute.For<Account>();
+            var account = new Account(Guid.NewGuid());
             var customer = Substitute.For<Customer>();
 
             accountReadOnlyRepository
@@ -90,8 +90,8 @@ namespace Acerola.UseCaseTests
         [InlineData(100)]
         public void Account_With_Credits_Should_Not_Allow_Close(double amount)
         {
-            var account = new Account();
-            account.Deposit(new Credit(new Amount(amount)));
+            var account = new Account(Guid.NewGuid());
+            account.Deposit(new Credit(account.Id, new Amount(amount)));
 
             Assert.Throws<AccountCannotBeClosedException>(
                 () => account.Close());

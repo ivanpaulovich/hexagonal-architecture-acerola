@@ -1,16 +1,17 @@
 ﻿namespace Acerola.Domain.Accounts
 {
     using Acerola.Domain.ValueObjects;
+    using System;
 
     public class Credit : Transaction
     {
-        public Credit()
+        protected Credit()
         {
 
         }
 
-        public Credit(Amount amount)
-            : base(amount)
+        public Credit(Guid accountId, Amount amount)
+            : base(accountId, amount)
         {
 
         }

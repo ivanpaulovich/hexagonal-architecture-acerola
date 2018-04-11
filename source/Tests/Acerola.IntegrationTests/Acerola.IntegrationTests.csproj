@@ -23,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\WebAPI\Acerola.UI\Acerola.UI.csproj" />
+    <ProjectReference Include="..\..\WebAPI\Acerola.WebApi\Acerola.WebApi.csproj" />
   </ItemGroup>
 
 

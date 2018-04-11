@@ -23,6 +23,9 @@
         public async Task<CloseResult> Process(CloseCommand command)
         {
             Account account = await accountReadOnlyRepository.Get(command.AccountId);
+			if (account == null)
+                throw new AccountNotFoundException($"The account {command.AccountId} does not exists or is already closed.");
+			
             account.Close();
 
             await accountWriteOnlyRepository.Delete(account);

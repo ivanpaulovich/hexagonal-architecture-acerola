@@ -28,10 +28,10 @@
             if (account == null)
                 throw new AccountNotFoundException($"The account {command.AccountId} does not exists or is already closed.");
 
-            Credit credit = new Credit(new Amount(command.Amount));
+            Credit credit = new Credit(account.Id, command.Amount);
             account.Deposit(credit);
 
-            await accountWriteOnlyRepository.Update(account);
+            await accountWriteOnlyRepository.Update(account, credit);
 
             TransactionResult transactionResult = resultConverter.Map<TransactionResult>(credit);
             DepositResult result = new DepositResult(transactionResult, account.GetCurrentBalance().Value);
