@@ -1,8 +1,7 @@
-namespace Acerola.UnitTests
+namespace Acerola.DomainTests
 {
     using Xunit;
     using Acerola.Domain.ValueObjects;
-    using NSubstitute;
     using Acerola.Domain.Accounts;
     using System;
 
@@ -13,16 +12,16 @@ namespace Acerola.UnitTests
         {
             //
             // Arrange
+            Amount amount = new Amount(100.0);
             Account sut = new Account(Guid.NewGuid());
-            Credit credit = new Credit(Guid.NewGuid(), new Amount(100.0));
 
             //
             // Act
-            sut.Deposit(credit);
+            sut.Deposit(amount);
 
             //
             // Assert
-            Assert.Equal(100, sut.GetCurrentBalance().Value);
+            Assert.Equal(100, sut.GetCurrentBalance());
         }
 
         [Fact]
@@ -31,18 +30,15 @@ namespace Acerola.UnitTests
             //
             // Arrange
             Account sut = new Account(Guid.NewGuid());
-            Credit credit = new Credit(Guid.NewGuid(), new Amount(1000.0));
-            sut.Deposit(credit);
-
-            Debit transaction = new Debit(Guid.NewGuid(), new Amount(100.0));
+            sut.Deposit(1000.0);
 
             //
             // Act
-            sut.Withdraw(transaction);
+            sut.Withdraw(100);
 
             //
             // Assert
-            Assert.Equal(900, sut.GetCurrentBalance().Value);
+            Assert.Equal(900, sut.GetCurrentBalance());
         }
 
         [Fact]
@@ -67,8 +63,8 @@ namespace Acerola.UnitTests
             //
             // Arrange
             Account sut = new Account(Guid.NewGuid());
-            Credit credit = new Credit(Guid.NewGuid(), new Amount(100));
-            sut.Deposit(credit);
+            Amount amount = new Amount(100);
+            sut.Deposit(amount);
 
             //
             // Act and Assert
@@ -83,15 +79,12 @@ namespace Acerola.UnitTests
             //
             // Arrange
             Account sut = new Account(Guid.NewGuid());
-            Credit credit = new Credit(Guid.NewGuid(), new Amount(200));
-            sut.Deposit(credit);
-
-            Debit debit = new Debit(Guid.NewGuid(), new Amount(5000.0));
+            sut.Deposit(200);
 
             //
             // Act and Assert
             Assert.Throws<InsuficientFundsException>(
-                () => sut.Withdraw(debit));
+                () => sut.Withdraw(5000));
         }
     }
 }

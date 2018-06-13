@@ -1,8 +1,7 @@
-namespace Acerola.UnitTests
+namespace Acerola.DomainTests
 {
     using Xunit;
     using Acerola.Domain.Customers;
-    using NSubstitute;
     using Acerola.Domain.ValueObjects;
     using Acerola.Domain.Accounts;
 
@@ -14,15 +13,15 @@ namespace Acerola.UnitTests
             //
             // Arrange
             Customer sut = new Customer(new PIN("08724050601"), new Name("Ivan Paulovich"));
-            Account account = Substitute.For<Account>();
+            var account = new Account(sut.GetId());
 
             //
             // Act
-            sut.Register(account.Id);
+            sut.Register(account.GetId());
 
             //
             // Assert
-            Assert.Single(sut.Accounts);
+            Assert.Single(sut.GetAccounts());
         }
     }
 }

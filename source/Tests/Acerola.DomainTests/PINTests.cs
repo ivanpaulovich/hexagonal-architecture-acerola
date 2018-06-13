@@ -1,4 +1,4 @@
-namespace Acerola.UnitTests
+namespace Acerola.DomainTests
 {
     using Acerola.Domain.ValueObjects;
     using Xunit;
@@ -30,7 +30,7 @@ namespace Acerola.UnitTests
             PIN pin = new PIN(valid);
 
             // Assert
-            Assert.Equal(valid, pin.Text);
+            Assert.Equal(valid, pin);
         }
     }
 }
