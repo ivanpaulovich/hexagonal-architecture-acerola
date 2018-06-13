@@ -23,7 +23,7 @@
 
         public Amount GetAmount()
         {
-            return _amount;
+            return -_amount;
         }
 
         public Guid GetId()

@@ -21,5 +21,19 @@
         {
             return new Name(text);
         }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+
+            return ((Name)obj)._text == _text;
+        }
     }
 }

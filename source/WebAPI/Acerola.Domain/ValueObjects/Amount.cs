@@ -1,4 +1,6 @@
-﻿namespace Acerola.Domain.ValueObjects
+﻿using System;
+
+namespace Acerola.Domain.ValueObjects
 {
     public class Amount
     {
@@ -12,6 +14,11 @@
         public override string ToString()
         {
             return _value.ToString();
+        }
+
+        public static Amount operator -(Amount value)
+        {
+            return new Amount(Math.Abs(value._value) * -1);
         }
 
         public static implicit operator Amount(double value)
@@ -47,6 +54,20 @@
         public static bool operator >=(Amount amount1, Amount amount2)
         {
             return amount1._value >= amount2._value;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+
+            return ((Amount)obj)._value == _value;
         }
     }
 }
