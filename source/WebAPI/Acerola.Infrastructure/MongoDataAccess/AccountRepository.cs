@@ -33,7 +33,7 @@
                 .SingleOrDefaultAsync();
         }
 
-        public async Task Update(Account account, Transaction transaction)
+        public async Task Update(Account account, ITransaction transaction)
         {
             await mongoContext.Accounts.ReplaceOneAsync(e => e.Id == account.Id, account);
         }

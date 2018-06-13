@@ -3,7 +3,7 @@
     using System;
     using Acerola.Domain.ValueObjects;
 
-    public class Customer : Entity, IAggregateRoot
+    public class Customer : IEntity, IAggregateRoot
     {
         public virtual Name Name { get; protected set; }
         public virtual PIN PIN { get; protected set; }
@@ -26,6 +26,11 @@
         {
             Accounts = new AccountCollection();
             Accounts.Add(accountId);
+        }
+
+        public Guid GetId()
+        {
+            throw new NotImplementedException();
         }
     }
 }

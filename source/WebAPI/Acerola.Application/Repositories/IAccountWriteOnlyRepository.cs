@@ -6,7 +6,7 @@
     public interface IAccountWriteOnlyRepository
     {
         Task Add(Account account, Credit credit);
-        Task Update(Account account, Transaction transaction);
+        Task Update(Account account, ITransaction transaction);
         Task Delete(Account account);
     }
 }

@@ -2,19 +2,19 @@
 {
     public class Name
     {
-        public string Text { get; private set; }
+        private string _text;
 
         public Name(string text)
         {
             if (string.IsNullOrWhiteSpace(text))
                 throw new NameShouldNotBeEmptyException("The 'Name' field is required");
 
-            this.Text = text;
+            this._text = text;
         }
 
         public override string ToString()
         {
-            return Text.ToString();
+            return _text.ToString();
         }
 
         public static implicit operator Name(string text)

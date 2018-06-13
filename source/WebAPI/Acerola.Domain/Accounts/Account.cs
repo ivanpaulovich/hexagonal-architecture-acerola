@@ -3,45 +3,48 @@
     using Acerola.Domain.ValueObjects;
     using System;
 
-    public class Account : Entity, IAggregateRoot
+    public class Account : IEntity, IAggregateRoot
     {
-        public virtual Guid CustomerId { get; protected set; }
-        public virtual int Version { get; protected set; }
-        public virtual TransactionCollection Transactions { get; protected set; }
+        private Guid _id;
+        private Guid _customerId;
+        private TransactionCollection _transactions;
 
-        protected Account()
+        public Guid GetId()
         {
-            Transactions = new TransactionCollection();
+            return _id;
         }
 
         public Account(Guid customerId)
-            : this()
         {
-            CustomerId = customerId;
+            _id = Guid.NewGuid();
+            _transactions = new TransactionCollection();
+            _customerId = customerId;
         }
 
-        public void Deposit(Credit credit)
+        public void Deposit(Amount amount)
         {
-            Transactions.Add(credit);
+            Credit credit = new Credit(_id, amount);
+            _transactions.Add(credit);
         }
 
-        public void Withdraw(Debit debit)
+        public void Withdraw(Amount amount)
         {
-            if (Transactions.GetCurrentBalance() < debit.Amount)
-                throw new InsuficientFundsException($"The account {Id} does not have enough funds to withdraw {debit.Amount}.");
+            if (_transactions.GetCurrentBalance() < amount)
+                throw new InsuficientFundsException($"The account {_id} does not have enough funds to withdraw {amount}.");
 
-            Transactions.Add(debit);
+            Debit debit = new Debit(_id, amount);
+            _transactions.Add(debit);
         }
 
         public void Close()
         {
-            if (Transactions.GetCurrentBalance() > 0)
-                throw new AccountCannotBeClosedException($"The account {Id} can not be closed because it has funds.");
+            if (_transactions.GetCurrentBalance() > 0)
+                throw new AccountCannotBeClosedException($"The account {_id} can not be closed because it has funds.");
         }
 
         public Amount GetCurrentBalance()
         {
-            return Transactions.GetCurrentBalance();
+            return _transactions.GetCurrentBalance();
         }
 
     }

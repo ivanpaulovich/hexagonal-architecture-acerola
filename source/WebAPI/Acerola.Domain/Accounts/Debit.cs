@@ -3,25 +3,32 @@
     using Acerola.Domain.ValueObjects;
     using System;
 
-    public class Debit : Transaction
+    public class Debit : IEntity, ITransaction
     {
-        protected Debit()
-        {
-
-        }
+        private Guid _id;
+        private Guid _accountId;
+        private Amount _amount;
 
         public Debit(Guid accountId, Amount amount)
-            : base(accountId, amount)
         {
-
+            _id = Guid.NewGuid();
+            _accountId = accountId;
+            _amount = amount;
         }
 
-        public override string Description
+        public string GetDescription()
         {
-            get
-            {
-                return "Debit";
-            }
+            return "Debit";
+        }
+
+        public Amount GetAmount()
+        {
+            return _amount;
+        }
+
+        public Guid GetId()
+        {
+            return _id;
         }
     }
 }

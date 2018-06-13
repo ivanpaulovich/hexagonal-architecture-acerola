@@ -51,7 +51,7 @@
                 cm.AutoMap();
             });
 
-            BsonClassMap.RegisterClassMap<Transaction>(cm =>
+            BsonClassMap.RegisterClassMap<ITransaction>(cm =>
             {
                 cm.AutoMap();
                 cm.SetIsRootClass(true);

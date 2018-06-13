@@ -3,25 +3,32 @@
     using Acerola.Domain.ValueObjects;
     using System;
 
-    public class Credit : Transaction
+    public class Credit : IEntity, ITransaction
     {
-        protected Credit()
-        {
-
-        }
+        private Guid _id;
+        private Guid _accountId;
+        private Amount _amount;
 
         public Credit(Guid accountId, Amount amount)
-            : base(accountId, amount)
         {
-
+            _id = Guid.NewGuid();
+            _accountId = accountId;
+            _amount = amount;
         }
 
-        public override string Description
+        public string GetDescription()
         {
-            get
-            {
-                return "Credit";
-            }
+            return "Credit";
+        }
+
+        public Amount GetAmount()
+        {
+            return _amount;
+        }
+
+        public Guid GetId()
+        {
+            return _id;
         }
     }
 }
