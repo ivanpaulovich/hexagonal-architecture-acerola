@@ -5,32 +5,31 @@
 
     public class Customer : IEntity, IAggregateRoot
     {
-        public virtual Name Name { get; protected set; }
-        public virtual PIN PIN { get; protected set; }
-        public virtual int Version { get; protected set; }
-        public virtual AccountCollection Accounts { get; protected set; }
-
-        protected Customer()
-        {
-            Accounts = new AccountCollection();
-        }
+        private Guid _id;
+        private Name _name;
+        private PIN _pin;
+        private AccountCollection _accounts;
 
         public Customer(PIN pin, Name name)
-            : this()
         {
-            PIN = pin;
-            Name = name;
+            _pin = pin;
+            _name = name;
         }
 
         public virtual void Register(Guid accountId)
         {
-            Accounts = new AccountCollection();
-            Accounts.Add(accountId);
+            _accounts = new AccountCollection();
+            _accounts.Add(accountId);
         }
 
         public Guid GetId()
         {
-            throw new NotImplementedException();
+            return _id;
+        }
+
+        public AccountCollection GetAccounts()
+        {
+            return _accounts;
         }
     }
 }
