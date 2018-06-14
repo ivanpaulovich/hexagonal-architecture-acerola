@@ -19,7 +19,7 @@
             }
         }
 
-        public Amount GetCurrentBalance()
+        internal Amount GetCurrentBalance()
         {
             Amount totalAmount = 0;
             

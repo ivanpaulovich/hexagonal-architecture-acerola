@@ -47,5 +47,10 @@
             return _transactions.GetCurrentBalance();
         }
 
+        public TransactionCollection GetTransactions()
+        {
+            return _transactions;
+        }
+
     }
 }

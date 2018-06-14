@@ -1,12 +1,18 @@
 ﻿namespace Acerola.Domain
 {
-    public class DomainException : AcerolaException
-    {
-        public string BusinessMessage { get; private set; }
+    using System;
 
-        public DomainException(string businessMessage)
+    public class DomainException : Exception
+    {
+        private string _businessMessage;
+        public string GetBusinessMessage()
         {
-            BusinessMessage = businessMessage;
+            return _businessMessage;
+        }
+
+        internal DomainException(string businessMessage)
+        {
+            _businessMessage = businessMessage;
         }
     }
 }

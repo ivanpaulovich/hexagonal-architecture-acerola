@@ -8,7 +8,7 @@ namespace Acerola.DomainTests
     public class AccountTests
     {
         [Fact]
-        public void New_Account_Should_Have_100_After_Deposit()
+        public void New_Account_Should_Have_100_Credit_After_Deposit()
         {
             //
             // Arrange
@@ -21,11 +21,14 @@ namespace Acerola.DomainTests
 
             //
             // Assert
-            Assert.Equal(100, sut.GetCurrentBalance());
+            Credit credit = (Credit)sut.GetTransactions()[0];
+
+            Assert.Equal(new Amount(100), credit.GetAmount());
+            Assert.Equal("Credit", credit.GetDescription());
         }
 
         [Fact]
-        public void New_Account_With_1000_Balance_Should_Have_900_After_Withdraw()
+        public void New_Account_With_1000_Balance_Should_Have_900_Credit_After_Withdraw()
         {
             //
             // Arrange
@@ -42,7 +45,7 @@ namespace Acerola.DomainTests
         }
 
         [Fact]
-        public void New_Account_Should_Allow_Close()
+        public void New_Account_Should_Allow_Closing()
         {
             //
             // Arrange
@@ -58,7 +61,7 @@ namespace Acerola.DomainTests
         }
 
         [Fact]
-        public void Account_With_Funds_Should_Not_Allow_Close()
+        public void Account_With_Funds_Should_Not_Allow_Closing()
         {
             //
             // Arrange
