@@ -2,6 +2,7 @@
 {
     using Acerola.Domain.ValueObjects;
     using System;
+    using System.Collections.Generic;
 
     public class Account : IEntity, IAggregateRoot
     {
@@ -52,5 +53,14 @@
             return _transactions;
         }
 
+        public void Import(Dictionary<string, object> values)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Dictionary<string, object> Export()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
