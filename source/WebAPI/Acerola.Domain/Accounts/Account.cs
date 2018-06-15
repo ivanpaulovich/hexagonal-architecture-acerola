@@ -2,39 +2,55 @@
 {
     using Acerola.Domain.ValueObjects;
     using System;
+    using System.Collections.ObjectModel;
 
     public class Account : IEntity, IAggregateRoot
     {
         public Guid Id { get; }
         public Guid CustomerId { get; }
-        public TransactionCollection Transactions { get; }
+        public ReadOnlyCollection<ITransaction> Transactions
+        {
+            get
+            {
+                ReadOnlyCollection<ITransaction> readOnly = new ReadOnlyCollection<ITransaction>(_transactions);
+                return readOnly;
+            }
+        }
+
+        private TransactionCollection _transactions;
 
         public Account(Guid customerId)
         {
             Id = Guid.NewGuid();
-            Transactions = new TransactionCollection();
+            _transactions = new TransactionCollection();
             CustomerId = customerId;
         }
 
         public void Deposit(Amount amount)
         {
             Credit credit = new Credit(Id, amount);
-            Transactions.Add(credit);
+            _transactions.Add(credit);
         }
 
         public void Withdraw(Amount amount)
         {
-            if (Transactions.GetCurrentBalance() < amount)
+            if (_transactions.GetCurrentBalance() < amount)
                 throw new InsuficientFundsException($"The account {Id} does not have enough funds to withdraw {amount}.");
 
             Debit debit = new Debit(Id, amount);
-            Transactions.Add(debit);
+            _transactions.Add(debit);
         }
 
         public void Close()
         {
-            if (Transactions.GetCurrentBalance() > 0)
+            if (_transactions.GetCurrentBalance() > 0)
                 throw new AccountCannotBeClosedException($"The account {Id} can not be closed because it has funds.");
+        }
+
+        public Amount GetCurrentBalance()
+        {
+            Amount totalAmount = _transactions.GetCurrentBalance();
+            return totalAmount;
         }
     }
 }

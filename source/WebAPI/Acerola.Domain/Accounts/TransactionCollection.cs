@@ -20,7 +20,11 @@
             
             foreach (var item in Items)
             {
-                totalAmount += item.Amount;
+                if (item is Debit)
+                    totalAmount = totalAmount - item.Amount;
+
+                if (item is Credit)
+                    totalAmount = totalAmount + item.Amount;
             }
 
             return totalAmount;
