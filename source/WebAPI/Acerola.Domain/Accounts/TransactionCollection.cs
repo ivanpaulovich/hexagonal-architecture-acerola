@@ -6,26 +6,21 @@
 
     public class TransactionCollection : Collection<ITransaction>
     {
-        public TransactionCollection()
+        public void Add(IEnumerable<ITransaction> transactions)
         {
-
-        }
-
-        public TransactionCollection(IEnumerable<ITransaction> list)
-        {
-            foreach (var item in list)
+            foreach (var transaction in transactions)
             {
-                Items.Add(item);
+                Items.Add(transaction);
             }
         }
 
-        internal Amount GetCurrentBalance()
+        public Amount GetCurrentBalance()
         {
             Amount totalAmount = 0;
             
             foreach (var item in Items)
             {
-                totalAmount += item.GetAmount();
+                totalAmount += item.Amount;
             }
 
             return totalAmount;

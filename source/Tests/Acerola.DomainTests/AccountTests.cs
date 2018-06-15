@@ -21,10 +21,10 @@ namespace Acerola.DomainTests
 
             //
             // Assert
-            Credit credit = (Credit)sut.GetTransactions()[0];
+            Credit credit = (Credit)sut.Transactions[0];
 
-            Assert.Equal(new Amount(100), credit.GetAmount());
-            Assert.Equal("Credit", credit.GetDescription());
+            Assert.Equal(new Amount(100), credit.Amount);
+            Assert.Equal("Credit", credit.Description);
         }
 
         [Fact]
@@ -41,7 +41,7 @@ namespace Acerola.DomainTests
 
             //
             // Assert
-            Assert.Equal(900, sut.GetCurrentBalance());
+            Assert.Equal(900, sut.Transactions.GetCurrentBalance());
         }
 
         [Fact]

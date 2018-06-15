@@ -62,9 +62,15 @@ namespace Acerola.Domain.ValueObjects
             {
                 return false;
             }
+
             if (ReferenceEquals(this, obj))
             {
                 return true;
+            }
+
+            if (obj is double)
+            {
+                return (double)obj == _value;
             }
 
             return ((Amount)obj)._value == _value;

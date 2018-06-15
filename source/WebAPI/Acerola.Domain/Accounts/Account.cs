@@ -2,65 +2,39 @@
 {
     using Acerola.Domain.ValueObjects;
     using System;
-    using System.Collections.Generic;
 
     public class Account : IEntity, IAggregateRoot
     {
-        private Guid _id;
-        private Guid _customerId;
-        private TransactionCollection _transactions;
-
-        public Guid GetId()
-        {
-            return _id;
-        }
+        public Guid Id { get; }
+        public Guid CustomerId { get; }
+        public TransactionCollection Transactions { get; }
 
         public Account(Guid customerId)
         {
-            _id = Guid.NewGuid();
-            _transactions = new TransactionCollection();
-            _customerId = customerId;
+            Id = Guid.NewGuid();
+            Transactions = new TransactionCollection();
+            CustomerId = customerId;
         }
 
         public void Deposit(Amount amount)
         {
-            Credit credit = new Credit(_id, amount);
-            _transactions.Add(credit);
+            Credit credit = new Credit(Id, amount);
+            Transactions.Add(credit);
         }
 
         public void Withdraw(Amount amount)
         {
-            if (_transactions.GetCurrentBalance() < amount)
-                throw new InsuficientFundsException($"The account {_id} does not have enough funds to withdraw {amount}.");
+            if (Transactions.GetCurrentBalance() < amount)
+                throw new InsuficientFundsException($"The account {Id} does not have enough funds to withdraw {amount}.");
 
-            Debit debit = new Debit(_id, amount);
-            _transactions.Add(debit);
+            Debit debit = new Debit(Id, amount);
+            Transactions.Add(debit);
         }
 
         public void Close()
         {
-            if (_transactions.GetCurrentBalance() > 0)
-                throw new AccountCannotBeClosedException($"The account {_id} can not be closed because it has funds.");
-        }
-
-        public Amount GetCurrentBalance()
-        {
-            return _transactions.GetCurrentBalance();
-        }
-
-        public TransactionCollection GetTransactions()
-        {
-            return _transactions;
-        }
-
-        public void Import(Dictionary<string, object> values)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Dictionary<string, object> Export()
-        {
-            throw new NotImplementedException();
+            if (Transactions.GetCurrentBalance() > 0)
+                throw new AccountCannotBeClosedException($"The account {Id} can not be closed because it has funds.");
         }
     }
 }

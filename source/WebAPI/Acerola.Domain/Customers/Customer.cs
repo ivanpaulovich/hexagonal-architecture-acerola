@@ -6,59 +6,30 @@
 
     public class Customer : IEntity, IAggregateRoot
     {
-        private Guid _id;
-        private Name _name;
-        private PIN _pin;
-        private AccountCollection _accounts;
+        public Guid Id { get; }
+        public Name Name { get; }
+        public PIN PIN { get; }
+        public AccountCollection Accounts { get; }
 
-        private Customer()
+        public Customer(Guid id, Name name, PIN pin, AccountCollection accounts)
         {
+            Id = id;
+            Name = name;
+            PIN = pin;
+            Accounts = accounts;
         }
 
         public Customer(PIN pin, Name name)
         {
-            _id = Guid.NewGuid();
-            _pin = pin;
-            _name = name;
-            _accounts = new AccountCollection();
+            Id = Guid.NewGuid();
+            PIN = pin;
+            Name = name;
+            Accounts = new AccountCollection();
         }
 
         public void Register(Guid accountId)
         {
-            _accounts.Add(accountId);
-        }
-
-        public Guid GetId()
-        {
-            return _id;
-        }
-
-        public AccountCollection GetAccounts()
-        {
-            return _accounts;
-        }
-
-        public static Customer Import(Dictionary<string, object> values)
-        {
-            Customer customer = new Customer();
-
-            customer._id = (Guid)values["id"];
-            customer._name = (Name)values["name"];
-            customer._pin = (PIN)values["pin"];
-            customer._accounts = (AccountCollection)values["accounts"];
-
-            return customer;
-        }
-
-        public Dictionary<string, object> Export()
-        {
-            Dictionary<string, object> values = new Dictionary<string, object>();
-            values.Add("id", _id);
-            values.Add("name", _name);
-            values.Add("pin", _pin);
-            values.Add("accounts", _accounts);
-
-            return values;
+            Accounts.Add(accountId);
         }
     }
 }

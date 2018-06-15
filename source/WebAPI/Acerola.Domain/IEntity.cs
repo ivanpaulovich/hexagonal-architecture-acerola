@@ -4,6 +4,6 @@
 
     public interface IEntity
     {
-        Guid GetId();
+        Guid Id { get; }
     }
 }

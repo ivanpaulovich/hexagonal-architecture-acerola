@@ -4,7 +4,7 @@
 
     public interface ITransaction
     {
-        Amount GetAmount();
-        string GetDescription();
+        Amount Amount { get; }
+        string Description { get; }
     }
 }

@@ -2,9 +2,7 @@ namespace Acerola.DomainTests
 {
     using Xunit;
     using Acerola.Domain.Customers;
-    using Acerola.Domain.ValueObjects;
     using Acerola.Domain.Accounts;
-    using System.Collections.Generic;
     using System;
 
     public class CustomerTests
@@ -14,37 +12,41 @@ namespace Acerola.DomainTests
         {
             //
             // Arrange
-            Customer sut = new Customer(new PIN("08724050601"), new Name("Ivan Paulovich"));
-            var account = new Account(sut.GetId());
+            Customer sut = new Customer(
+                "741214-3054",
+                "Sammy Fredriksson");
+
+            var account = new Account(sut.Id);
 
             //
             // Act
-            sut.Register(account.GetId());
+            sut.Register(account.Id);
 
             //
             // Assert
-            Assert.Single(sut.GetAccounts());
+            Assert.Single(sut.Accounts);
         }
 
         [Fact]
         public void Customer_Should_Be_Loaded()
         {
+            //
+            // Arrange
             AccountCollection accounts = new AccountCollection();
             accounts.Add(Guid.NewGuid());
 
-            Dictionary<string, object> input = new Dictionary<string, object>();
-            input.Add("id", Guid.NewGuid());
-            input.Add("name", new Name("Sammy Fredriksson"));
-            input.Add("pin", new PIN("741214-3054"));
-            input.Add("accounts", accounts);
+            Guid customerId = Guid.NewGuid();
 
-            Customer customer = Customer.Import(input);
-            Dictionary<string, object> output = customer.Export();
+            Customer customer = new Customer(
+                customerId,
+                "Sammy Fredriksson",
+                "741214-3054",
+                accounts);
 
-            foreach (var value in input)
-            {
-                Assert.Equal(value.Value, output[value.Key]);
-            }
+            Assert.Equal(customerId, customer.Id);
+            Assert.Equal("Sammy Fredriksson", customer.Name);
+            Assert.Equal("741214-3054", customer.PIN);
+            Assert.Equal(accounts, customer.Accounts);
         }
     }
 }

@@ -28,9 +28,15 @@
             {
                 return false;
             }
+
             if (ReferenceEquals(this, obj))
             {
                 return true;
+            }
+
+            if (obj is string)
+            {
+                return obj.ToString() == _text;
             }
 
             return ((Name)obj)._text == _text;
