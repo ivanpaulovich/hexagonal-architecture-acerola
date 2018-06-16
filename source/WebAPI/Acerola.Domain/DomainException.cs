@@ -4,15 +4,9 @@
 
     public class DomainException : Exception
     {
-        private string _businessMessage;
-        public string GetBusinessMessage()
-        {
-            return _businessMessage;
-        }
-
         internal DomainException(string businessMessage)
+            : base(businessMessage)
         {
-            _businessMessage = businessMessage;
         }
     }
 }
