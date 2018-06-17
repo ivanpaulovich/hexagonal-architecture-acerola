@@ -25,11 +25,23 @@
                 Id = account.Id
             };
 
+            Entities.Credit creditEntity = new Entities.Credit()
+            {
+                AccountId = credit.AccountId,
+                Amount = credit.Amount,
+                Description = credit.Description,
+                Id = credit.Id,
+                TransactionDate = credit.TransactionDate
+            };
+
             await _context.Accounts.InsertOneAsync(accountEntity);
+            await _context.Credits.InsertOneAsync(creditEntity);
         }
 
         public async Task Delete(Account account)
         {
+            await _context.Credits.DeleteOneAsync(e => e.AccountId == account.Id);
+            await _context.Debits.DeleteOneAsync(e => e.AccountId == account.Id);
             await _context.Accounts.DeleteOneAsync(e => e.Id == account.Id);
         }
 
@@ -42,22 +54,19 @@
 
             List<Entities.Credit> credits = await _context
                 .Credits
-                .Find(e => e.Id == id)
+                .Find(e => e.AccountId == id)
                 .ToListAsync();
 
             List<Entities.Debit> debits = await _context
                 .Debits
-                .Find(e => e.Id == id)
+                .Find(e => e.AccountId == id)
                 .ToListAsync();
-
-            double credit = credits.Sum(c => c.Amount);
-            double debit = debits.Sum(d => d.Amount);
 
             List<ITransaction> transactions = new List<ITransaction>();
 
             foreach (Entities.Credit transactionData in credits)
             {
-                ITransaction transaction = new Credit(
+                Credit transaction = new Credit(
                     transactionData.Id,
                     transactionData.AccountId,
                     transactionData.Amount,
@@ -68,7 +77,7 @@
 
             foreach (Entities.Debit transactionData in debits)
             {
-                ITransaction transaction = new Credit(
+                Debit transaction = new Debit(
                     transactionData.Id,
                     transactionData.AccountId,
                     transactionData.Amount,

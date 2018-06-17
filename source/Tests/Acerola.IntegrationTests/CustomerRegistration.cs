@@ -64,7 +64,7 @@ namespace Acerola.IntegrationTests
         {
             var register = new
             {
-                pin = "08724050601",
+                personnummer = "08724050601",
                 name = "Ivan Paulovich",
                 initialAmount = initialAmount
             };

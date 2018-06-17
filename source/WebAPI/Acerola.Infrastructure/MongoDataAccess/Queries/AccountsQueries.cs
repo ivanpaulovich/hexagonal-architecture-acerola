@@ -30,12 +30,12 @@
 
             List<Credit> credits = await context
                 .Credits
-                .Find(e => e.Id == accountId)
+                .Find(e => e.AccountId == accountId)
                 .ToListAsync();
 
             List<Debit> debits = await context
                 .Debits
-                .Find(e => e.Id == accountId)
+                .Find(e => e.AccountId == accountId)
                 .ToListAsync();
 
             double credit = credits.Sum(c => c.Amount);
