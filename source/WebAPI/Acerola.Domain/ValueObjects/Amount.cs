@@ -16,6 +16,11 @@ namespace Acerola.Domain.ValueObjects
             return _value.ToString();
         }
 
+        public static implicit operator double(Amount value)
+        {
+            return value._value;
+        }
+
         public static Amount operator -(Amount value)
         {
             return new Amount(Math.Abs(value._value) * -1);
@@ -74,6 +79,11 @@ namespace Acerola.Domain.ValueObjects
             }
 
             return ((Amount)obj)._value == _value;
+        }
+
+        public override int GetHashCode()
+        {
+            return _value.GetHashCode();
         }
     }
 }

@@ -4,67 +4,52 @@
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
-    using Acerola.Application;
     using Acerola.Application.Queries;
     using Acerola.Application.Results;
-    using Acerola.Domain.Accounts;
-    using Acerola.Domain.Customers;
+    using Acerola.Infrastructure.MongoDataAccess.Entities;
 
     public class CustomersQueries : ICustomersQueries
     {
-        private readonly Context context;
-        private readonly IResultConverter resultConverter;
+        private readonly Context _context;
+        private readonly IAccountsQueries _accountsQueries;
 
-        public CustomersQueries(Context context, IResultConverter resultConverter)
+        public CustomersQueries(Context context, IAccountsQueries accountsQueries)
         {
-            this.context = context;
-            this.resultConverter = resultConverter;
+            _context = context;
+            _accountsQueries = accountsQueries;
         }
 
         public async Task<CustomerResult> GetCustomer(Guid id)
         {
-            Customer data = await context
+            Customer customer = await _context
                 .Customers
                 .Find(e => e.Id == id)
                 .SingleOrDefaultAsync();
 
-            if (data == null)
+            if (customer == null)
                 throw new CustomerNotFoundException($"The customer {id} does not exists or is not processed yet.");
 
-            //
-            // TODO: The following queries could be simplified
-            //
+            List<Guid> accountIds = await _context
+                .Accounts
+                .Find(e => e.CustomerId == id)
+                .Project(p => p.Id)
+                .ToListAsync();
 
-            List<AccountResult> accounts = new List<AccountResult>();
+            List<AccountResult> accountsResult = new List<AccountResult>();
 
-            foreach (var accountId in data.Accounts)
+            foreach (Guid accountId in accountIds)
             {
-                Account account = await context
-                    .Accounts
-                    .Find(e => e.Id == accountId)
-                    .SingleOrDefaultAsync();
-
-                if (account == null)
-                    throw new CustomerNotFoundException($"The account {accountId} does not exists or is not processed yet.");
-
-                //
-                // TODO: The "Accout closed state" is not propagating to the Customer Aggregate
-                //
-
-                if (account != null)
-                {
-                    AccountResult accountOutput = resultConverter.Map<AccountResult>(account);
-                    accounts.Add(accountOutput);
-                }
+                AccountResult accountResult = await _accountsQueries.GetAccount(accountId);
+                accountsResult.Add(accountResult);
             }
 
-            CustomerResult customerResult = resultConverter.Map<CustomerResult>(data);
+            CustomerResult customerResult = new CustomerResult(customer.Id, customer.SSN, customer.Name, null);
 
             customerResult = new CustomerResult(
                 customerResult.CustomerId,
                 customerResult.Personnummer,
                 customerResult.Name,
-                accounts);
+                accountsResult);
 
             return customerResult;
         }

@@ -10,16 +10,13 @@
     {
         private readonly IAccountReadOnlyRepository accountReadOnlyRepository;
         private readonly IAccountWriteOnlyRepository accountWriteOnlyRepository;
-        private readonly IResultConverter resultConverter;
 
         public WithdrawService(
             IAccountReadOnlyRepository accountReadOnlyRepository,
-            IAccountWriteOnlyRepository accountWriteOnlyRepository,
-            IResultConverter resultConverter)
+            IAccountWriteOnlyRepository accountWriteOnlyRepository)
         {
             this.accountReadOnlyRepository = accountReadOnlyRepository;
             this.accountWriteOnlyRepository = accountWriteOnlyRepository;
-            this.resultConverter = resultConverter;
         }
 
         public async Task<WithdrawResult> Process(WithdrawCommand command)
@@ -28,15 +25,14 @@
             if (account == null)
                 throw new AccountNotFoundException($"The account {command.AccountId} does not exists or is already closed.");
 
-            Debit debit = new Debit(account.Id, command.Amount);
-            account.Withdraw(debit);
+            account.Withdraw(command.Amount);
+            Debit debit = (Debit)account.GetLastTransaction();
 
             await accountWriteOnlyRepository.Update(account, debit);
 
-            TransactionResult transactionResult = resultConverter.Map<TransactionResult>(debit);
             WithdrawResult result = new WithdrawResult(
-                transactionResult,
-                account.GetCurrentBalance().Value
+                debit,
+                account.GetCurrentBalance()
             );
 
             return result;

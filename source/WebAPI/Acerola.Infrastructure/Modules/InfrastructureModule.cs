@@ -2,7 +2,6 @@
 {
     using Autofac;
     using Acerola.Infrastructure.MongoDataAccess;
-    using Acerola.Infrastructure.Mappings;
 
     public class InfrastructureModule : Autofac.Module
     {
@@ -20,7 +19,7 @@
             //
             // Register all Types in Acerola.Infrastructure
             //
-            builder.RegisterAssemblyTypes(typeof(ResultConverter).Assembly)
+            builder.RegisterAssemblyTypes(typeof(InfrastructureException).Assembly)
                 .AsImplementedInterfaces()
                 .InstancePerLifetimeScope();
         }

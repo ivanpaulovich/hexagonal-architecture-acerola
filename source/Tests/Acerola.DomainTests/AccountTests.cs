@@ -12,8 +12,9 @@ namespace Acerola.DomainTests
         {
             //
             // Arrange
+            Guid customerId = Guid.NewGuid();
             Amount amount = new Amount(100.0);
-            Account sut = new Account(Guid.NewGuid());
+            Account sut = new Account(customerId);
 
             //
             // Act
@@ -23,8 +24,10 @@ namespace Acerola.DomainTests
             // Assert
             Credit credit = (Credit)sut.Transactions[0];
 
-            Assert.Equal(new Amount(100), credit.Amount);
+            Assert.Equal(customerId, sut.CustomerId);
+            Assert.Equal(100, credit.Amount);
             Assert.Equal("Credit", credit.Description);
+            Assert.True(credit.AccountId != Guid.Empty);
         }
 
         [Fact]
@@ -41,7 +44,7 @@ namespace Acerola.DomainTests
 
             //
             // Assert
-            Assert.Equal(900, sut.Transactions.GetCurrentBalance());
+            Assert.Equal(900, sut.GetCurrentBalance());
         }
 
         [Fact]
@@ -66,8 +69,7 @@ namespace Acerola.DomainTests
             //
             // Arrange
             Account sut = new Account(Guid.NewGuid());
-            Amount amount = new Amount(100);
-            sut.Deposit(amount);
+            sut.Deposit(100);
 
             //
             // Act and Assert

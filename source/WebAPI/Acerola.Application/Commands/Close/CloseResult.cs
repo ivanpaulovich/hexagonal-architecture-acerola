@@ -1,17 +1,14 @@
 ﻿namespace Acerola.Application.Commands.Close
 {
+    using Acerola.Domain.Accounts;
     using System;
     public class CloseResult
     {
-        public Guid AccountId { get; private set; }
-        public CloseResult()
-        {
+        public Guid AccountId { get; }
 
-        }
-
-        public CloseResult(Guid accountId)
+        public CloseResult(Account account)
         {
-            AccountId = accountId;
+            AccountId = account.Id;
         }
     }
 }

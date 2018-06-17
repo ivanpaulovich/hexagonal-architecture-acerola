@@ -19,7 +19,7 @@ namespace Acerola.UseCaseTests
         public ICustomerReadOnlyRepository customerReadOnlyRepository;
         public ICustomerWriteOnlyRepository customerWriteOnlyRepository;
 
-        public IResultConverter converter;
+        public IDataConverter converter;
 
         public AccountTests()
         {
@@ -28,7 +28,7 @@ namespace Acerola.UseCaseTests
             customerReadOnlyRepository = Substitute.For<ICustomerReadOnlyRepository>();
             customerWriteOnlyRepository = Substitute.For<ICustomerWriteOnlyRepository>();
 
-            converter = new ResultConverter();
+            converter = new Converter();
         }
 
         [Theory]
@@ -52,7 +52,7 @@ namespace Acerola.UseCaseTests
 
             RegisterResult result = await registerUseCase.Process(request);
 
-            Assert.Equal(request.PIN, result.Customer.Personnummer);
+            Assert.Equal(request.Personnummer, result.Customer.Personnummer);
             Assert.Equal(request.Name, result.Customer.Name);
             Assert.True(Guid.Empty != result.Customer.CustomerId);
             Assert.True(Guid.Empty != result.Account.AccountId);

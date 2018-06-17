@@ -3,10 +3,10 @@ namespace Acerola.DomainTests
     using Acerola.Domain.ValueObjects;
     using Xunit;
 
-    public class PINTests
+    public class SSNTests
     {
         [Fact]
-        public void Empty_PIN_Should_Be_Created()
+        public void Empty_SSN_Should_Not_Be_Created()
         {
             //
             // Arrange
@@ -14,12 +14,12 @@ namespace Acerola.DomainTests
 
             //
             // Act and Assert
-            Assert.Throws<PINShouldNotBeEmptyException>(
-                () => new PIN(empty));
+            Assert.Throws<SSNShouldNotBeEmptyException>(
+                () => new SSN(empty));
         }
 
         [Fact]
-        public void Valid_PIN_Should_Be_Created()
+        public void Valid_SSN_Should_Be_Created()
         {
             //
             // Arrange
@@ -27,10 +27,10 @@ namespace Acerola.DomainTests
 
             //
             // Act
-            PIN pin = new PIN(valid);
+            SSN SSN = new SSN(valid);
 
             // Assert
-            Assert.Equal(valid, pin);
+            Assert.Equal(valid, SSN);
         }
     }
 }

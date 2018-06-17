@@ -9,7 +9,7 @@
     {
         public Guid Id { get; }
         public Name Name { get; }
-        public PIN PIN { get; }
+        public SSN SSN { get; }
         public ReadOnlyCollection<Guid> Accounts
         {
             get
@@ -21,18 +21,18 @@
 
         private AccountCollection _accounts;
 
-        public Customer(Guid id, Name name, PIN pin, AccountCollection accounts)
+        public Customer(Guid id, Name name, SSN ssn, AccountCollection accounts)
         {
             Id = id;
             Name = name;
-            PIN = pin;
+            SSN = ssn;
             _accounts = accounts;
         }
 
-        public Customer(PIN pin, Name name)
+        public Customer(SSN ssn, Name name)
         {
             Id = Guid.NewGuid();
-            PIN = pin;
+            SSN = ssn;
             Name = name;
             _accounts = new AccountCollection();
         }

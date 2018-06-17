@@ -1,6 +1,6 @@
-﻿namespace Acerola.Application
+﻿namespace Acerola.Infrastructure
 {
-    public class CustomerNotFoundException : ApplicationException
+    public class CustomerNotFoundException : InfrastructureException
     {
         internal CustomerNotFoundException(string message)
             : base(message)

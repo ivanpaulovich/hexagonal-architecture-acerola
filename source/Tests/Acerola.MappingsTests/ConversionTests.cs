@@ -10,11 +10,11 @@ namespace Acerola.MappingsTests
 
     public class ConversionTests
     {
-        public IResultConverter converter;
+        public IDataConverter converter;
 
         public ConversionTests()
         {
-            converter = new ResultConverter();
+            converter = new Converter();
         }
 
         [Fact]
@@ -23,7 +23,7 @@ namespace Acerola.MappingsTests
             Debit debit = new Debit(Guid.NewGuid(), 100);
 
             var result = converter.Map<TransactionResult>(debit);
-            Assert.Equal(debit.Amount.Value, result.Amount);
+            Assert.Equal<double>(debit.Amount, result.Amount);
             Assert.Equal(debit.TransactionDate, result.TransactionDate);
             Assert.Equal(debit.Description, result.Description);
         }
