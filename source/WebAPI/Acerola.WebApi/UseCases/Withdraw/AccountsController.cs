@@ -5,7 +5,7 @@
     using Acerola.Application.Commands.Withdraw;
 
     [Route("api/[controller]")]
-    public class AccountsController : Controller
+    public sealed class AccountsController : Controller
     {
         private readonly IWithdrawService withdrawService;
 

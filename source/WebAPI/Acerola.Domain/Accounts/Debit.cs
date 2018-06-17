@@ -3,7 +3,7 @@
     using Acerola.Domain.ValueObjects;
     using System;
 
-    public class Debit : IEntity, ITransaction
+    public sealed class Debit : IEntity, ITransaction
     {
         public Guid Id { get; }
         public Guid AccountId { get; }

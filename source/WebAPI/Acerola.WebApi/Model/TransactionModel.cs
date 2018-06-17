@@ -1,7 +1,7 @@
 ﻿namespace Acerola.WebApi.Model
 {
     using System;
-    public class TransactionModel
+    public sealed class TransactionModel
     {
         public double Amount { get; }
         public string Description { get; }

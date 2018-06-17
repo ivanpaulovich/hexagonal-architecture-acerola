@@ -1,12 +1,10 @@
 ﻿namespace Acerola.Application.Commands.Withdraw
 {
     using System.Threading.Tasks;
-    using Acerola.Application.Results;
-    using Acerola.Domain.ValueObjects;
     using Acerola.Application.Repositories;
     using Acerola.Domain.Accounts;
 
-    public class WithdrawService : IWithdrawService
+    public sealed class WithdrawService : IWithdrawService
     {
         private readonly IAccountReadOnlyRepository accountReadOnlyRepository;
         private readonly IAccountWriteOnlyRepository accountWriteOnlyRepository;

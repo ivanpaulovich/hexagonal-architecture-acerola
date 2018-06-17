@@ -19,19 +19,19 @@
             _accountsQueries = accountsQueries;
         }
 
-        public async Task<CustomerResult> GetCustomer(Guid id)
+        public async Task<CustomerResult> GetCustomer(Guid customerId)
         {
             Customer customer = await _context
                 .Customers
-                .Find(e => e.Id == id)
+                .Find(e => e.Id == customerId)
                 .SingleOrDefaultAsync();
 
             if (customer == null)
-                throw new CustomerNotFoundException($"The customer {id} does not exists or is not processed yet.");
+                throw new CustomerNotFoundException($"The customer {customerId} does not exists or is not processed yet.");
 
             List<Guid> accountIds = await _context
                 .Accounts
-                .Find(e => e.CustomerId == id)
+                .Find(e => e.CustomerId == customerId)
                 .Project(p => p.Id)
                 .ToListAsync();
 

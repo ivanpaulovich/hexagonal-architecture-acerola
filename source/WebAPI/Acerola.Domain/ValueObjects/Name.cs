@@ -1,6 +1,6 @@
 ﻿namespace Acerola.Domain.ValueObjects
 {
-    public class Name
+    public sealed class Name
     {
         private string _text;
 

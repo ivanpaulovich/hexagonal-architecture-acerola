@@ -5,7 +5,7 @@
     using System.Collections.ObjectModel;
     using Acerola.Domain.ValueObjects;
 
-    public class Customer : IEntity, IAggregateRoot
+    public sealed class Customer : IEntity, IAggregateRoot
     {
         public Guid Id { get; }
         public Name Name { get; }

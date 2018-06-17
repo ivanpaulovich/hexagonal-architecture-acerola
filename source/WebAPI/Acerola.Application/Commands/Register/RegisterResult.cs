@@ -5,7 +5,7 @@
     using Acerola.Domain.Customers;
     using System.Collections.Generic;
 
-    public class RegisterResult
+    public sealed class RegisterResult
     {
         public CustomerResult Customer { get; }
         public AccountResult Account { get; }

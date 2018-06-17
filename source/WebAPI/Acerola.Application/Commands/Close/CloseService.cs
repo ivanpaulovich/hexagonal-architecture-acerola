@@ -4,7 +4,7 @@
     using Acerola.Application.Repositories;
     using Acerola.Domain.Accounts;
 
-    public class CloseService : ICloseService
+    public sealed class CloseService : ICloseService
     {
         private readonly IAccountReadOnlyRepository accountReadOnlyRepository;
         private readonly IAccountWriteOnlyRepository accountWriteOnlyRepository;

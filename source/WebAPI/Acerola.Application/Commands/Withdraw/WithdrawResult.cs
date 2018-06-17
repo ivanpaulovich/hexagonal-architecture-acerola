@@ -4,7 +4,7 @@
     using Acerola.Domain.Accounts;
     using Acerola.Domain.ValueObjects;
 
-    public class WithdrawResult
+    public sealed class WithdrawResult
     {
         public TransactionResult Transaction { get; }
         public double UpdatedBalance { get; }

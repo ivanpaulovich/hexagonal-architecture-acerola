@@ -2,13 +2,16 @@
 {
     using System;
 
-    public class TransactionResult
+    public sealed class TransactionResult
     {
         public string Description { get; }
         public double Amount { get; }
         public DateTime TransactionDate { get; }
 
-        public TransactionResult(string description, double amount, DateTime transactionDate)
+        public TransactionResult(
+            string description,
+            double amount,
+            DateTime transactionDate)
         {
             Description = description;
             Amount = amount;

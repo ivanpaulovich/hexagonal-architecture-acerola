@@ -5,7 +5,7 @@
     using Acerola.Application.Repositories;
     using Acerola.Domain.Accounts;
 
-    public class RegisterService : IRegisterService
+    public sealed class RegisterService : IRegisterService
     {
         private readonly ICustomerWriteOnlyRepository customerWriteOnlyRepository;
         private readonly IAccountWriteOnlyRepository accountWriteOnlyRepository;

@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Generic;
 
-    public class CustomerDetailsModel
+    public sealed class CustomerDetailsModel
     {
         public Guid CustomerId { get; }
         public string Personnummer { get; }

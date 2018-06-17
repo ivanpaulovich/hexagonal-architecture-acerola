@@ -6,6 +6,6 @@
 
     public interface IAccountsQueries
     {
-        Task<AccountResult> GetAccount(Guid id);
+        Task<AccountResult> GetAccount(Guid accountId);
     }
 }

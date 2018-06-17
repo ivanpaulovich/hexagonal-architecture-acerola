@@ -3,19 +3,17 @@
     using System;
     using System.Collections.Generic;
 
-    public class CustomerResult
+    public sealed class CustomerResult
     {
-        public Guid CustomerId { get; set; }
-        public string Personnummer { get; set; }
-        public string Name { get; set; }
-        public IReadOnlyList<AccountResult> Accounts { get; private set; }
+        public Guid CustomerId { get; }
+        public string Personnummer { get; }
+        public string Name { get; }
+        public IReadOnlyList<AccountResult> Accounts { get; }
 
-        public CustomerResult()
-        {
-
-        }
-
-        public CustomerResult(Guid customerId, string personnummer, string name,
+        public CustomerResult(
+            Guid customerId,
+            string personnummer,
+            string name,
             List<AccountResult> accounts)
         {
             CustomerId = customerId;

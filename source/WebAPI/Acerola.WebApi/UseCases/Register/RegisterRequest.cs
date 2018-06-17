@@ -1,6 +1,6 @@
 ﻿namespace Acerola.WebApi.UseCases.Register
 {
-    public class RegisterRequest
+    public sealed class RegisterRequest
     {
         public string Personnummer { get; set; }
         public string Name { get; set; }

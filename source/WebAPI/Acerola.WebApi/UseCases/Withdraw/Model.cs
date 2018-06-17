@@ -2,7 +2,7 @@
 {
     using System;
 
-    public class Model
+    internal sealed class Model
     {
         public double Amount { get; }
         public string Description { get; }

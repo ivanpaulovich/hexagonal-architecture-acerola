@@ -8,7 +8,7 @@
     using Newtonsoft.Json;
     using System.Net;
     
-    public class DomainExceptionFilter : IExceptionFilter
+    public sealed class DomainExceptionFilter : IExceptionFilter
     {
         public void OnException(ExceptionContext context)
         {

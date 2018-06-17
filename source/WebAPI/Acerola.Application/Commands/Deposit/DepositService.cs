@@ -4,7 +4,7 @@
     using Acerola.Application.Repositories;
     using Acerola.Domain.Accounts;
 
-    public class DepositService : IDepositService
+    public sealed class DepositService : IDepositService
     {
         private readonly IAccountReadOnlyRepository accountReadOnlyRepository;
         private readonly IAccountWriteOnlyRepository accountWriteOnlyRepository;
