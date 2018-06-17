@@ -6,7 +6,7 @@
     using Acerola.Application.Commands.Close;
 
     [Route("api/[controller]")]
-    public class AccountsController : Controller
+    public sealed class AccountsController : Controller
     {
         private readonly ICloseService closeService;
 

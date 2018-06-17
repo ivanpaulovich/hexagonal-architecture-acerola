@@ -6,6 +6,6 @@
 
     public interface ICustomersQueries
     {
-        Task<CustomerResult> GetCustomer(Guid id);
+        Task<CustomerResult> GetCustomer(Guid customerId);
     }
 }

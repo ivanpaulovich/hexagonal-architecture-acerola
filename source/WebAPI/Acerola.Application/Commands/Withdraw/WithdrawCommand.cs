@@ -2,7 +2,7 @@
 {
     using System;
 
-    public class WithdrawCommand
+    public sealed class WithdrawCommand
     {
         public Guid AccountId { get; private set; }
         public Double Amount { get; private set; }

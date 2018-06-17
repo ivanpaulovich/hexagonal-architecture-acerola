@@ -4,12 +4,14 @@
     using Acerola.Domain.Accounts;
     using Acerola.Domain.ValueObjects;
 
-    public class DepositResult
+    public sealed class DepositResult
     {
         public TransactionResult Transaction { get; }
         public double UpdatedBalance { get; }
 
-        public DepositResult(Credit credit, Amount updatedBalance)
+        public DepositResult(
+            Credit credit,
+            Amount updatedBalance)
         {
             Transaction = new TransactionResult(
                 credit.Description,

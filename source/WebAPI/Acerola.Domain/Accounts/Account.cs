@@ -4,7 +4,7 @@
     using System;
     using System.Collections.ObjectModel;
 
-    public class Account : IEntity, IAggregateRoot
+    public sealed class Account : IEntity, IAggregateRoot
     {
         public Guid Id { get; }
         public Guid CustomerId { get; }

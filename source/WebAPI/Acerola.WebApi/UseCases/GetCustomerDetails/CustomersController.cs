@@ -5,12 +5,11 @@
     using Microsoft.AspNetCore.Mvc;
     using System;
     using System.Threading.Tasks;
-    using Acerola.Application.Commands.Register;
     using Acerola.WebApi.Model;
     using System.Collections.Generic;
 
     [Route("api/[controller]")]
-    public class CustomersController : Controller
+    public sealed class CustomersController : Controller
     {
         private readonly ICustomersQueries customersQueries;
 

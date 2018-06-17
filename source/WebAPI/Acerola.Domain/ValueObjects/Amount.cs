@@ -2,7 +2,7 @@
 
 namespace Acerola.Domain.ValueObjects
 {
-    public class Amount
+    public sealed class Amount
     {
         private double _value;
 

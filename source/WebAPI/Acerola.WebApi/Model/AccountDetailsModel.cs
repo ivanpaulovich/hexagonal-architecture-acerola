@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Generic;
 
-    public class AccountDetailsModel
+    public sealed class AccountDetailsModel
     {
         public Guid AccountId { get; }
         public double CurrentBalance { get; }

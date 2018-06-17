@@ -4,7 +4,7 @@
     using System;
     using System.Collections.Generic;
 
-    public class Model
+    internal sealed class Model
     {
         public Guid CustomerId { get; }
         public string Personnummer { get; }

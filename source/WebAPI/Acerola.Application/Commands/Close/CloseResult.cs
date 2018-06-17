@@ -2,7 +2,8 @@
 {
     using Acerola.Domain.Accounts;
     using System;
-    public class CloseResult
+
+    public sealed class CloseResult
     {
         public Guid AccountId { get; }
 

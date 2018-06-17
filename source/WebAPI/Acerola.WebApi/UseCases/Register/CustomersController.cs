@@ -7,7 +7,7 @@
     using System.Collections.Generic;
 
     [Route("api/[controller]")]
-    public class CustomersController : Controller
+    public sealed class CustomersController : Controller
     {
         private readonly IRegisterService registerService;
 

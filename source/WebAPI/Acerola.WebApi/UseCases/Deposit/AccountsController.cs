@@ -5,7 +5,7 @@
     using Acerola.Application.Commands.Deposit;
 
     [Route("api/[controller]")]
-    public class AccountsController : Controller
+    public sealed class AccountsController : Controller
     {
         private readonly IDepositService depositService;
 

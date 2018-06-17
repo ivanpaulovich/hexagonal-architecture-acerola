@@ -2,13 +2,13 @@
 {
     using System;
 
-    public class CloseCommand
+    public sealed class CloseCommand
     {
-        public Guid AccountId { get; private set; }
+        public Guid AccountId { get; }
 
-        public CloseCommand(Guid guid)
+        public CloseCommand(Guid accountId)
         {
-            AccountId = guid;
+            AccountId = accountId;
         }
     }
 }

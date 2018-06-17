@@ -2,7 +2,7 @@
 {
     using System.Text.RegularExpressions;
 
-    public class SSN
+    public sealed class SSN
     {
         public string _text { get; private set; }
         const string RegExForValidation = @"^\d{6,8}[-|(\s)]{0,1}\d{4}$";

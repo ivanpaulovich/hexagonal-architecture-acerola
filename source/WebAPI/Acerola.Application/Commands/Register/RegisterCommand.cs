@@ -1,6 +1,6 @@
 ﻿namespace Acerola.Application.Commands.Register
 {
-    public class RegisterCommand
+    public sealed class RegisterCommand
     {
         public string Personnummer { get; private set; }
         public string Name { get; private set; }

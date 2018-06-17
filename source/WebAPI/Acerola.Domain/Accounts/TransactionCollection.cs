@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
 
-    public class TransactionCollection : Collection<ITransaction>
+    public sealed class TransactionCollection : Collection<ITransaction>
     {
         public ITransaction GetLastTransaction()
         {

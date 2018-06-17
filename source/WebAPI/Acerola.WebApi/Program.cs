@@ -8,7 +8,7 @@
     using Serilog.Events;
     using System.IO;
 
-    public class Program
+    internal sealed class Program
     {
         public static void Main(string[] args)
         {

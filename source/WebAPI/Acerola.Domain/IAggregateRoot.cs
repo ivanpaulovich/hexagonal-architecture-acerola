@@ -1,6 +1,6 @@
 ﻿namespace Acerola.Domain
 {
-    public interface IAggregateRoot : IEntity
+    internal interface IAggregateRoot : IEntity
     {
     }
 }

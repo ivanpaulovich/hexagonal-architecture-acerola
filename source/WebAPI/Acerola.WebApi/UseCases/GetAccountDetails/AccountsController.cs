@@ -4,14 +4,11 @@
     using System;
     using System.Threading.Tasks;
     using Acerola.Application.Queries;
-    using Acerola.Application.Commands.Close;
-    using Acerola.Application.Commands.Withdraw;
-    using Acerola.Application.Commands.Deposit;
     using Acerola.WebApi.Model;
     using System.Collections.Generic;
 
     [Route("api/[controller]")]
-    public class AccountsController : Controller
+    public sealed class AccountsController : Controller
     {
         private readonly IAccountsQueries accountsQueries;
 

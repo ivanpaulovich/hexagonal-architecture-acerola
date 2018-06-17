@@ -3,7 +3,7 @@
     using Acerola.Domain.ValueObjects;
     using System;
 
-    public class Credit : IEntity, ITransaction
+    public sealed class Credit : IEntity, ITransaction
     {
         public Guid Id { get; }
         public Guid AccountId { get; }
