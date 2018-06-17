@@ -8,16 +8,13 @@
     {
         private readonly IAccountReadOnlyRepository accountReadOnlyRepository;
         private readonly IAccountWriteOnlyRepository accountWriteOnlyRepository;
-        private readonly IResultConverter resultConverter;
 
         public CloseService(
             IAccountReadOnlyRepository accountReadOnlyRepository,
-            IAccountWriteOnlyRepository accountWriteOnlyRepository,
-            IResultConverter resultConverter)
+            IAccountWriteOnlyRepository accountWriteOnlyRepository)
         {
             this.accountReadOnlyRepository = accountReadOnlyRepository;
             this.accountWriteOnlyRepository = accountWriteOnlyRepository;
-            this.resultConverter = resultConverter;
         }
 
         public async Task<CloseResult> Process(CloseCommand command)
@@ -30,8 +27,7 @@
 
             await accountWriteOnlyRepository.Delete(account);
 
-            CloseResult result = resultConverter.Map<CloseResult>(account);
-
+            CloseResult result = new CloseResult(account);
             return result;
         }
     }

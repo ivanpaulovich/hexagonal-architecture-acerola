@@ -3,8 +3,6 @@ namespace Acerola.UseCaseTests
     using Xunit;
     using Acerola.Domain.Customers;
     using NSubstitute;
-    using Acerola.Application;
-    using Acerola.Infrastructure.Mappings;
     using System;
     using Acerola.Domain.ValueObjects;
     using Acerola.Application.Commands.Register;
@@ -19,29 +17,24 @@ namespace Acerola.UseCaseTests
         public ICustomerReadOnlyRepository customerReadOnlyRepository;
         public ICustomerWriteOnlyRepository customerWriteOnlyRepository;
 
-        public IResultConverter converter;
-
         public AccountTests()
         {
             accountReadOnlyRepository = Substitute.For<IAccountReadOnlyRepository>();
             accountWriteOnlyRepository = Substitute.For<IAccountWriteOnlyRepository>();
             customerReadOnlyRepository = Substitute.For<ICustomerReadOnlyRepository>();
             customerWriteOnlyRepository = Substitute.For<ICustomerWriteOnlyRepository>();
-
-            converter = new ResultConverter();
         }
 
         [Theory]
         [InlineData("08724050601", "Ivan Paulovich", 300)]
         [InlineData("08724050601", "Ivan Paulovich Pinheiro Gomes", 100)]
-        [InlineData("444", "Ivan Paulovich", 500)]
-        [InlineData("08724050", "Ivan Paulovich", 300)]
+        [InlineData("08724050601", "Ivan Paulovich", 500)]
+        [InlineData("08724050601", "Ivan Paulovich", 100)]
         public async void Register_Valid_User_Account(string personnummer, string name, double amount)
         {
             var registerUseCase = new RegisterService(
                 customerWriteOnlyRepository,
-                accountWriteOnlyRepository,
-                converter
+                accountWriteOnlyRepository
             );
 
             var request = new RegisterCommand(
@@ -52,7 +45,7 @@ namespace Acerola.UseCaseTests
 
             RegisterResult result = await registerUseCase.Process(request);
 
-            Assert.Equal(request.PIN, result.Customer.Personnummer);
+            Assert.Equal(request.Personnummer, result.Customer.Personnummer);
             Assert.Equal(request.Name, result.Customer.Name);
             Assert.True(Guid.Empty != result.Customer.CustomerId);
             Assert.True(Guid.Empty != result.Account.AccountId);
@@ -64,7 +57,7 @@ namespace Acerola.UseCaseTests
         public async void Deposit_Valid_Amount(string accountId, double amount)
         {
             var account = new Account(Guid.NewGuid());
-            var customer = Substitute.For<Customer>();
+            var customer = new Customer("08724050601", "Ivan Paulovich");
 
             accountReadOnlyRepository
                 .Get(Guid.Parse(accountId))
@@ -72,8 +65,7 @@ namespace Acerola.UseCaseTests
 
             var depositUseCase = new DepositService(
                 accountReadOnlyRepository,
-                accountWriteOnlyRepository,
-                converter
+                accountWriteOnlyRepository
             );
 
             var request = new DepositCommand(
@@ -91,7 +83,7 @@ namespace Acerola.UseCaseTests
         public void Account_With_Credits_Should_Not_Allow_Close(double amount)
         {
             var account = new Account(Guid.NewGuid());
-            account.Deposit(new Credit(account.Id, new Amount(amount)));
+            account.Deposit(amount);
 
             Assert.Throws<AccountCannotBeClosedException>(
                 () => account.Close());

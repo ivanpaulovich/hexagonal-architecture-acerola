@@ -6,16 +6,11 @@
 
     public class AccountCollection : Collection<Guid>
     {
-        public AccountCollection()
+        public void Add(IEnumerable<Guid> accounts)
         {
-
-        }
-
-        public AccountCollection(IEnumerable<Guid> list)
-        {
-            foreach (var item in list)
+            foreach (var account in accounts)
             {
-                Items.Add(item);
+                Items.Add(account);
             }
         }
     }

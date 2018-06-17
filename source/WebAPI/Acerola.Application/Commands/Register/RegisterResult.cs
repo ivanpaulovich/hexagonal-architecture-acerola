@@ -1,24 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Acerola.Application.Commands.Register
+﻿namespace Acerola.Application.Commands.Register
 {
     using Acerola.Application.Results;
+    using Acerola.Domain.Accounts;
+    using Acerola.Domain.Customers;
+    using System.Collections.Generic;
+
     public class RegisterResult
     {
-        public CustomerResult Customer { get; private set; }
-        public AccountResult Account { get; private set; }
+        public CustomerResult Customer { get; }
+        public AccountResult Account { get; }
 
-        public RegisterResult()
+        public RegisterResult(Customer customer, Account account)
         {
+            List<TransactionResult> transactionResults = new List<TransactionResult>();
 
-        }
+            foreach (ITransaction transaction in account.Transactions)
+            {
+                transactionResults.Add(
+                    new TransactionResult(
+                        transaction.Description,
+                        transaction.Amount,
+                        transaction.TransactionDate));
+            }
 
-        public RegisterResult(CustomerResult customer, AccountResult account)
-        {
-            Customer = customer;
-            Account = account;
+            Account = new AccountResult(account.Id, account.GetCurrentBalance(), transactionResults);
+
+            List<AccountResult> accountResults = new List<AccountResult>();
+            accountResults.Add(Account);
+
+            Customer = new CustomerResult(customer.Id, customer.SSN, customer.Name, accountResults);
         }
     }
 }

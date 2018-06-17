@@ -1,4 +1,4 @@
-namespace Acerola.UnitTests
+namespace Acerola.DomainTests
 {
     using Acerola.Domain.ValueObjects;
     using Xunit;
@@ -31,7 +31,7 @@ namespace Acerola.UnitTests
 
             //
             // Assert
-            Assert.Equal(valid, name.Text);
+            Assert.Equal(new Name(valid), name);
         }
     }
 }

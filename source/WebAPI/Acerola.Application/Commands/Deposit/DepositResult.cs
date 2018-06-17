@@ -1,20 +1,22 @@
-﻿using Acerola.Application.Results;
-
-namespace Acerola.Application.Commands.Deposit
+﻿namespace Acerola.Application.Commands.Deposit
 {
+    using Acerola.Application.Results;
+    using Acerola.Domain.Accounts;
+    using Acerola.Domain.ValueObjects;
+
     public class DepositResult
     {
-        public TransactionResult Transaction { get; private set; }
-        public double UpdatedBalance { get; private set; }
-        public DepositResult()
-        {
+        public TransactionResult Transaction { get; }
+        public double UpdatedBalance { get; }
 
-        }
-
-        public DepositResult(TransactionResult transaction, double updatedBalance)
+        public DepositResult(Credit credit, Amount updatedBalance)
         {
-            this.Transaction = transaction;
-            this.UpdatedBalance = updatedBalance;
+            Transaction = new TransactionResult(
+                credit.Description,
+                credit.Amount,
+                credit.TransactionDate);
+
+            UpdatedBalance = updatedBalance;
         }
     }
 }
