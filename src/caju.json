@@ -1,0 +1,10 @@
+{
+	"origin": "https://github.com/ivanpaulovich/acerola/",
+	"architecture-style": "hexagonal",		
+	"use-cases": "full",
+	"user-interface": "webapi",
+	"data-access": "mongo",
+	"tips": "True",
+	"skip-restore": "False",
+	"service-bus": "kafka"
+}

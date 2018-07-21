@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <!-- To Allow .NET Coverage Tools we set DebugType to Full-->
+    <DebugType>full</DebugType>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Acerola.Domain\Acerola.Domain.csproj" />
+  </ItemGroup>
+
+
+</Project>

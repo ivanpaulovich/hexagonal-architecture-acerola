@@ -1,0 +1,21 @@
+﻿{
+  "defaultAssembly": "Acerola.Infrastructure",
+  "modules": [
+    {
+      "type": "Acerola.Infrastructure.Modules.WebApiModule",
+      "properties": {
+      }
+    },
+    {
+      "type": "Acerola.Infrastructure.Modules.ApplicationModule",
+      "properties": {
+      }
+    },
+    {
+      "type": "Acerola.Infrastructure.DapperDataAccess.Module",
+      "properties": {
+        "ConnectionString": "Server=(LocalDB)\\MSSQLLocalDB;Database=AcerolaDb;Integrated Security=true;"
+      }
+    }
+  ]
+}
