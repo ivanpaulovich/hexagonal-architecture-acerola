@@ -25,7 +25,7 @@ namespace Acerola.WebApi.Tests
                 .ConfigureAppConfiguration((builderContext, config) =>
                 {
                     IHostingEnvironment env = builderContext.HostingEnvironment;
-                    config.AddJsonFile("autofac.dapper.json")
+                    config.AddJsonFile("autofac.json")
                     .AddEnvironmentVariables();
                 })
                 .ConfigureServices(services => services.AddAutofac());
